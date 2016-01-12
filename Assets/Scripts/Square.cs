@@ -11,5 +11,11 @@ public class Square : MonoBehaviour {
 
 		transform.Find("Number").GetComponent<Number>().SetNumber(number);
 
+		if(newNumber == 0) {
+			gameObject.SetActive(false);
+		} else {
+			gameObject.SetActive(true);
+		}
+
 	}
 }
