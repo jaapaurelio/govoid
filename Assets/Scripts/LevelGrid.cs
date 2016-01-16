@@ -31,31 +31,37 @@ public class LevelGrid
 		return gridHouses[Random.Range (0, gridHouses.Count)];
 	}
 
-	public GridHouse ChooseRandomSibling(GridHouse currentHouse) {
+	public List<GridHouse> GetSiblings(GridHouse currentHouse) {
+		
+		List<GridHouse> siblings =  new List<GridHouse>();
 
-		List<GridPosition> possibleDirections =  new List<GridPosition>();
 		GridPosition currentPosition = currentHouse.position;
 
-		if(isValidPosition(currentPosition.column + 1, currentPosition.row)){
-			possibleDirections.Add(new GridPosition(currentPosition.column + 1, currentPosition.row));
+		GridPosition testPosition = new GridPosition(currentPosition.column + 1, currentPosition.row);
+	
+		if(IsValidPosition(testPosition)){
+			siblings.Add(GetHouseInPosition(testPosition));
 		}
 
-		if(isValidPosition(currentPosition.column - 1, currentPosition.row)){
-			possibleDirections.Add(new GridPosition(currentPosition.column - 1, currentPosition.row));
+		testPosition = new GridPosition(currentPosition.column - 1, currentPosition.row);
+
+		if(IsValidPosition(testPosition)){
+			siblings.Add(GetHouseInPosition(testPosition));
 		}
 
-		if(isValidPosition(currentPosition.column, currentPosition.row + 1)){
-			possibleDirections.Add(new GridPosition(currentPosition.column , currentPosition.row + 1));
+		testPosition = new GridPosition(currentPosition.column, currentPosition.row + 1);
+
+		if(IsValidPosition(testPosition)){
+			siblings.Add(GetHouseInPosition(testPosition));
 		}
 
-		if(isValidPosition(currentPosition.column, currentPosition.row - 1)){
-			possibleDirections.Add(new GridPosition(currentPosition.column , currentPosition.row - 1));
+		testPosition = new GridPosition(currentPosition.column, currentPosition.row - 1);
+
+		if(IsValidPosition(testPosition)){
+			siblings.Add(GetHouseInPosition(testPosition));
 		}
-
-		int randomIndex = Random.Range (0, possibleDirections.Count);
-
-		return GetHouseInPosition(possibleDirections[randomIndex]);
-
+		Debug.Log("sigb num" + siblings.Count);
+		return siblings;
 	}
 
 	public GridHouse GetHouseInPosition(GridPosition position) {
@@ -70,8 +76,12 @@ public class LevelGrid
 		return null;
 	}
 
-	public bool isValidPosition(int _col, int _row) {
-		if( _col >= 0 && _col < columns - 1 && _row >= 0 && _row <= rows - 1 ) {
+	public bool IsValidPosition(GridPosition gridPosition) {
+		if( gridPosition.column >= 0 &&
+			gridPosition.column < columns - 1 &&
+			gridPosition.row >= 0 &&
+			gridPosition.row <= rows - 1 ) {
+
 			return true;
 		} else {
 			return false;
