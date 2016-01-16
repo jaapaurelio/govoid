@@ -136,9 +136,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fd3be1827bdb4f7c892aef5b0d0f685, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  columns: 6
-  rows: 6
-  numberOfSteps: 5
+  columns: 5
+  rows: 5
+  numberOfSteps: 18
   square: {fileID: 195940, guid: 7354aa6812163479189408f6348aec52, type: 2}
 --- !u!1001 &1306185189
 Prefab:
