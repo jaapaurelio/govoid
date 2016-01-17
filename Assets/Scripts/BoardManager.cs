@@ -61,12 +61,16 @@ public class BoardManager : MonoBehaviour
 						// This can cause problems later with animations.
 						SetAllHousesToState(currentLevelGrid.GetAllHouses(), Constants.HOUSE_STATE_NORMAL);
 
+						int numberOfPossibles = 0;
+
 						// All siblings from the clicked house are now possible houses to click
 						foreach(GridHouse sibling in clickedHouseSiblings) {
 
 							// Except the current active house, player can not go back
 							if( !sibling.Equals(activeHouse)) {
 								if(sibling.Number > 0) {
+
+									numberOfPossibles++;
 									sibling.SetState(Constants.HOUSE_STATE_POSSIBLE);
 								}
 							}
@@ -79,6 +83,24 @@ public class BoardManager : MonoBehaviour
 						// At the beginning we dont have an active house
 						if( activeHouse != null ) {
 							activeHouse.UnsetActive();
+						}
+
+
+						// No more places to go
+						if(numberOfPossibles == 0) {
+							bool won = true;
+							// check if we are some missing houses to pass
+							foreach (GridHouse house in currentLevelGrid.GetAllHouses()) {
+								if(house.Number > 0) {
+									won = false;
+								}
+							}
+
+							if(won) {
+								GameObject.Find("ResultText").GetComponent<TextMesh>().text = "You Won";
+							} else {
+								GameObject.Find("ResultText").GetComponent<TextMesh>().text = "You Lost";
+							}
 						}
 
 					}
@@ -112,9 +134,13 @@ public class BoardManager : MonoBehaviour
 				house.SetState(Constants.HOUSE_STATE_POSSIBLE);
 			}
 		}
+
+		GameObject.Find("ResultText").GetComponent<TextMesh>().text = "";
 	}
 
 	public void NewGame() {
+		
+		GameObject.Find("ResultText").GetComponent<TextMesh>().text = "";
 
 		// Clear previous level
 		if(currentLevelGrid != null ) {
@@ -125,8 +151,8 @@ public class BoardManager : MonoBehaviour
 
 		LevelGenerator levelGenerator =  new LevelGenerator();
 
-		columns = Random.Range (4, 6);
-		rows = Random.Range (4, 6);
+		columns = Random.Range (4, 7);
+		rows = Random.Range (4, 7);
 		numberOfSteps = Random.Range (10, 25);
 
 		GameObject.Find("LogsText").GetComponent<TextMesh>().text = "logs: \n cols: " + columns + "; rows: " + rows + "; stepts: " +  numberOfSteps;
