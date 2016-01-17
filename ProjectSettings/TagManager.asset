@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - GridHouse
   layers:
   - Default
   - TransparentFX
@@ -43,4 +44,7 @@ TagManager:
     locked: 0
   - name: Board
     uniqueID: 3765602613
+    locked: 0
+  - name: GameButtons
+    uniqueID: 1629060749
     locked: 0

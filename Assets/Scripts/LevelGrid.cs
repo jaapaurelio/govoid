@@ -60,7 +60,7 @@ public class LevelGrid
 		if(IsValidPosition(testPosition)){
 			siblings.Add(GetHouseInPosition(testPosition));
 		}
-		Debug.Log("sigb num" + siblings.Count);
+
 		return siblings;
 	}
 

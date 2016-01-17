@@ -3,8 +3,17 @@ using System.Collections;
 
 public class GridHouse
 {
-	public GridPosition position;           
-	public int number;
+	public GridPosition position;   
+	private int number;
+
+	public int Number { get{return number;} }
+
+	private int state = Constants.HOUSE_STATE_NORMAL;
+
+	public int State { get{return state;} }
+
+	private GameObject gridHouseUIGameObject;
+	private GridHouseUI gridHouseUIComponent;
 
 	//Assignment constructor.
 	public GridHouse (GridPosition _position, int _number)
@@ -13,15 +22,29 @@ public class GridHouse
 		number = _number;
 	}
 
-	public int IncreaseNumber() {
+	public void IncreaseNumber() {
 		number++;
-
-		return number;
 	}
 
-	public int DecreaseNumber() {
-		number--;
+	public void SetState(int newState) {
+		state = newState;
+		gridHouseUIComponent.SetState(newState);
+	}
 
-		return number;
+	public void SetActive() {
+		number--;
+		state = Constants.HOUSE_STATE_ACTIVE;
+		gridHouseUIComponent.SetState(Constants.HOUSE_STATE_ACTIVE);
+		gridHouseUIComponent.SetNumber(number);
+	}
+
+	public void UnsetActive() {
+		state = Constants.HOUSE_STATE_NORMAL;
+		gridHouseUIComponent.SetState(Constants.HOUSE_STATE_NORMAL);
+	}
+
+	public void SetGameObject(GameObject newGridHouseUI) {
+		gridHouseUIGameObject = newGridHouseUI;
+		gridHouseUIComponent = gridHouseUIGameObject.GetComponent<GridHouseUI>();
 	}
 }
