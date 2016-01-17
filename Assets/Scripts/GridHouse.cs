@@ -3,6 +3,9 @@ using System.Collections;
 
 public class GridHouse
 {
+
+	private int originalNumber;
+
 	public GridPosition position;   
 	private int number;
 
@@ -20,6 +23,7 @@ public class GridHouse
 	{
 		position = _position;
 		number = _number;
+		originalNumber = number;
 	}
 
 	public void IncreaseNumber() {
@@ -47,4 +51,19 @@ public class GridHouse
 		gridHouseUIGameObject = newGridHouseUI;
 		gridHouseUIComponent = gridHouseUIGameObject.GetComponent<GridHouseUI>();
 	}
+
+	public void Restart() {
+		number = originalNumber;
+		gridHouseUIComponent.SetNumber(number);
+	}
+
+	public void SetFinalNumber(int newNumber) {
+		number = newNumber;
+		originalNumber = newNumber;
+	}
+
+	public void Destroy() {
+		Object.Destroy(gridHouseUIGameObject);
+	}
+
 }

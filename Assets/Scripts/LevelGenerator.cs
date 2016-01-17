@@ -19,7 +19,7 @@ public class LevelGenerator {
 			siblings = RemovePreviousHouse(siblings, previousHouse);
 			previousHouse = currentHouse;
 			currentHouse = ChooseRandomHouse(siblings);
-			currentHouse.IncreaseNumber();
+			currentHouse.SetFinalNumber(currentHouse.Number + 1);
 
 			_numberOfSteps--;
 		}
