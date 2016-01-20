@@ -152,7 +152,7 @@ public class BoardManager : MonoBehaviour
 		LevelGenerator levelGenerator =  new LevelGenerator();
 
 		columns = Random.Range (4, 7);
-		rows = Random.Range (4, 7);
+		rows = Random.Range (4, 5);
 		numberOfSteps = Random.Range (10, 25);
 
 		GameObject.Find("LogsText").GetComponent<TextMesh>().text = "logs: \n cols: " + columns + "; rows: " + rows + "; stepts: " +  numberOfSteps;
@@ -171,7 +171,7 @@ public class BoardManager : MonoBehaviour
 			gridHouseObject.transform.SetParent(boardHolder);
 
 			// TODO Find a way to set the sprite position given the grid position
-			gridHouseObject.transform.localPosition = new Vector3 (house.position.column * 2, house.position.row * 2, 0f);
+			gridHouseObject.transform.localPosition = new Vector3 (house.position.column * 2.5f, house.position.row * 2.5f, 0f);
 
 			gridHouseObject.GetComponent<GridHouseUI>().SetNumber(house.Number);
 			gridHouseObject.GetComponent<GridHouseUI>().HouseGridPosition = house.position;

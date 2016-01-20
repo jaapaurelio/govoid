@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: f3a61344805164500ac59434d401c68f
-timeCreated: 1452420458
+timeCreated: 1453253457
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -68,33 +68,31 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -33, y: 73}
-        - {x: -56, y: 58}
-        - {x: -56, y: -34}
-        - {x: -37, y: -65}
-        - {x: 39, y: -65}
-        - {x: 42, y: -52}
-        - {x: 42, y: 70}
-        - {x: 39, y: 73}
+      - - {x: -33, y: 53}
+        - {x: -33, y: -43}
+        - {x: -29, y: -44}
+        - {x: 10, y: -44}
+        - {x: 26, y: -39}
+        - {x: 32, y: -28}
+        - {x: 32, y: 36}
+        - {x: 29, y: 53}
     - name: SquareNumbers_1
       rect:
         serializedVersion: 2
         x: 200
         y: 0
         width: 200
-        height: 200
+        height: 198
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -14, y: 71}
-        - {x: -16, y: 69}
-        - {x: -40, y: 48}
-        - {x: -40, y: 9}
-        - {x: -23, y: -63}
-        - {x: 15, y: -63}
-        - {x: 15, y: 70}
-        - {x: 13, y: 71}
+      - - {x: -14, y: 52}
+        - {x: -32, y: 40}
+        - {x: -32, y: -35}
+        - {x: -29, y: -41}
+        - {x: 9, y: -41}
+        - {x: 9, y: 52}
     - name: SquareNumbers_2
       rect:
         serializedVersion: 2
@@ -106,10 +104,10 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -46, y: 71}
-        - {x: -46, y: -65}
-        - {x: 40, y: -65}
-        - {x: 40, y: 71}
+      - - {x: -32, y: 56}
+        - {x: -32, y: -39}
+        - {x: 31, y: -39}
+        - {x: 31, y: 56}
     - name: SquareNumbers_3
       rect:
         serializedVersion: 2
@@ -121,17 +119,30 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -39, y: 75}
-        - {x: -41, y: 74}
-        - {x: -41, y: -63}
-        - {x: 25, y: -63}
-        - {x: 42, y: -55}
-        - {x: 42, y: 54}
-        - {x: 29, y: 75}
+      - - {x: 20, y: 8}
+        - {x: 16, y: 10}
+        - {x: 16, y: 9}
+        - {x: 18, y: 10}
+        - {x: 26, y: 18}
+        - {x: 29, y: 29}
+        - {x: 29, y: 43}
+        - {x: 12, y: 56}
+        - {x: -18, y: 56}
+        - {x: -24, y: 55}
+        - {x: -35, y: 37}
+        - {x: -35, y: 32}
+        - {x: -23, y: 27}
+        - {x: -35, y: -1}
+        - {x: -35, y: -29}
+        - {x: -30, y: -41}
+        - {x: 17, y: -41}
+        - {x: 29, y: -26}
+        - {x: 29, y: -2}
+        - {x: 28, y: 3}
     - name: SquareNumbers_4
       rect:
         serializedVersion: 2
-        x: 797
+        x: 800
         y: 0
         width: 200
         height: 200
@@ -139,14 +150,14 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -26, y: 70}
-        - {x: -56, y: 5}
-        - {x: -56, y: -44}
-        - {x: -16, y: -64}
-        - {x: 25, y: -64}
-        - {x: 41, y: -48}
-        - {x: 41, y: 64}
-        - {x: 40, y: 70}
+      - - {x: -10, y: 53}
+        - {x: -47, y: -4}
+        - {x: -47, y: -20}
+        - {x: -11, y: -40}
+        - {x: 17, y: -40}
+        - {x: 24, y: -20}
+        - {x: 24, y: 13}
+        - {x: 12, y: 53}
     - name: SquareNumbers_5
       rect:
         serializedVersion: 2
@@ -158,11 +169,13 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -38, y: 74}
-        - {x: -38, y: -62}
-        - {x: 37, y: -62}
-        - {x: 43, y: -59}
-        - {x: 43, y: 74}
+      - - {x: -27, y: 54}
+        - {x: -34, y: 24}
+        - {x: -34, y: -30}
+        - {x: -21, y: -41}
+        - {x: 26, y: -41}
+        - {x: 30, y: -31}
+        - {x: 30, y: 54}
     - name: SquareNumbers_6
       rect:
         serializedVersion: 2
@@ -174,13 +187,14 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -38, y: 74}
-        - {x: -47, y: 65}
-        - {x: -47, y: -44}
-        - {x: -38, y: -64}
-        - {x: 42, y: -64}
-        - {x: 45, y: -61}
-        - {x: 45, y: 74}
+      - - {x: -6, y: 54}
+        - {x: -34, y: 23}
+        - {x: -34, y: -29}
+        - {x: -27, y: -41}
+        - {x: 20, y: -41}
+        - {x: 32, y: -27}
+        - {x: 32, y: 8}
+        - {x: 20, y: 54}
     outline: []
   spritePackingTag: 
   userData: 
