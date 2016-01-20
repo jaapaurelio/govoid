@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;       //Allows us to use Lists.
 
 public class GridHouse
 {
@@ -35,7 +36,13 @@ public class GridHouse
 		gridHouseUIComponent.SetState(newState);
 	}
 
-	public void SetActive() {
+	public void SetActiveHouse(List<int> possibleDirections) {
+
+		gridHouseUIComponent.SetPossibleDirections(possibleDirections);
+		SetActiveHouse();
+	}
+
+	public void SetActiveHouse() {
 		number--;
 		state = Constants.HOUSE_STATE_ACTIVE;
 		gridHouseUIComponent.SetState(Constants.HOUSE_STATE_ACTIVE);
@@ -45,6 +52,7 @@ public class GridHouse
 	public void UnsetActive() {
 		state = Constants.HOUSE_STATE_NORMAL;
 		gridHouseUIComponent.SetState(Constants.HOUSE_STATE_NORMAL);
+		gridHouseUIComponent.HidePossibleDirections();
 	}
 
 	public void SetGameObject(GameObject newGridHouseUI) {
@@ -55,6 +63,7 @@ public class GridHouse
 	public void Restart() {
 		number = originalNumber;
 		gridHouseUIComponent.SetNumber(number);
+		gridHouseUIComponent.HidePossibleDirections();
 	}
 
 	public void SetFinalNumber(int newNumber) {

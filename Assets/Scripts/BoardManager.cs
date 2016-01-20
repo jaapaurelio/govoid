@@ -61,7 +61,7 @@ public class BoardManager : MonoBehaviour
 						// This can cause problems later with animations.
 						SetAllHousesToState(currentLevelGrid.GetAllHouses(), Constants.HOUSE_STATE_NORMAL);
 
-						int numberOfPossibles = 0;
+						List<int> possibleDirections = new List<int>();
 
 						// All siblings from the clicked house are now possible houses to click
 						foreach(GridHouse sibling in clickedHouseSiblings) {
@@ -70,14 +70,14 @@ public class BoardManager : MonoBehaviour
 							if( !sibling.Equals(activeHouse)) {
 								if(sibling.Number > 0) {
 
-									numberOfPossibles++;
 									sibling.SetState(Constants.HOUSE_STATE_POSSIBLE);
+									possibleDirections.Add(GetDirectionToSibling(clickedHouse, sibling));
 								}
 							}
 						}
 							
 						// The clicked house is now the active house
-						clickedHouse.SetActive();
+						clickedHouse.SetActiveHouse(possibleDirections);
 
 						// The previous active house is now a normal house
 						// At the beginning we dont have an active house
@@ -87,7 +87,7 @@ public class BoardManager : MonoBehaviour
 
 
 						// No more places to go
-						if(numberOfPossibles == 0) {
+						if(possibleDirections.Count == 0) {
 							bool won = true;
 							// check if we are some missing houses to pass
 							foreach (GridHouse house in currentLevelGrid.GetAllHouses()) {
@@ -108,6 +108,29 @@ public class BoardManager : MonoBehaviour
 			}
 
 		}
+	}
+
+	private int GetDirectionToSibling(GridHouse fromHouse, GridHouse toHouse) {
+		int possibleDirections = -1;
+
+		if(fromHouse.position.column < toHouse.position.column) {
+			possibleDirections = Constants.RIGHT;
+		}
+
+		if(fromHouse.position.column > toHouse.position.column) {
+			possibleDirections = Constants.LEFT;
+		}
+
+		if(fromHouse.position.row < toHouse.position.row) {
+			possibleDirections = Constants.TOP;
+		}
+
+		if(fromHouse.position.row > toHouse.position.row) {
+			possibleDirections = Constants.BOTTOM;
+		}
+
+		return possibleDirections;
+
 	}
 
 	private void SetAllHousesToState(List<GridHouse> gridHouses, int state) {
@@ -151,11 +174,11 @@ public class BoardManager : MonoBehaviour
 
 		LevelGenerator levelGenerator =  new LevelGenerator();
 
-		columns = Random.Range (4, 7);
-		rows = Random.Range (4, 5);
+		columns = Random.Range (4, 6);
+		rows = Random.Range (4, 7);
 		numberOfSteps = Random.Range (10, 25);
 
-		GameObject.Find("LogsText").GetComponent<TextMesh>().text = "logs: \n cols: " + columns + "; rows: " + rows + "; stepts: " +  numberOfSteps;
+		Debug.Log("logs: \n cols: " + columns + "; rows: " + rows + "; stepts: " +  numberOfSteps);
 
 		currentLevelGrid = levelGenerator.CreateLevel(columns, rows, numberOfSteps);
 
