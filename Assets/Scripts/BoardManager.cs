@@ -11,17 +11,30 @@ public class BoardManager : MonoBehaviour
 	public int numberOfSteps;
 	public GameObject square;
 
+	private int currentScore = 0;
+	private float currentTime = 0.0f;
+
+	private bool playing = false;
+	private bool canClick = true;
 
 	private LevelGrid currentLevelGrid;
 
 	private Transform boardHolder;                                  //A variable to store a reference to the transform of our Board object.
 
+
+	void Start() {
+		int bestScoreIn60s = PlayerPrefs.GetInt("BestScoreIn60s");
+
+		Debug.Log(bestScoreIn60s);
+
+		GameObject.Find("BestScore").GetComponent<TextMesh>().text = bestScoreIn60s.ToString();
+	}
 	//Sets up the outer walls and floor (background) of the game board.
 	void BoardSetup ()
 	{
 		//Instantiate Board and set boardHolder to its transform.
 		boardHolder = new GameObject("Board").transform;
-		boardHolder.position =new Vector3(-5.0f, -8.0f, 0.0f);
+		boardHolder.position = new Vector3(-5.0f, -8.0f, 0.0f);
 
 	}
 
@@ -30,83 +43,98 @@ public class BoardManager : MonoBehaviour
 	{
 		//Creates the outer walls and floor.
 		BoardSetup();
-
-		NewGame();
-
 	}
 
 	void Update() {
 		
-		if (Input.touchCount > 0 ) {
-			var touch = Input.GetTouch(0);
+		if (playing) {
+			
+			currentTime -= Time.deltaTime;
 
-			if( touch.phase == TouchPhase.Began || touch.phase == TouchPhase.Moved ) {
-				Vector3 pos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
+			GameObject.Find("Timer").GetComponent<TextMesh>().text = Mathf.Round(currentTime).ToString();
+			if(currentTime < 0) {
+				GameOver();
+				return;
+			}
 
-				RaycastHit2D hit = Physics2D.Raycast(pos, Vector2.zero);
+			if(Input.touchCount > 0 ){
+				var touch = Input.GetTouch(0);
+				if( touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled ) {
+					canClick = true;
+					Debug.Log("can click again");
+				}
 
-				if (hit.collider && hit.collider.tag == "GridHouse" ) {
-					GridHouseUI houseUI = hit.collider.gameObject.GetComponent<GridHouseUI>();
+				if( canClick && (touch.phase == TouchPhase.Began || touch.phase == TouchPhase.Moved) ) {
+					Vector3 pos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
 
-					GridHouse clickedHouse = currentLevelGrid.GetHouseInPosition(houseUI.HouseGridPosition);
+					RaycastHit2D hit = Physics2D.Raycast(pos, Vector2.zero);
 
-					// User can click in this house
-					if( clickedHouse.State == Constants.HOUSE_STATE_POSSIBLE ) {
+					if (hit.collider && hit.collider.tag == "GridHouse" ) {
+						GridHouseUI houseUI = hit.collider.gameObject.GetComponent<GridHouseUI>();
 
-						GridHouse activeHouse = GetActiveHouse(currentLevelGrid.GetAllHouses());
+						GridHouse clickedHouse = currentLevelGrid.GetHouseInPosition(houseUI.HouseGridPosition);
 
-						List<GridHouse> clickedHouseSiblings = currentLevelGrid.GetSiblings(clickedHouse);
+						// User can click in this house
+						if( clickedHouse.State == Constants.HOUSE_STATE_POSSIBLE ) {
 
-						// Set all houses temporarily to normal state.
-						// This can cause problems later with animations.
-						SetAllHousesToState(currentLevelGrid.GetAllHouses(), Constants.HOUSE_STATE_NORMAL);
+							GridHouse activeHouse = GetActiveHouse(currentLevelGrid.GetAllHouses());
 
-						List<int> possibleDirections = new List<int>();
+							List<GridHouse> clickedHouseSiblings = currentLevelGrid.GetSiblings(clickedHouse);
 
-						// All siblings from the clicked house are now possible houses to click
-						foreach(GridHouse sibling in clickedHouseSiblings) {
+							// Set all houses temporarily to normal state.
+							// This can cause problems later with animations.
+							SetAllHousesToState(currentLevelGrid.GetAllHouses(), Constants.HOUSE_STATE_NORMAL);
 
-							// Except the current active house, player can not go back
-							if( !sibling.Equals(activeHouse)) {
-								if(sibling.Number > 0) {
+							List<int> possibleDirections = new List<int>();
 
-									sibling.SetState(Constants.HOUSE_STATE_POSSIBLE);
-									possibleDirections.Add(GetDirectionToSibling(clickedHouse, sibling));
+							// All siblings from the clicked house are now possible houses to click
+							foreach(GridHouse sibling in clickedHouseSiblings) {
+
+								// Except the current active house, player can not go back
+								if( !sibling.Equals(activeHouse)) {
+									if(sibling.Number > 0) {
+
+										sibling.SetState(Constants.HOUSE_STATE_POSSIBLE);
+										possibleDirections.Add(GetDirectionToSibling(clickedHouse, sibling));
+									}
 								}
 							}
-						}
-							
-						// The clicked house is now the active house
-						clickedHouse.SetActiveHouse(possibleDirections);
+								
+							// The clicked house is now the active house
+							clickedHouse.SetActiveHouse(possibleDirections);
 
-						// The previous active house is now a normal house
-						// At the beginning we dont have an active house
-						if( activeHouse != null ) {
-							activeHouse.UnsetActive();
-						}
+							// The previous active house is now a normal house
+							// At the beginning we dont have an active house
+							if( activeHouse != null ) {
+								activeHouse.UnsetActive();
+							}
 
 
-						// No more places to go
-						if(possibleDirections.Count == 0) {
-							bool won = true;
-							// check if we are some missing houses to pass
-							foreach (GridHouse house in currentLevelGrid.GetAllHouses()) {
-								if(house.Number > 0) {
-									won = false;
+							// No more places to go
+							if(possibleDirections.Count == 0) {
+								bool won = true;
+								// check if we are some missing houses to pass
+								foreach (GridHouse house in currentLevelGrid.GetAllHouses()) {
+									if(house.Number > 0) {
+										won = false;
+									}
+								}
+
+								if(won) {
+									NextLevel();
+								} else {
+									GameObject.Find("ResultText").GetComponent<TextMesh>().text = "Press restart button";
 								}
 							}
 
-							if(won) {
-								GameObject.Find("ResultText").GetComponent<TextMesh>().text = "You Won";
-							} else {
-								GameObject.Find("ResultText").GetComponent<TextMesh>().text = "You Lost";
-							}
+						// no possible house. player must release is finger
+						} else if(clickedHouse.State == Constants.HOUSE_STATE_NORMAL){
+							canClick = false;
+							Debug.Log("cannot click");
 						}
-
 					}
 				}
 			}
-
 		}
 	}
 
@@ -150,6 +178,10 @@ public class BoardManager : MonoBehaviour
 	}
 
 	public void RestartGame() {
+
+		if(!playing){
+			return;
+		}
 		foreach (var house in currentLevelGrid.GetAllHouses() ) {
 			house.Restart();
 
@@ -162,8 +194,46 @@ public class BoardManager : MonoBehaviour
 	}
 
 	public void NewGame() {
-		
+
 		GameObject.Find("ResultText").GetComponent<TextMesh>().text = "";
+
+		currentScore = 0;
+		GameObject.Find("CurrentScore").GetComponent<TextMesh>().text = currentScore.ToString();
+
+		currentTime = 60.0f;
+		playing = true;
+
+		NewLevel();
+	}
+
+	private void NextLevel() {
+		currentScore++;
+
+		GameObject.Find("CurrentScore").GetComponent<TextMesh>().text = currentScore.ToString();
+
+		canClick = false;
+		NewLevel();
+	}
+
+
+	private void GameOver() {
+		playing = false;
+
+		int bestScoreIn60s = PlayerPrefs.GetInt("BestScoreIn60s");
+
+		if( currentScore > bestScoreIn60s) {
+			PlayerPrefs.SetInt("BestScoreIn60s", currentScore);
+			GameObject.Find("BestScore").GetComponent<TextMesh>().text = currentScore.ToString();
+
+			GameObject.Find("ResultText").GetComponent<TextMesh>().text = "NEW BEST SCORE.\nPress new game.";
+		} else {
+			GameObject.Find("ResultText").GetComponent<TextMesh>().text = "GAME OVER. Press new game.";
+		}
+
+
+	}
+
+	private void NewLevel() {
 
 		// Clear previous level
 		if(currentLevelGrid != null ) {
@@ -175,7 +245,7 @@ public class BoardManager : MonoBehaviour
 		LevelGenerator levelGenerator =  new LevelGenerator();
 
 		columns = Random.Range (4, 6);
-		rows = Random.Range (4, 7);
+		rows = Random.Range (4, 6);
 		numberOfSteps = Random.Range (10, 25);
 
 		Debug.Log("logs: \n cols: " + columns + "; rows: " + rows + "; stepts: " +  numberOfSteps);
@@ -212,4 +282,6 @@ public class BoardManager : MonoBehaviour
 		SetAllHousesToState(currentLevelGrid.GetAllHouses(), Constants.HOUSE_STATE_POSSIBLE);
 
 	}
+
+
 }
