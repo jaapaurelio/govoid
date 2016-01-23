@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System;
 using System.Collections.Generic;       //Allows us to use Lists.
+using System.Collections;
 using Random = UnityEngine.Random;
 
 public class BoardManager : MonoBehaviour
@@ -15,17 +16,21 @@ public class BoardManager : MonoBehaviour
 	private float currentTime = 0.0f;
 
 	private bool playing = false;
-	private bool canClick = true;
+	private bool canChooseNextHouse = true;
+	private bool canInteractWithBoard = true;
 
 	private LevelGrid currentLevelGrid;
 
 	private Transform boardHolder;                                  //A variable to store a reference to the transform of our Board object.
 
-
+	private GameObject tapToRestartGameObject;
 	void Start() {
 		int bestScoreIn60s = PlayerPrefs.GetInt("BestScoreIn60s");
 
 		Debug.Log(bestScoreIn60s);
+
+		tapToRestartGameObject = GameObject.Find("TapToRestart");
+		tapToRestartGameObject.SetActive(false);
 
 		GameObject.Find("BestScore").GetComponent<TextMesh>().text = bestScoreIn60s.ToString();
 	}
@@ -46,7 +51,7 @@ public class BoardManager : MonoBehaviour
 	}
 
 	void Update() {
-		
+
 		if (playing) {
 			
 			currentTime -= Time.deltaTime;
@@ -60,16 +65,16 @@ public class BoardManager : MonoBehaviour
 			if(Input.touchCount > 0 ){
 				var touch = Input.GetTouch(0);
 				if( touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled ) {
-					canClick = true;
-					Debug.Log("can click again");
+					canChooseNextHouse = true;
 				}
 
-				if( canClick && (touch.phase == TouchPhase.Began || touch.phase == TouchPhase.Moved) ) {
+				if( canInteractWithBoard && canChooseNextHouse && (touch.phase == TouchPhase.Began || touch.phase == TouchPhase.Moved) ) {
 					Vector3 pos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
 
 					RaycastHit2D hit = Physics2D.Raycast(pos, Vector2.zero);
 
 					if (hit.collider && hit.collider.tag == "GridHouse" ) {
+
 						GridHouseUI houseUI = hit.collider.gameObject.GetComponent<GridHouseUI>();
 
 						GridHouse clickedHouse = currentLevelGrid.GetHouseInPosition(houseUI.HouseGridPosition);
@@ -122,15 +127,18 @@ public class BoardManager : MonoBehaviour
 
 								if(won) {
 									NextLevel();
+
+								// Lost
 								} else {
 									GameObject.Find("ResultText").GetComponent<TextMesh>().text = "Press restart button";
+									tapToRestartGameObject.SetActive(true);
+									canInteractWithBoard = false;
 								}
 							}
 
 						// no possible house. player must release is finger
 						} else if(clickedHouse.State == Constants.HOUSE_STATE_NORMAL){
-							canClick = false;
-							Debug.Log("cannot click");
+							canChooseNextHouse = false;
 						}
 					}
 				}
@@ -182,6 +190,10 @@ public class BoardManager : MonoBehaviour
 		if(!playing){
 			return;
 		}
+			
+		StartCoroutine(CanInteractWithBoardAgain());
+		tapToRestartGameObject.SetActive(false);
+
 		foreach (var house in currentLevelGrid.GetAllHouses() ) {
 			house.Restart();
 
@@ -191,6 +203,11 @@ public class BoardManager : MonoBehaviour
 		}
 
 		GameObject.Find("ResultText").GetComponent<TextMesh>().text = "";
+	}
+
+	private IEnumerator CanInteractWithBoardAgain() {
+		yield return new WaitForSeconds(0.1f);
+		canInteractWithBoard = true;
 	}
 
 	public void NewGame() {
@@ -211,7 +228,7 @@ public class BoardManager : MonoBehaviour
 
 		GameObject.Find("CurrentScore").GetComponent<TextMesh>().text = currentScore.ToString();
 
-		canClick = false;
+		canChooseNextHouse = false;
 		NewLevel();
 	}
 

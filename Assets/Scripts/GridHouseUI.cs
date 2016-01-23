@@ -16,6 +16,11 @@ public class GridHouseUI : MonoBehaviour {
 		}
 	}
 
+	void Start() {
+		transform.Find("SquareBackground").GetComponent<SpriteRenderer>().sortingLayerName = "Board";
+
+	}
+
 	public void SetNumber(int newNumber) {
 		transform.Find("Number").GetComponent<Number>().SetNumber(newNumber);
 	}
