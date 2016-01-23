@@ -12,7 +12,7 @@ public class BoardManager : MonoBehaviour
 	public int numberOfSteps;
 	public GameObject square;
 
-	private int currentScore = 0;
+	private int levelsCompleted = 0;
 	private float currentTime = 0.0f;
 
 	private bool playing = false;
@@ -217,8 +217,8 @@ public class BoardManager : MonoBehaviour
 
 		GameObject.Find("ResultText").GetComponent<TextMesh>().text = "";
 
-		currentScore = 0;
-		GameObject.Find("CurrentScore").GetComponent<TextMesh>().text = currentScore.ToString();
+		levelsCompleted = 0;
+		GameObject.Find("CurrentScore").GetComponent<TextMesh>().text = levelsCompleted.ToString();
 
 		currentTime = 60.0f;
 		playing = true;
@@ -227,7 +227,7 @@ public class BoardManager : MonoBehaviour
 	}
 
 	private void NextLevel() {
-		currentScore++;
+		levelsCompleted++;
 
 		if(hasRestarted) {
 			currentTime = currentTime + 3;
@@ -237,7 +237,7 @@ public class BoardManager : MonoBehaviour
 			StartCoroutine(ShowBonusTime(5));
 		}
 
-		GameObject.Find("CurrentScore").GetComponent<TextMesh>().text = currentScore.ToString();
+		GameObject.Find("CurrentScore").GetComponent<TextMesh>().text = levelsCompleted.ToString();
 
 		canChooseNextHouse = false;
 
@@ -259,9 +259,9 @@ public class BoardManager : MonoBehaviour
 
 		int bestScoreIn60s = PlayerPrefs.GetInt("BestScoreIn60s");
 
-		if( currentScore > bestScoreIn60s) {
-			PlayerPrefs.SetInt("BestScoreIn60s", currentScore);
-			GameObject.Find("BestScore").GetComponent<TextMesh>().text = currentScore.ToString();
+		if( levelsCompleted > bestScoreIn60s) {
+			PlayerPrefs.SetInt("BestScoreIn60s", levelsCompleted);
+			GameObject.Find("BestScore").GetComponent<TextMesh>().text = levelsCompleted.ToString();
 
 			GameObject.Find("ResultText").GetComponent<TextMesh>().text = "NEW BEST SCORE.\nPress new game.";
 		} else {
@@ -284,11 +284,31 @@ public class BoardManager : MonoBehaviour
 
 		LevelGenerator levelGenerator =  new LevelGenerator();
 
-		columns = Random.Range (4, 6);
-		rows = Random.Range (4, 6);
-		numberOfSteps = Random.Range (10, 25);
+		// Easy in the beginner, and it get harder.
 
-		Debug.Log("logs: \n cols: " + columns + "; rows: " + rows + "; stepts: " +  numberOfSteps);
+		if(levelsCompleted <= 1 ) {
+			columns = 3;
+			rows = 3;
+			numberOfSteps = Random.Range (4, 7 +1);
+
+		} else if(levelsCompleted <= 3 ){
+			columns = 4;
+			rows = 4;
+			numberOfSteps = Random.Range (8, 15 +1);
+
+		} else if(levelsCompleted <= 5 ){
+			columns = 5;
+			rows = 5;
+			numberOfSteps = Random.Range (8, 15 +1);
+
+		} else {
+			columns = Random.Range (4, 5 +1);
+			rows = Random.Range (4, 5 +1);
+			numberOfSteps = Random.Range (10, 25 +1);
+		}
+
+
+		Debug.Log("logs: Level:" + levelsCompleted+ " \n cols: " + columns + "; rows: " + rows + "; stepts: " +  numberOfSteps);
 
 		currentLevelGrid = levelGenerator.CreateLevel(columns, rows, numberOfSteps);
 

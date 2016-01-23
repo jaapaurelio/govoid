@@ -37,26 +37,26 @@ public class LevelGrid
 
 		GridPosition currentPosition = currentHouse.position;
 
+		// Right
 		GridPosition testPosition = new GridPosition(currentPosition.column + 1, currentPosition.row);
-	
 		if(IsValidPosition(testPosition)){
 			siblings.Add(GetHouseInPosition(testPosition));
 		}
 
+		// Left
 		testPosition = new GridPosition(currentPosition.column - 1, currentPosition.row);
-
 		if(IsValidPosition(testPosition)){
 			siblings.Add(GetHouseInPosition(testPosition));
 		}
 
+		// Top
 		testPosition = new GridPosition(currentPosition.column, currentPosition.row + 1);
-
 		if(IsValidPosition(testPosition)){
 			siblings.Add(GetHouseInPosition(testPosition));
 		}
 
+		// Bottom
 		testPosition = new GridPosition(currentPosition.column, currentPosition.row - 1);
-
 		if(IsValidPosition(testPosition)){
 			siblings.Add(GetHouseInPosition(testPosition));
 		}
@@ -78,9 +78,9 @@ public class LevelGrid
 
 	public bool IsValidPosition(GridPosition gridPosition) {
 		if( gridPosition.column >= 0 &&
-			gridPosition.column < columns - 1 &&
+			gridPosition.column < columns &&
 			gridPosition.row >= 0 &&
-			gridPosition.row <= rows - 1 ) {
+			gridPosition.row < rows) {
 
 			return true;
 		} else {

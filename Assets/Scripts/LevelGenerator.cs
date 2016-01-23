@@ -17,6 +17,7 @@ public class LevelGenerator {
 
 			siblings = levelGrid.GetSiblings(currentHouse);
 			siblings = RemovePreviousHouse(siblings, previousHouse);
+
 			previousHouse = currentHouse;
 			currentHouse = ChooseRandomHouse(siblings);
 			currentHouse.SetFinalNumber(currentHouse.Number + 1);
