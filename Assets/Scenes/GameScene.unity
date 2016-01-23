@@ -296,58 +296,6 @@ Prefab:
       propertyPath: m_Name
       value: GameOverPopup
       objectReference: {fileID: 0}
-    - target: {fileID: 423836, guid: 90be0d71fd97d49fa8d33360d6ca85c0, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 0.01
-      objectReference: {fileID: 0}
-    - target: {fileID: 423836, guid: 90be0d71fd97d49fa8d33360d6ca85c0, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 0.01
-      objectReference: {fileID: 0}
-    - target: {fileID: 10207428, guid: 90be0d71fd97d49fa8d33360d6ca85c0, type: 2}
-      propertyPath: m_FontSize
-      value: 300
-      objectReference: {fileID: 0}
-    - target: {fileID: 477840, guid: 90be0d71fd97d49fa8d33360d6ca85c0, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 0.01
-      objectReference: {fileID: 0}
-    - target: {fileID: 477840, guid: 90be0d71fd97d49fa8d33360d6ca85c0, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 0.01
-      objectReference: {fileID: 0}
-    - target: {fileID: 10268624, guid: 90be0d71fd97d49fa8d33360d6ca85c0, type: 2}
-      propertyPath: m_FontSize
-      value: 200
-      objectReference: {fileID: 0}
-    - target: {fileID: 439254, guid: 90be0d71fd97d49fa8d33360d6ca85c0, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 0.01
-      objectReference: {fileID: 0}
-    - target: {fileID: 439254, guid: 90be0d71fd97d49fa8d33360d6ca85c0, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 0.01
-      objectReference: {fileID: 0}
-    - target: {fileID: 10235478, guid: 90be0d71fd97d49fa8d33360d6ca85c0, type: 2}
-      propertyPath: m_FontSize
-      value: 200
-      objectReference: {fileID: 0}
-    - target: {fileID: 423836, guid: 90be0d71fd97d49fa8d33360d6ca85c0, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0.9
-      objectReference: {fileID: 0}
-    - target: {fileID: 477840, guid: 90be0d71fd97d49fa8d33360d6ca85c0, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 459224, guid: 90be0d71fd97d49fa8d33360d6ca85c0, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: -0.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 411392, guid: 90be0d71fd97d49fa8d33360d6ca85c0, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: -0.8
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 90be0d71fd97d49fa8d33360d6ca85c0, type: 2}
   m_IsPrefabParent: 0
@@ -666,6 +614,14 @@ Prefab:
     - target: {fileID: 6164532, guid: 7e8bbaa2ab1e6479f9426f3dc3888a9f, type: 2}
       propertyPath: m_IsTrigger
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 10274540, guid: 7e8bbaa2ab1e6479f9426f3dc3888a9f, type: 2}
+      propertyPath: m_FontSize
+      value: 125
+      objectReference: {fileID: 0}
+    - target: {fileID: 10274540, guid: 7e8bbaa2ab1e6479f9426f3dc3888a9f, type: 2}
+      propertyPath: m_Text
+      value: Tap to restart
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7e8bbaa2ab1e6479f9426f3dc3888a9f, type: 2}
