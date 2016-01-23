@@ -131,7 +131,6 @@ public class BoardManager : MonoBehaviour
 
 								// Lost
 								} else {
-									GameObject.Find("ResultText").GetComponent<TextMesh>().text = "Press restart button";
 									tapToRestartGameObject.SetActive(true);
 									canInteractWithBoard = false;
 								}
@@ -256,6 +255,8 @@ public class BoardManager : MonoBehaviour
 
 	private void GameOver() {
 		playing = false;
+
+		tapToRestartGameObject.SetActive(false);
 
 		int bestScoreIn60s = PlayerPrefs.GetInt("BestScoreIn60s");
 
