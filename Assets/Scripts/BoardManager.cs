@@ -18,6 +18,7 @@ public class BoardManager : MonoBehaviour
 	private bool playing = false;
 	private bool canChooseNextHouse = true;
 	private bool canInteractWithBoard = true;
+	private bool hasRestarted = false;
 
 	private LevelGrid currentLevelGrid;
 
@@ -187,9 +188,11 @@ public class BoardManager : MonoBehaviour
 
 	public void RestartGame() {
 
-		if(!playing){
+		if(!playing) {
 			return;
 		}
+
+		hasRestarted = true;
 			
 		StartCoroutine(CanInteractWithBoardAgain());
 		tapToRestartGameObject.SetActive(false);
@@ -226,12 +229,30 @@ public class BoardManager : MonoBehaviour
 	private void NextLevel() {
 		currentScore++;
 
+		if(hasRestarted) {
+			currentTime = currentTime + 3;
+			StartCoroutine(ShowBonusTime(3));
+		} else {
+			currentTime = currentTime + 5;
+			StartCoroutine(ShowBonusTime(5));
+		}
+
 		GameObject.Find("CurrentScore").GetComponent<TextMesh>().text = currentScore.ToString();
 
 		canChooseNextHouse = false;
+
 		NewLevel();
 	}
 
+	private IEnumerator ShowBonusTime(int time) {
+
+		GameObject.Find("BonusTime").GetComponent<TextMesh>().text = "+" + time.ToString();
+
+		yield return new WaitForSeconds(3);
+
+		GameObject.Find("BonusTime").GetComponent<TextMesh>().text = "";
+
+	}
 
 	private void GameOver() {
 		playing = false;
@@ -251,6 +272,8 @@ public class BoardManager : MonoBehaviour
 	}
 
 	private void NewLevel() {
+
+		hasRestarted = false;
 
 		// Clear previous level
 		if(currentLevelGrid != null ) {
