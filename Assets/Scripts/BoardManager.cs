@@ -7,9 +7,8 @@ using Random = UnityEngine.Random;
 public class BoardManager : MonoBehaviour
 {
 
-	public int columns;                                         //Number of columns in our game board.
-	public int rows;                                            //Number of rows in our game board.
-	public int numberOfSteps;
+	private const float STARTING_TIME = 20.0f;
+
 	public GameObject square;
 
 	private int levelsCompleted = 0;
@@ -25,7 +24,10 @@ public class BoardManager : MonoBehaviour
 	private Transform boardHolder;                                  //A variable to store a reference to the transform of our Board object.
 
 	private GameObject tapToRestartGameObject;
+	private GameOverPopup gameOverPopup;
+
 	void Start() {
+
 		int bestScoreIn60s = PlayerPrefs.GetInt("BestScoreIn60s");
 
 		Debug.Log(bestScoreIn60s);
@@ -33,9 +35,13 @@ public class BoardManager : MonoBehaviour
 		tapToRestartGameObject = GameObject.Find("TapToRestart");
 		tapToRestartGameObject.SetActive(false);
 
+		gameOverPopup = GameObject.Find("GameOverPopup").GetComponent<GameOverPopup>();
+		gameOverPopup.Hide();
+
 		GameObject.Find("BestScore").GetComponent<TextMesh>().text = bestScoreIn60s.ToString();
 	}
-	//Sets up the outer walls and floor (background) of the game board.
+
+
 	void BoardSetup ()
 	{
 		//Instantiate Board and set boardHolder to its transform.
@@ -214,15 +220,23 @@ public class BoardManager : MonoBehaviour
 
 	public void NewGame() {
 
+		gameOverPopup.Hide();
+		tapToRestartGameObject.SetActive(false);
+
 		GameObject.Find("ResultText").GetComponent<TextMesh>().text = "";
 
 		levelsCompleted = 0;
 		GameObject.Find("CurrentScore").GetComponent<TextMesh>().text = levelsCompleted.ToString();
 
-		currentTime = 60.0f;
-		playing = true;
+		currentTime = STARTING_TIME;
+		StartCoroutine(CanPlay());
 
 		NewLevel();
+	}
+
+	private IEnumerator CanPlay() {
+		yield return new WaitForSeconds(0.1f);
+		playing = true;
 	}
 
 	private void NextLevel() {
@@ -262,17 +276,19 @@ public class BoardManager : MonoBehaviour
 
 		if( levelsCompleted > bestScoreIn60s) {
 			PlayerPrefs.SetInt("BestScoreIn60s", levelsCompleted);
-			GameObject.Find("BestScore").GetComponent<TextMesh>().text = levelsCompleted.ToString();
-
-			GameObject.Find("ResultText").GetComponent<TextMesh>().text = "NEW BEST SCORE.\nPress new game.";
+			gameOverPopup.Show(levelsCompleted, true);
 		} else {
-			GameObject.Find("ResultText").GetComponent<TextMesh>().text = "GAME OVER. Press new game.";
+			gameOverPopup.Show(levelsCompleted, false);
 		}
 
 
 	}
 
 	private void NewLevel() {
+
+		int columns;                                         //Number of columns in our game board.
+		int rows;                                            //Number of rows in our game board.
+		int numberOfSteps;
 
 		hasRestarted = false;
 

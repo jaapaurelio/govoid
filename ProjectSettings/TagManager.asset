@@ -18,7 +18,7 @@ TagManager:
   - 
   - 
   - 
-  - 
+  - GameOver
   - 
   - 
   - 
@@ -50,4 +50,7 @@ TagManager:
     locked: 0
   - name: OverBoard
     uniqueID: 2717490713
+    locked: 0
+  - name: GameOver
+    uniqueID: 1028623629
     locked: 0
