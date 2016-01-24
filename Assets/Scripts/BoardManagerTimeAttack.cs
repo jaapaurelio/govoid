@@ -211,7 +211,6 @@ public class BoardManagerTimeAttack : MonoBehaviour
 			}
 		}
 
-		GameObject.Find("ResultText").GetComponent<TextMesh>().text = "";
 	}
 
 	private IEnumerator CanInteractWithBoardAgain() {
@@ -233,8 +232,6 @@ public class BoardManagerTimeAttack : MonoBehaviour
 
 		canInteractWithBoard = false;
 		playing = false;
-
-		GameObject.Find("ResultText").GetComponent<TextMesh>().text = "";
 
 		GameObject.Find("BestScore").GetComponent<TextMesh>().text = PlayerPrefs.GetInt("BestScoreInTimeAttack").ToString();
 
