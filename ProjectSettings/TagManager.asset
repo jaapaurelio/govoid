@@ -54,3 +54,6 @@ TagManager:
   - name: GameOver
     uniqueID: 1028623629
     locked: 0
+  - name: GamePopup
+    uniqueID: 135081041
+    locked: 0

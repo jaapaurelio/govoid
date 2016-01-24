@@ -16,9 +16,9 @@ public class GameOverPopup : MonoBehaviour {
 		transform.Find("GameOverScore").GetComponent<TextMesh>().text = score + " levels done.";
 
 		if(isHighscore) {
-			transform.Find("GameOverNewHeightscore").gameObject.SetActive(true);
+			transform.Find("GameOverNewHighscore").gameObject.SetActive(true);
 		} else {
-			transform.Find("GameOverNewHeightscore").gameObject.SetActive(false);
+			transform.Find("GameOverNewHighscore").gameObject.SetActive(false);
 		} 
 
 		gameObject.SetActive(true);

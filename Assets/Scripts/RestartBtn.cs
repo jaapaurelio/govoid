@@ -3,7 +3,7 @@ using System.Collections;
 
 public class RestartBtn : MonoBehaviour {
 
-	void OnMouseDown() {
-		GameObject.Find("GameManager").GetComponent<BoardManager>().RestartGame();
+	void OnTouch_TM() {
+		GameObject.Find("BoardManagerTimeAttack").GetComponent<BoardManagerTimeAttack>().RestartGame();
 	}
 }
