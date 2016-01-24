@@ -28,9 +28,9 @@ public class BoardManager : MonoBehaviour
 
 	void Start() {
 
-		int bestScoreIn60s = PlayerPrefs.GetInt("BestScoreIn60s");
+		int bestScoreInTimeAttack = PlayerPrefs.GetInt("BestScoreInTimeAttack");
 
-		Debug.Log(bestScoreIn60s);
+		Debug.Log(bestScoreInTimeAttack);
 
 		tapToRestartGameObject = GameObject.Find("TapToRestart");
 		tapToRestartGameObject.SetActive(false);
@@ -38,7 +38,7 @@ public class BoardManager : MonoBehaviour
 		gameOverPopup = GameObject.Find("GameOverPopup").GetComponent<GameOverPopup>();
 		gameOverPopup.Hide();
 
-		GameObject.Find("BestScore").GetComponent<TextMesh>().text = bestScoreIn60s.ToString();
+		GameObject.Find("BestScore").GetComponent<TextMesh>().text = bestScoreInTimeAttack.ToString();
 	}
 
 
@@ -60,10 +60,11 @@ public class BoardManager : MonoBehaviour
 	void Update() {
 
 		if (playing) {
-			
+
 			currentTime -= Time.deltaTime;
 
 			GameObject.Find("Timer").GetComponent<TextMesh>().text = Mathf.Round(currentTime).ToString();
+
 			if(currentTime < 0) {
 				GameOver();
 				return;
@@ -199,6 +200,7 @@ public class BoardManager : MonoBehaviour
 
 		hasRestarted = true;
 			
+		Debug.Log("call CanInteractWithBoardAgain");
 		StartCoroutine(CanInteractWithBoardAgain());
 		tapToRestartGameObject.SetActive(false);
 
@@ -214,22 +216,31 @@ public class BoardManager : MonoBehaviour
 	}
 
 	private IEnumerator CanInteractWithBoardAgain() {
+
+		Debug.Log("enter CanInteractWithBoardAgain");
 		yield return new WaitForSeconds(0.1f);
 		canInteractWithBoard = true;
+		Debug.Log("change CanInteractWithBoardAgain");
 	}
 
 	public void NewGame() {
 
 		gameOverPopup.Hide();
 		tapToRestartGameObject.SetActive(false);
+		canInteractWithBoard = false;
+		playing = false;
 
 		GameObject.Find("ResultText").GetComponent<TextMesh>().text = "";
+
+		GameObject.Find("BestScore").GetComponent<TextMesh>().text = PlayerPrefs.GetInt("BestScoreInTimeAttack").ToString();
+
 
 		levelsCompleted = 0;
 		GameObject.Find("CurrentScore").GetComponent<TextMesh>().text = levelsCompleted.ToString();
 
 		currentTime = STARTING_TIME;
 		StartCoroutine(CanPlay());
+		StartCoroutine(CanInteractWithBoardAgain());
 
 		NewLevel();
 	}
@@ -272,10 +283,12 @@ public class BoardManager : MonoBehaviour
 
 		tapToRestartGameObject.SetActive(false);
 
-		int bestScoreIn60s = PlayerPrefs.GetInt("BestScoreIn60s");
+		int bestScoreIn60s = PlayerPrefs.GetInt("BestScoreInTimeAttack");
 
+		// new best score
 		if( levelsCompleted > bestScoreIn60s) {
-			PlayerPrefs.SetInt("BestScoreIn60s", levelsCompleted);
+			PlayerPrefs.SetInt("BestScoreInTimeAttack", levelsCompleted);
+
 			gameOverPopup.Show(levelsCompleted, true);
 		} else {
 			gameOverPopup.Show(levelsCompleted, false);
