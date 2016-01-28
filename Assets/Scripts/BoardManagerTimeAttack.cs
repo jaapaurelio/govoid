@@ -9,6 +9,7 @@ public class BoardManagerTimeAttack : MonoBehaviour
 
 	private const float STARTING_TIME = 20.0f;
 
+	public GoogleAnalyticsV3 googleAnalytics;
 	public GameObject square;
 
 	public GameObject gameOverPopupObject;
@@ -28,24 +29,20 @@ public class BoardManagerTimeAttack : MonoBehaviour
 	private Transform boardHolder;                                  //A variable to store a reference to the transform of our Board object.
 
 	void Start() {
+
+		googleAnalytics.LogScreen("TimeAttackMode");
 		
 		BoardSetup();
 
-		Debug.Log("BoardManager Awake");	
-		Debug.Log("Board manager start game object!!!!!!!");
 		int bestScoreInTimeAttack = PlayerPrefs.GetInt("BestScoreInTimeAttack");
 
-		Debug.Log(bestScoreInTimeAttack);
+		Debug.Log("Best score: " + bestScoreInTimeAttack);
 
 		tapToRestartGameObject.SetActive(false);
 
 		GameObject.Find("BestScore").GetComponent<TextMesh>().text = bestScoreInTimeAttack.ToString();
 
 		NewGame();
-	}
-
-	void OnDestroy() {
-		Debug.Log("Destoy do BoardManager");
 	}
 
 	void BoardSetup ()
@@ -145,6 +142,7 @@ public class BoardManagerTimeAttack : MonoBehaviour
 						// no possible house. player must release is finger
 						} else if(clickedHouse.State == Constants.HOUSE_STATE_NORMAL){
 							canChooseNextHouse = false;
+							googleAnalytics.LogEvent("TimeAttackMode", "NoExitHouse", "", 0);
 						}
 					}
 				}
@@ -197,9 +195,10 @@ public class BoardManagerTimeAttack : MonoBehaviour
 			return;
 		}
 
+		googleAnalytics.LogEvent("TimeAttackMode", "RestartGame", "", 0);
+
 		hasRestarted = true;
 			
-		Debug.Log("call CanInteractWithBoardAgain");
 		StartCoroutine(CanInteractWithBoardAgain());
 		tapToRestartGameObject.SetActive(false);
 
@@ -215,14 +214,14 @@ public class BoardManagerTimeAttack : MonoBehaviour
 
 	private IEnumerator CanInteractWithBoardAgain() {
 
-		Debug.Log("enter CanInteractWithBoardAgain");
 		yield return new WaitForSeconds(0.1f);
 		canInteractWithBoard = true;
-		Debug.Log("change CanInteractWithBoardAgain");
+
 	}
 
 	public void NewGame() {
-		Debug.Log("new game gameOverPopupObject");
+
+		googleAnalytics.LogEvent("TimeAttackMode", "StartNewGame", "", 0);
 
 		gameOverPopupObject.GetComponent<GameOverPopup>().Hide();
 		gamePausedPopupObject.GetComponent<GamePausedPopup>().Hide();
@@ -255,9 +254,11 @@ public class BoardManagerTimeAttack : MonoBehaviour
 		levelsCompleted++;
 
 		if(hasRestarted) {
+			googleAnalytics.LogEvent("TimeAttackMode", "NextLevel", "HasRestarted", 0);
 			currentTime = currentTime + 3;
 			StartCoroutine(ShowBonusTime(3));
 		} else {
+			googleAnalytics.LogEvent("TimeAttackMode", "NextLevel", "NoRestarted", 0);
 			currentTime = currentTime + 5;
 			StartCoroutine(ShowBonusTime(5));
 		}
@@ -286,9 +287,12 @@ public class BoardManagerTimeAttack : MonoBehaviour
 
 		int bestScoreIn60s = PlayerPrefs.GetInt("BestScoreInTimeAttack");
 
+		googleAnalytics.LogEvent("TimeAttackMode", "GameOver", "Score", levelsCompleted);
+
 		// new best score
 		if( levelsCompleted > bestScoreIn60s) {
 			PlayerPrefs.SetInt("BestScoreInTimeAttack", levelsCompleted);
+			googleAnalytics.LogEvent("TimeAttackMode", "GameOver", "NewHighScore", levelsCompleted);
 
 			gameOverPopupObject.GetComponent<GameOverPopup>().Show(levelsCompleted, true);
 		} else {
@@ -379,12 +383,16 @@ public class BoardManagerTimeAttack : MonoBehaviour
 
 		boardHolder.gameObject.SetActive(false);
 		playing = false;
+
+		googleAnalytics.LogEvent("TimeAttackMode", "Pause", "", 0);
 	}
 		
 	public void ClosePausePopup() {
 		gamePausedPopupObject.GetComponent<GamePausedPopup>().Hide();
 		boardHolder.gameObject.SetActive(true);
 		StartCoroutine(CanPlay());
+
+		googleAnalytics.LogEvent("TimeAttackMode", "UnPause", "", 0);
 	}
 
 }

@@ -11,6 +11,7 @@ GameObject:
   - 23: {fileID: 2329156}
   - 102: {fileID: 10246352}
   - 114: {fileID: 11450396}
+  - 61: {fileID: 6114560}
   m_Layer: 0
   m_Name: PlayTimeAttack
   m_TagString: Untagged
@@ -56,6 +57,20 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
+--- !u!61 &6114560
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 131248}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Size: {x: 74.9, y: 16.328613}
 --- !u!102 &10246352
 TextMesh:
   serializedVersion: 3
@@ -88,6 +103,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8073ab9cf61a24fe79e4d5746b683c68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  googleAnalytics: {fileID: 0}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
