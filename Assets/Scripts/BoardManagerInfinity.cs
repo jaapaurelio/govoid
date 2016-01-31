@@ -118,6 +118,7 @@ public class BoardManagerInfinity : MonoBehaviour
 						foreach (GridHouse house in currentLevelGrid.GetAllHouses()) {
 							if(house.Number > 0) {
 								won = false;
+								house.SetHouseMissing();
 							}
 						}
 
