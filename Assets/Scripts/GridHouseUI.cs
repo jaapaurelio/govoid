@@ -6,6 +6,10 @@ using System.Collections.Generic;       //Allows us to use Lists.
 public class GridHouseUI : MonoBehaviour {
 
 	private GridPosition houseGridPosition;
+	public Sprite backgroundPossible;
+	public Sprite backgroundActive;
+	public Sprite backgroundNormal;
+	public Sprite backgroundMissing;
 
 	public GridPosition HouseGridPosition {
 		get{
@@ -25,52 +29,22 @@ public class GridHouseUI : MonoBehaviour {
 		transform.Find("Number").GetComponent<Number>().SetNumber(newNumber);
 	}
 
-	public void HidePossibleDirections(){
-		transform.Find("HouseArrowTop").gameObject.SetActive(false);
-		transform.Find("HouseArrowBottom").gameObject.SetActive(false);
-		transform.Find("HouseArrowLeft").gameObject.SetActive(false);
-		transform.Find("HouseArrowRight").gameObject.SetActive(false);
-	}
-
-	public void SetPossibleDirections(List<int> possibleDirections) {
-		if(possibleDirections.Contains(Constants.TOP)) {
-			transform.Find("HouseArrowTop").gameObject.SetActive(true);
-		}
-
-		if(possibleDirections.Contains(Constants.BOTTOM)) {
-			transform.Find("HouseArrowBottom").gameObject.SetActive(true);
-		}
-
-		if(possibleDirections.Contains(Constants.LEFT)) {
-			transform.Find("HouseArrowLeft").gameObject.SetActive(true);
-		}
-
-		if(possibleDirections.Contains(Constants.RIGHT)) {
-			transform.Find("HouseArrowRight").gameObject.SetActive(true);
-		}
-	}
 	public void SetState(int newState ) {
 		
 		SpriteRenderer background = transform.Find("SquareBackground").GetComponent<SpriteRenderer>();
 
-		GameObject selectecBackground = transform.Find("SelectedBackground").gameObject;
-
 		switch(newState) {
 		case Constants.HOUSE_STATE_ACTIVE:
-			background.color = new Color32(105, 192, 132, 255);
-			selectecBackground.SetActive(true);
+			background.sprite = backgroundActive;
 			break;
 		case Constants.HOUSE_STATE_NORMAL:
-			background.color = new Color32(154, 210, 171, 255);
-			selectecBackground.SetActive(false);
+			background.sprite = backgroundNormal;
 			break;
 		case Constants.HOUSE_STATE_POSSIBLE:
-			background.color = new Color32(105, 192, 132, 255);
-			selectecBackground.SetActive(false);
+			background.sprite = backgroundPossible;
 			break;
 		case Constants.HOUSE_STATE_MISSING:
-			background.color = new Color32(255, 0, 0, 0);
-			selectecBackground.SetActive(true);
+			background.sprite = backgroundMissing;
 			break;
 		}
 

@@ -37,8 +37,6 @@ public class GridHouse
 	}
 
 	public void SetActiveHouse(List<int> possibleDirections) {
-
-		gridHouseUIComponent.SetPossibleDirections(possibleDirections);
 		SetActiveHouse();
 	}
 
@@ -52,7 +50,6 @@ public class GridHouse
 	public void UnsetActive() {
 		state = Constants.HOUSE_STATE_NORMAL;
 		gridHouseUIComponent.SetState(Constants.HOUSE_STATE_NORMAL);
-		gridHouseUIComponent.HidePossibleDirections();
 	}
 
 	public void SetGameObject(GameObject newGridHouseUI) {
@@ -63,7 +60,6 @@ public class GridHouse
 	public void Restart() {
 		number = originalNumber;
 		gridHouseUIComponent.SetNumber(number);
-		gridHouseUIComponent.HidePossibleDirections();
 	}
 
 	public void SetHouseMissing(){

@@ -781,26 +781,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 15
       objectReference: {fileID: 0}
-    - target: {fileID: 101078, guid: b9216e7db7dd8451881832a9c6206c84, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 21225816, guid: b9216e7db7dd8451881832a9c6206c84, type: 2}
-      propertyPath: m_Color.r
-      value: 0.2352941
-      objectReference: {fileID: 0}
-    - target: {fileID: 21225816, guid: b9216e7db7dd8451881832a9c6206c84, type: 2}
-      propertyPath: m_Color.g
-      value: 0.2352941
-      objectReference: {fileID: 0}
-    - target: {fileID: 21225816, guid: b9216e7db7dd8451881832a9c6206c84, type: 2}
-      propertyPath: m_Color.b
-      value: 0.2352941
-      objectReference: {fileID: 0}
-    - target: {fileID: 21225816, guid: b9216e7db7dd8451881832a9c6206c84, type: 2}
-      propertyPath: m_Color.a
-      value: 0.347
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b9216e7db7dd8451881832a9c6206c84, type: 2}
   m_IsPrefabParent: 0
@@ -962,14 +942,6 @@ Prefab:
     - target: {fileID: 400000, guid: eb5b47b08880548c795ced5f38c9e001, type: 2}
       propertyPath: m_RootOrder
       value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400000, guid: eb5b47b08880548c795ced5f38c9e001, type: 2}
-      propertyPath: IOSTrackingCode
-      value: UA-58151786-3
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400000, guid: eb5b47b08880548c795ced5f38c9e001, type: 2}
-      propertyPath: otherTrackingCode
-      value: UA-58151786-3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: eb5b47b08880548c795ced5f38c9e001, type: 2}
