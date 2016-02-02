@@ -64,10 +64,13 @@ public class GridHouseUI : MonoBehaviour {
 			background.color = new Color32(154, 210, 171, 255);
 			selectecBackground.SetActive(false);
 			break;
-
 		case Constants.HOUSE_STATE_POSSIBLE:
 			background.color = new Color32(105, 192, 132, 255);
 			selectecBackground.SetActive(false);
+			break;
+		case Constants.HOUSE_STATE_MISSING:
+			background.color = new Color32(255, 0, 0, 0);
+			selectecBackground.SetActive(true);
 			break;
 		}
 

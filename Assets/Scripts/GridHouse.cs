@@ -66,6 +66,11 @@ public class GridHouse
 		gridHouseUIComponent.HidePossibleDirections();
 	}
 
+	public void SetHouseMissing(){
+		state = Constants.HOUSE_STATE_MISSING;
+		gridHouseUIComponent.SetState(Constants.HOUSE_STATE_MISSING);
+	}
+
 	public void SetFinalNumber(int newNumber) {
 		number = newNumber;
 		originalNumber = newNumber;

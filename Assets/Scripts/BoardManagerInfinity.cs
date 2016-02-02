@@ -48,94 +48,100 @@ public class BoardManagerInfinity : MonoBehaviour
 
 	}
 
-	void Update() {
-
+	public void Update() {
 		if (playing) {
-
 			if(Input.touchCount > 0 ){
 				var touch = Input.GetTouch(0);
 				if( touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled ) {
 					canChooseNextHouse = true;
 				}
 
-				if( canInteractWithBoard && canChooseNextHouse && (touch.phase == TouchPhase.Began || touch.phase == TouchPhase.Moved) ) {
-					Vector3 pos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
+				ClickNewHouse();
+			}else if(Input.GetMouseButtonDown(0)){
+				canChooseNextHouse = true;
 
-					RaycastHit2D hit = Physics2D.Raycast(pos, Vector2.zero);
+				ClickNewHouse();
+			}
+		}
+	}
 
-					if (hit.collider && hit.collider.tag == "GridHouse" ) {
+	private void ClickNewHouse(){
+		if( canInteractWithBoard && canChooseNextHouse){
+			Vector3 pos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
 
-						GridHouseUI houseUI = hit.collider.gameObject.GetComponent<GridHouseUI>();
+			RaycastHit2D hit = Physics2D.Raycast(pos, Vector2.zero);
 
-						GridHouse clickedHouse = currentLevelGrid.GetHouseInPosition(houseUI.HouseGridPosition);
+			if (hit.collider && hit.collider.tag == "GridHouse" ) {
 
-						// User can click in this house
-						if( clickedHouse.State == Constants.HOUSE_STATE_POSSIBLE ) {
+				GridHouseUI houseUI = hit.collider.gameObject.GetComponent<GridHouseUI>();
 
-							GridHouse activeHouse = GetActiveHouse(currentLevelGrid.GetAllHouses());
+				GridHouse clickedHouse = currentLevelGrid.GetHouseInPosition(houseUI.HouseGridPosition);
 
-							List<GridHouse> clickedHouseSiblings = currentLevelGrid.GetSiblings(clickedHouse);
+				// User can click in this house
+				if( clickedHouse.State == Constants.HOUSE_STATE_POSSIBLE ) {
 
-							// Set all houses temporarily to normal state.
-							// This can cause problems later with animations.
-							SetAllHousesToState(currentLevelGrid.GetAllHouses(), Constants.HOUSE_STATE_NORMAL);
+					GridHouse activeHouse = GetActiveHouse(currentLevelGrid.GetAllHouses());
 
-							List<int> possibleDirections = new List<int>();
+					List<GridHouse> clickedHouseSiblings = currentLevelGrid.GetSiblings(clickedHouse);
 
-							// All siblings from the clicked house are now possible houses to click
-							foreach(GridHouse sibling in clickedHouseSiblings) {
+					// Set all houses temporarily to normal state.
+					// This can cause problems later with animations.
+					SetAllHousesToState(currentLevelGrid.GetAllHouses(), Constants.HOUSE_STATE_NORMAL);
 
-								// Except the current active house, player can not go back
-								if( !sibling.Equals(activeHouse)) {
-									if(sibling.Number > 0) {
+					List<int> possibleDirections = new List<int>();
 
-										sibling.SetState(Constants.HOUSE_STATE_POSSIBLE);
-										possibleDirections.Add(GetDirectionToSibling(clickedHouse, sibling));
-									}
-								}
+					// All siblings from the clicked house are now possible houses to click
+					clickedHouseSiblings.ForEach(sibling => {
+						// Except the current active house, player can not go back
+						if( !sibling.Equals(activeHouse)) {
+							if(sibling.Number > 0) {
+								sibling.SetState(Constants.HOUSE_STATE_POSSIBLE);
+								possibleDirections.Add(GetDirectionToSibling(clickedHouse, sibling));
 							}
-								
-							// The clicked house is now the active house
-							clickedHouse.SetActiveHouse(possibleDirections);
+						}	
+					});
 
-							// The previous active house is now a normal house
-							// At the beginning we dont have an active house
-							if( activeHouse != null ) {
-								activeHouse.UnsetActive();
+					// The clicked house is now the active house
+					clickedHouse.SetActiveHouse(possibleDirections);
+
+					// The previous active house is now a normal house
+					// At the beginning we dont have an active house
+					if( activeHouse != null ) {
+						activeHouse.UnsetActive();
+					}
+
+
+					// No more places to go
+					if(possibleDirections.Count == 0) {
+						bool won = true;
+						// check if we are some missing houses to pass
+						foreach (GridHouse house in currentLevelGrid.GetAllHouses()) {
+							if(house.Number > 0) {
+								won = false;
+								house.SetHouseMissing();
 							}
+						}
 
+						if(won) {
+							NextLevel();
 
-							// No more places to go
-							if(possibleDirections.Count == 0) {
-								bool won = true;
-								// check if we are some missing houses to pass
-								foreach (GridHouse house in currentLevelGrid.GetAllHouses()) {
-									if(house.Number > 0) {
-										won = false;
-									}
-								}
-
-								if(won) {
-									NextLevel();
-
-								// Lost
-								} else {
-									Debug.Log("tapppp to restart");
-									tapToRestartGameObject.SetActive(true);
-									canInteractWithBoard = false;
-								}
-							}
-
-						// no possible house. player must release is finger
-						} else if(clickedHouse.State == Constants.HOUSE_STATE_NORMAL){
-							canChooseNextHouse = false;
-							googleAnalytics.LogEvent("InfinityMode", "NoExitHouse", "", 0);
+							// Lost
+						} else {
+							Debug.Log("tapppp to restart");
+							tapToRestartGameObject.SetActive(true);
+							canInteractWithBoard = false;
 						}
 					}
+
+					// no possible house. player must release is finger
+				} else if(clickedHouse.State == Constants.HOUSE_STATE_NORMAL){
+					canChooseNextHouse = false;
+					googleAnalytics.LogEvent("InfinityMode", "NoExitHouse", "", 0);
 				}
 			}
 		}
 	}
+
 
 	private int GetDirectionToSibling(GridHouse fromHouse, GridHouse toHouse) {
 		int possibleDirections = -1;

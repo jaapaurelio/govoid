@@ -9,4 +9,5 @@
 	public const int HOUSE_STATE_NORMAL = 0;
 	public const int HOUSE_STATE_POSSIBLE = 2;
 	public const int HOUSE_STATE_ACTIVE = 3;
+	public const int HOUSE_STATE_MISSING = 4;
 }
