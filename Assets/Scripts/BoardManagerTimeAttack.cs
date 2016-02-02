@@ -15,6 +15,7 @@ public class BoardManagerTimeAttack : MonoBehaviour
 	public GameObject gameOverPopupObject;
 	public GameObject gamePausedPopupObject;
 	public GameObject tapToRestartGameObject;
+	public GameObject backgroundTimerGameObject;
 
 	private int levelsCompleted = 0;
 	private float currentTime = 0.0f;
@@ -60,6 +61,8 @@ public class BoardManagerTimeAttack : MonoBehaviour
 			currentTime -= Time.deltaTime;
 
 			GameObject.Find("Timer").GetComponent<TextMesh>().text = Mathf.Round(currentTime).ToString();
+
+			backgroundTimerGameObject.GetComponent<BackgroundTimer>().UpdateTime(currentTime);
 
 			if(currentTime < 0) {
 				GameOver();

@@ -11,7 +11,7 @@ public class TouchManager : MonoBehaviour {
 			RaycastHit2D hit = Physics2D.Raycast(pos, Vector2.zero);
 
 			var touch = Input.GetTouch(0);
-			if( touch.phase == TouchPhase.Began ) {
+			if( touch.phase == TouchPhase.Began) {
 				if( hit.collider ) {
 					hit.collider.gameObject.SendMessage("OnTouch_TM", SendMessageOptions.DontRequireReceiver);
 				}
