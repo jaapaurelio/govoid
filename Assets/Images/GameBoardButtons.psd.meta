@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 82b47efc8443447e1a71e095fcae5c2c
-timeCreated: 1453653184
+timeCreated: 1454783166
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -55,53 +55,67 @@ TextureImporter:
     - name: RestartBtn
       rect:
         serializedVersion: 2
-        x: 57
-        y: 0
-        width: 189
-        height: 200
+        x: 72
+        y: 34
+        width: 150
+        height: 150
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -55.5, y: 67}
-        - {x: -83.5, y: 51}
-        - {x: -83.5, y: -3}
-        - {x: -51.5, y: -51}
-        - {x: 53.5, y: -51}
-        - {x: 53.5, y: 36}
-        - {x: 30.5, y: 67}
+      - - {x: -13, y: 75}
+        - {x: -71, y: 75}
+        - {x: -75, y: 69}
+        - {x: -75, y: -49}
+        - {x: -63, y: -75}
+        - {x: 6, y: -75}
+        - {x: 6, y: -65}
+        - {x: 1, y: -61}
+      - - {x: -8, y: 75}
+        - {x: -8, y: -63}
+        - {x: 3, y: -75}
+        - {x: 75, y: -75}
+        - {x: 75, y: 75}
     - name: PauseBtn
       rect:
         serializedVersion: 2
-        x: 254
-        y: 0
-        width: 164
-        height: 200
+        x: 250
+        y: 35
+        width: 150
+        height: 150
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -41, y: 69}
-        - {x: -69, y: 62}
-        - {x: -69, y: -19}
-        - {x: -44, y: -47}
-        - {x: -40, y: -51}
-        - {x: 51, y: -51}
-        - {x: 51, y: 65}
-        - {x: 45, y: 69}
-      - - {x: -27, y: 35}
-        - {x: -29, y: 33}
-        - {x: -29, y: -15}
-        - {x: -27, y: -17}
-        - {x: -14, y: -17}
-        - {x: -12, y: -15}
-        - {x: -12, y: 33}
-        - {x: -14, y: 35}
-      - - {x: -6, y: 35}
-        - {x: -6, y: -17}
-        - {x: 10, y: -17}
-        - {x: 11, y: -15}
-        - {x: 11, y: 35}
+      - - {x: -45, y: 75}
+        - {x: -69, y: 47}
+        - {x: -75, y: 31}
+        - {x: -75, y: -38}
+        - {x: -47, y: -75}
+        - {x: 47, y: -75}
+        - {x: 75, y: -64}
+        - {x: 75, y: 61}
+        - {x: 36, y: 75}
+      - - {x: -52, y: -32}
+        - {x: -57, y: 23}
+        - {x: 54, y: 32}
+        - {x: 33, y: -53}
+      - - {x: -16, y: 35}
+        - {x: -20, y: 31}
+        - {x: -20, y: -31}
+        - {x: -16, y: -35}
+        - {x: -10, y: -35}
+        - {x: -6, y: -31}
+        - {x: -6, y: 31}
+        - {x: -10, y: 35}
+      - - {x: 12, y: 35}
+        - {x: 8, y: 31}
+        - {x: 8, y: -31}
+        - {x: 12, y: -35}
+        - {x: 18, y: -35}
+        - {x: 22, y: -31}
+        - {x: 22, y: 31}
+        - {x: 18, y: 35}
     outline: []
   spritePackingTag: 
   userData: 

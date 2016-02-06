@@ -10,8 +10,8 @@ GameObject:
   - 4: {fileID: 464096}
   - 23: {fileID: 2329156}
   - 102: {fileID: 10246352}
-  - 114: {fileID: 11450396}
   - 61: {fileID: 6114560}
+  - 114: {fileID: 11498570}
   m_Layer: 0
   m_Name: PlayInfinity
   m_TagString: Untagged
@@ -26,7 +26,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 131248}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.15, y: 4.62, z: 0}
+  m_LocalPosition: {x: 0.15, y: -2, z: 0}
   m_LocalScale: {x: 0.1, y: 0.1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -41,7 +41,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 10100, guid: 0000000000000000e000000000000000, type: 0}
+  - {fileID: 2100000, guid: ac9df302c66e945ce8f90c6a92352799, type: 3}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -70,7 +70,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Size: {x: 74.9, y: 16.328613}
+  m_Size: {x: 75, y: 16}
 --- !u!102 &10246352
 TextMesh:
   serializedVersion: 3
@@ -88,11 +88,11 @@ TextMesh:
   m_FontSize: 142
   m_FontStyle: 0
   m_RichText: 1
-  m_Font: {fileID: 0}
+  m_Font: {fileID: 12800000, guid: ac9df302c66e945ce8f90c6a92352799, type: 3}
   m_Color:
     serializedVersion: 2
-    rgba: 4283124555
---- !u!114 &11450396
+    rgba: 4294967295
+--- !u!114 &11498570
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -100,10 +100,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 131248}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8073ab9cf61a24fe79e4d5746b683c68, type: 3}
+  m_Script: {fileID: 11500000, guid: 804491bd361b34133aed4338cc038ffa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  googleAnalytics: {fileID: 0}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
