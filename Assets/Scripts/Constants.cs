@@ -10,4 +10,6 @@
 	public const int HOUSE_STATE_POSSIBLE = 2;
 	public const int HOUSE_STATE_ACTIVE = 3;
 	public const int HOUSE_STATE_MISSING = 4;
+
+	public const int TIME_ATTACK_TIME = 30;
 }

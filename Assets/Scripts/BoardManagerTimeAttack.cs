@@ -7,8 +7,6 @@ using Random = UnityEngine.Random;
 public class BoardManagerTimeAttack : MonoBehaviour
 {
 
-	private const float STARTING_TIME = 20.0f;
-
 	public GoogleAnalyticsV3 googleAnalytics;
 	public GameObject square;
 
@@ -242,7 +240,7 @@ public class BoardManagerTimeAttack : MonoBehaviour
 		levelsCompleted = 0;
 		GameObject.Find("CurrentScore").GetComponent<TextMesh>().text = levelsCompleted.ToString();
 
-		currentTime = STARTING_TIME;
+		currentTime = Constants.TIME_ATTACK_TIME;
 		StartCoroutine(CanPlay());
 		StartCoroutine(CanInteractWithBoardAgain());
 
