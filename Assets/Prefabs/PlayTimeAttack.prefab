@@ -41,7 +41,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: ac9df302c66e945ce8f90c6a92352799, type: 3}
+  - {fileID: 2100000, guid: 2081a87c07e59460781421f072a843e7, type: 3}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -88,7 +88,7 @@ TextMesh:
   m_FontSize: 140
   m_FontStyle: 0
   m_RichText: 1
-  m_Font: {fileID: 12800000, guid: ac9df302c66e945ce8f90c6a92352799, type: 3}
+  m_Font: {fileID: 12800000, guid: 2081a87c07e59460781421f072a843e7, type: 3}
   m_Color:
     serializedVersion: 2
     rgba: 4294967295

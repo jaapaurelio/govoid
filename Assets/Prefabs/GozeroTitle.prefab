@@ -75,7 +75,7 @@ TextMesh:
   m_Font: {fileID: 12800000, guid: 2081a87c07e59460781421f072a843e7, type: 3}
   m_Color:
     serializedVersion: 2
-    rgba: 4285982208
+    rgba: 4284865601
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
