@@ -90,7 +90,7 @@ PlayerSettings:
     16:9: 1
     Others: 1
   bundleIdentifier: com.creativebackyard.gozero
-  bundleVersion: 1.0.3
+  bundleVersion: 1.0.4
   preloadedAssets: []
   metroEnableIndependentInputSource: 0
   metroEnableLowLatencyPresentationAPI: 0
@@ -158,8 +158,8 @@ PlayerSettings:
   AndroidTargetDevice: 3
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: 
-  AndroidKeyaliasName: 
+  AndroidKeystoreName: /Users/jaap/gozero.keystore
+  AndroidKeyaliasName: gozero
   AndroidTVCompatibility: 0
   AndroidIsGame: 1
   androidEnableBanner: 1
