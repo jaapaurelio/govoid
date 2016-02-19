@@ -291,6 +291,10 @@ public class BoardManagerTimeAttack : MonoBehaviour
 
 		googleAnalytics.LogEvent("TimeAttackMode", "GameOver", "Score", levelsCompleted);
 
+		Social.ReportScore(levelsCompleted, "CgkI2ab42cEaEAIQAQ", (bool success) => {
+			// handle success or failure
+		});
+
 		// new best score
 		if( levelsCompleted > bestScoreIn60s) {
 			PlayerPrefs.SetInt("BestScoreInTimeAttack", levelsCompleted);
