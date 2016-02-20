@@ -1,10 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ClosePausePopup : MonoBehaviour {
+public class ClosePausePopup : ButtonText {
 
-	public void OnTouch_TM() {
-		Debug.Log("click close");
+	override public void OnTouch() {
 		GameObject.Find("BoardManagerTimeAttack").GetComponent<BoardManagerTimeAttack>().ClosePausePopup();
 	}
 }

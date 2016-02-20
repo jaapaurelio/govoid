@@ -13,7 +13,7 @@ public class GameOverPopup : MonoBehaviour {
 
 	public void Show(int score, bool isHighscore) {
 
-		transform.Find("GameOverScore").GetComponent<TextMesh>().text = score + " levels done.";
+		transform.Find("GameOverScore").GetComponent<TextMesh>().text = score + " levels done";
 
 		if(isHighscore) {
 			transform.Find("GameOverNewHighscore").gameObject.SetActive(true);

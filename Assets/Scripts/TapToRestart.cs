@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class TapToRestart : MonoBehaviour {
+public class TapToRestart : ButtonText {
 
-	public void OnTouch_TM() {
+	override public void OnTouch() {
 		GameObject.Find("BoardManagerTimeAttack").GetComponent<BoardManagerTimeAttack>().RestartGame();
 	}
 }

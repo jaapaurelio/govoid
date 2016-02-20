@@ -1,10 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ClosePausePopupInfinity: MonoBehaviour {
+public class ClosePausePopupInfinity: ButtonText {
 
-	public void OnTouch_TM() {
-		Debug.Log("click close");
+	override public void OnTouch() {
 		GameObject.Find("BoardManagerInfinity").GetComponent<BoardManagerInfinity>().ClosePausePopup();
 	}
 }

@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class TapToRestartInfinity : MonoBehaviour {
+public class TapToRestartInfinity : ButtonText {
 
-	public void OnTouch_TM() {
+	override public void OnTouch() {
 		GameObject.Find("BoardManagerInfinity").GetComponent<BoardManagerInfinity>().RestartGame();
 	}
 }

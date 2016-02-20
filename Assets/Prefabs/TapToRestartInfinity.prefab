@@ -12,6 +12,7 @@ GameObject:
   - 102: {fileID: 10274540}
   - 114: {fileID: 11404490}
   - 61: {fileID: 6164532}
+  - 114: {fileID: 11415064}
   m_Layer: 0
   m_Name: TapToRestartInfinity
   m_TagString: Untagged
@@ -78,7 +79,7 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 123482}
-  m_Text: Tap to restart
+  m_Text: tap to restart
   m_OffsetZ: 0
   m_CharacterSize: 1
   m_LineSpacing: 1
@@ -105,6 +106,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sortingLayerName: OverBoard
   sortingOrder: 2
+--- !u!114 &11415064
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 123482}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d5309307a9694b24a2eb5bee59acef6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

@@ -1,10 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class NewGameBtnInfinity : MonoBehaviour {
+public class NewGameBtnInfinity : ButtonText {
 
-	void OnTouch_TM() {
-		Debug.Log("Clicked in new game Button");
+	override public void OnTouch() {
 		GameObject.Find("BoardManagerInfinity").GetComponent<BoardManagerInfinity>().NewGame();
 	}
 }

@@ -2,9 +2,9 @@
 using System.Collections;
 using UnityEngine.SceneManagement;
 
-public class GoToMenu : MonoBehaviour {
+public class GoToMenu : ButtonText {
 
-	public void OnTouch_TM() {
+	override public void OnTouch() {
 		SceneManager.LoadScene("MainMenuScene");
 	}
 

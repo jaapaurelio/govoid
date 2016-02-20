@@ -448,6 +448,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 10246352, guid: d8c140ef8a3bc49cda293d89f72377fa, type: 2}
+      propertyPath: m_Text
+      value: leaderboard
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d8c140ef8a3bc49cda293d89f72377fa, type: 2}
   m_IsPrefabParent: 0

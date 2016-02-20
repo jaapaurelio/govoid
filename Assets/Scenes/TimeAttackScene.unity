@@ -409,26 +409,6 @@ Prefab:
       propertyPath: m_Name
       value: GameOverPopup
       objectReference: {fileID: 0}
-    - target: {fileID: 411392, guid: 90be0d71fd97d49fa8d33360d6ca85c0, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 0.01
-      objectReference: {fileID: 0}
-    - target: {fileID: 411392, guid: 90be0d71fd97d49fa8d33360d6ca85c0, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 0.01
-      objectReference: {fileID: 0}
-    - target: {fileID: 10265566, guid: 90be0d71fd97d49fa8d33360d6ca85c0, type: 2}
-      propertyPath: m_FontSize
-      value: 200
-      objectReference: {fileID: 0}
-    - target: {fileID: 10265566, guid: 90be0d71fd97d49fa8d33360d6ca85c0, type: 2}
-      propertyPath: m_Text
-      value: exit to menu
-      objectReference: {fileID: 0}
-    - target: {fileID: 6137426, guid: 90be0d71fd97d49fa8d33360d6ca85c0, type: 2}
-      propertyPath: m_Size.x
-      value: 125.91
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 90be0d71fd97d49fa8d33360d6ca85c0, type: 2}
   m_IsPrefabParent: 0

@@ -6,7 +6,6 @@ public class GamePausedPopup : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		transform.position = new Vector3(0, 0, -2);
-		Debug.Log("Start game pause popup");
 	}
 
 	public void Show() {
@@ -17,7 +16,4 @@ public class GamePausedPopup : MonoBehaviour {
 		gameObject.SetActive(false);
 	}
 
-	void OnDestroy() {
-		Debug.Log("Destoy do pause");
-	}
 }
