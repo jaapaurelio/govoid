@@ -2,9 +2,9 @@
 using System.Collections;
 using UnityEngine.SceneManagement;
 
-public class PlayInfinity : MonoBehaviour {
+public class PlayInfinity : ButtonText {
 	
-	public void OnTouch_TM() {
+	public override void OnTouch() {
 		SceneManager.LoadScene("InfinityScene");
 	}
 }

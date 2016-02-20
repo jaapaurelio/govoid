@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine.SceneManagement;
 
-public class PlayTimeAttack : MonoBehaviour {
+public class PlayTimeAttack : ButtonText {
 	
 	public GoogleAnalyticsV3 googleAnalytics;
 
@@ -10,7 +10,9 @@ public class PlayTimeAttack : MonoBehaviour {
 		googleAnalytics.LogScreen("MainMenu");
 	}
 
-	public void OnTouch_TM() {
+
+	override public void OnTouch() {
 		SceneManager.LoadScene("TimeAttackScene");
 	}
+
 }

@@ -2,9 +2,9 @@
 using GooglePlayGames;
 using UnityEngine.SocialPlatforms;
 
-public class ShowLeaderboard : MonoBehaviour {
+public class ShowLeaderboard : ButtonText {
 
-	public void OnTouch_TM() {
+	override public void OnTouch() {
 		if(!Social.localUser.authenticated){
 			Social.localUser.Authenticate((bool success) => {
 				if(success){

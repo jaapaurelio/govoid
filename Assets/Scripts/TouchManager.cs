@@ -3,32 +3,53 @@ using System.Collections;
 
 public class TouchManager : MonoBehaviour {
 
+	private Collider2D colliderBegan;
+
 	public void Update() {
 		if(Input.touchCount > 0){
-			TriggerEvent(true);
+			var touch = Input.GetTouch(0);
+
+			if (touch.phase == TouchPhase.Began) {
+				Collider2D hitCollider = GetHitCollider(Input.mousePosition);
+				colliderBegan = hitCollider;
+				SendMessageToHit(hitCollider, "OnTouchBegan_TM");
+
+			} else if(touch.phase == TouchPhase.Canceled || touch.phase == TouchPhase.Ended) {
+				
+				if(colliderBegan == null) {
+					return;
+				}
+
+				Collider2D currentCullider = GetHitCollider(Input.mousePosition);
+
+				if(currentCullider != null && currentCullider.name == colliderBegan.name) {
+					SendMessageToHit(colliderBegan, "OnTouch_TM");
+				} else {
+					SendMessageToHit(colliderBegan, "OnTouchLeave_TM");
+				}
+
+				colliderBegan = null;
+
+			}
+
 		}else if(Input.GetMouseButtonDown(0)){
-			TriggerEvent(false);
+
+			//RaycastHit2D hit = getHit(Input.mousePosition);
 		}
 	}
 
-	private static void TriggerEvent(bool mouseevent){
-		Vector3 pos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
+
+	private static void SendMessageToHit(Collider2D currentCollider, string message){
+		if (currentCollider) {
+			currentCollider.gameObject.SendMessage(message, SendMessageOptions.DontRequireReceiver);
+		}
+	}
+
+	private Collider2D GetHitCollider(Vector3 position){
+		Vector3 pos = Camera.main.ScreenToWorldPoint (position);
 
 		RaycastHit2D hit = Physics2D.Raycast(pos, Vector2.zero);
 
-		if (mouseevent) {
-			var touch = Input.GetTouch(0);
-			if (touch.phase == TouchPhase.Began) {
-				HitCollider(hit);
-			}
-		} else {
-			HitCollider(hit);
-		}
-	}
-
-	private static void HitCollider(RaycastHit2D hit){
-		if (hit.collider) {
-			hit.collider.gameObject.SendMessage("OnTouch_TM", SendMessageOptions.DontRequireReceiver);
-		}
+		return hit.collider;
 	}
 }
