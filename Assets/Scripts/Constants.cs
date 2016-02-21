@@ -1,5 +1,6 @@
 ﻿public static class Constants
 {
+	public const string TITLE_COLOR = "#41DC65FF";
 	public const int TOP = 0;
 	public const int RIGHT = 1;
 	public const int BOTTOM = 2;
