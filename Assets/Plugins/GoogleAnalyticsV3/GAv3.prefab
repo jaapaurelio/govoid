@@ -51,7 +51,7 @@ MonoBehaviour:
   anonymizeIP: 0
   UncaughtExceptionReporting: 0
   sendLaunchEvent: 1
-  dryRun: 0
+  dryRun: 1
   sessionTimeout: 600
 --- !u!1001 &100100000
 Prefab:
