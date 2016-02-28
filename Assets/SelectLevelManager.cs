@@ -3,12 +3,13 @@ using System.Collections;
 
 public class SelectLevelManager : MonoBehaviour {
 
-	public GameObject LevelNameObject;
+	public GameObject levelButtonGameObject;
+	public GameObject levelGridContainerObject;
 
 	// Use this for initialization
 	void Start () {
 
-		TextAsset bindata= Resources.Load<TextAsset>("Levels/Pack1");
+		TextAsset bindata= Resources.Load<TextAsset>("Levels/Pack" + GameManager.instance.currentPackage);
 
 		Debug.Log(bindata);
 
@@ -18,8 +19,13 @@ public class SelectLevelManager : MonoBehaviour {
 
 		for(int i = 1; i <= numberOfLevels; i++) {
 			//Instantiate the GameObject instance using the prefab chosen for toInstantiate at the Vector3 corresponding to current grid position in loop, cast it to GameObject.
-			GameObject levelName =
-				Instantiate (LevelNameObject, new Vector3 (0, i * -1.2f, 0f), Quaternion.identity) as GameObject;
+			GameObject levelButton =
+				Instantiate (levelButtonGameObject, new Vector3 (0, 0, 0f), Quaternion.identity) as GameObject;
+
+			levelButton.GetComponent<LevelSelectButton>().SetLevel(i);
+
+			// This will put the object in the right position inside parent
+			levelButton.transform.SetParent(levelGridContainerObject.transform, false);
 		}
 
 	}

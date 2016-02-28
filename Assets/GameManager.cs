@@ -5,10 +5,13 @@ using GooglePlayGames;
 using GooglePlayGames.BasicApi;
 using UnityEngine.SocialPlatforms;
 
-public class MainGame : MonoBehaviour {
+public class GameManager : MonoBehaviour {
 
 	// Static instance of GameManager which allows it to be accessed by any other script.
-	private static MainGame instance = null;
+	public static GameManager instance = null;
+
+	public int currentPackage = 1;
+	public int currentLevelFromPackage = 1;
 
 	// Awake is always called before any Start functions
 	void Awake()

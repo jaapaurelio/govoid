@@ -39,7 +39,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccd4351c3019f4f47b851406edd36d2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LevelNameObject: {fileID: 178764, guid: 38d91fb4280af4c2fbf5311c164b8b91, type: 2}
+  levelButtonGameObject: {fileID: 181286, guid: fd41ad1bfe2654275b0419642bff0618,
+    type: 2}
+  levelGridContainerObject: {fileID: 0}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

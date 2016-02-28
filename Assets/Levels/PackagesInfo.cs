@@ -1,5 +1,5 @@
 ﻿
 public static class PackagesInfo
 {
-	public const int numberOfPackages = 2;
+	public const int numberOfPackages = 1;
 }
