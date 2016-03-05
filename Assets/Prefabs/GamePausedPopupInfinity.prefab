@@ -12,9 +12,9 @@ GameObject:
   - 102: {fileID: 10269418}
   - 114: {fileID: 11410398}
   - 61: {fileID: 6174402}
-  - 114: {fileID: 11408888}
+  - 114: {fileID: 11410234}
   m_Layer: 0
-  m_Name: PausedGoMenu
+  m_Name: PausedExitLevel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -420,7 +420,7 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 133396}
-  m_Text: menu
+  m_Text: exit level
   m_OffsetZ: 0
   m_CharacterSize: 1
   m_LineSpacing: 1
@@ -445,17 +445,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccb7ae9e50658462faedd011c6f69504, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &11408888
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 133396}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4cbdbcea1a0054bae953eef184afc02d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &11410144
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -465,6 +454,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f306d3e9aafc54a9dac80e386ff0cc35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &11410234
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 133396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22c1ec9810d9f48ca98db4d303c0cd8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &11410398

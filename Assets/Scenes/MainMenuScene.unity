@@ -140,7 +140,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 464096, guid: b3ad0cb24a11949bdaa5ef02869caae1, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 1
+      value: -2
       objectReference: {fileID: 0}
     - target: {fileID: 464096, guid: b3ad0cb24a11949bdaa5ef02869caae1, type: 2}
       propertyPath: m_LocalPosition.z
@@ -166,10 +166,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 11450396, guid: b3ad0cb24a11949bdaa5ef02869caae1, type: 2}
-      propertyPath: googleAnalytics
-      value: 
-      objectReference: {fileID: 1195419853}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b3ad0cb24a11949bdaa5ef02869caae1, type: 2}
   m_IsPrefabParent: 0
@@ -186,7 +182,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 464096, guid: 5f02a2926091d46c7953847c9d65a023, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 464096, guid: 5f02a2926091d46c7953847c9d65a023, type: 2}
       propertyPath: m_LocalPosition.z
@@ -211,6 +207,10 @@ Prefab:
     - target: {fileID: 464096, guid: 5f02a2926091d46c7953847c9d65a023, type: 2}
       propertyPath: m_RootOrder
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 10246352, guid: 5f02a2926091d46c7953847c9d65a023, type: 2}
+      propertyPath: m_Text
+      value: Free Play
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5f02a2926091d46c7953847c9d65a023, type: 2}
@@ -402,7 +402,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: eb5b47b08880548c795ced5f38c9e001, type: 2}
       propertyPath: bundleVersion
-      value: 1.0.6
+      value: 1.0.7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: eb5b47b08880548c795ced5f38c9e001, type: 2}

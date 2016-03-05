@@ -18,5 +18,6 @@
 	public const string SELECT_PACKAGE_SCENE = "SelectPackageScene";
 	public const string MAIN_MENU_SCENE = "MainMenuScene";
 	public const string SELECT_LEVEL_SCENE = "SelectLevelScene";
+	public const string INFINITY_MODE_SCENE = "InfinityScene";
 
 }

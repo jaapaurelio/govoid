@@ -61,6 +61,10 @@ public class GameManager : MonoBehaviour {
 			case Constants.SELECT_LEVEL_SCENE:
 				SceneManager.LoadScene(Constants.SELECT_PACKAGE_SCENE);
 				break;
+
+		case Constants.INFINITY_MODE_SCENE:
+			SceneManager.LoadScene(Constants.SELECT_LEVEL_SCENE);
+			break;
 			
 
 			case Constants.MAIN_MENU_SCENE:
