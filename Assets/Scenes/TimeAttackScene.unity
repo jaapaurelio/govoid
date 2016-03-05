@@ -184,7 +184,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
 --- !u!1001 &336047167
 Prefab:
   m_ObjectHideFlags: 0
@@ -226,57 +226,6 @@ Prefab:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5831fa17f24344ae9ab6b3780ba65e87, type: 2}
-  m_IsPrefabParent: 0
---- !u!1001 &373365677
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 421996, guid: a36b66cd3d7aa47779cc7ae9b2142989, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 421996, guid: a36b66cd3d7aa47779cc7ae9b2142989, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 421996, guid: a36b66cd3d7aa47779cc7ae9b2142989, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: -10
-      objectReference: {fileID: 0}
-    - target: {fileID: 421996, guid: a36b66cd3d7aa47779cc7ae9b2142989, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 421996, guid: a36b66cd3d7aa47779cc7ae9b2142989, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 421996, guid: a36b66cd3d7aa47779cc7ae9b2142989, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 421996, guid: a36b66cd3d7aa47779cc7ae9b2142989, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 421996, guid: a36b66cd3d7aa47779cc7ae9b2142989, type: 2}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11417850, guid: a36b66cd3d7aa47779cc7ae9b2142989, type: 2}
-      propertyPath: gameOverPopupObject
-      value: 
-      objectReference: {fileID: 581928950}
-    - target: {fileID: 11417850, guid: a36b66cd3d7aa47779cc7ae9b2142989, type: 2}
-      propertyPath: gamePausedPopupObject
-      value: 
-      objectReference: {fileID: 1128557229}
-    m_RemovedComponents:
-    - {fileID: 11417850, guid: a36b66cd3d7aa47779cc7ae9b2142989, type: 2}
-  m_ParentPrefab: {fileID: 100100000, guid: a36b66cd3d7aa47779cc7ae9b2142989, type: 2}
   m_IsPrefabParent: 0
 --- !u!1001 &439376487
 Prefab:

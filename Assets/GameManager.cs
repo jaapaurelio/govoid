@@ -4,6 +4,7 @@ using System.Collections;
 using GooglePlayGames;
 using GooglePlayGames.BasicApi;
 using UnityEngine.SocialPlatforms;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 
@@ -49,5 +50,31 @@ public class GameManager : MonoBehaviour {
 			// handle success or failure
 		});
 	}
-		
+
+	public void GoBack() {
+
+		switch(SceneManager.GetActiveScene().name){
+			case Constants.SELECT_PACKAGE_SCENE:
+				SceneManager.LoadScene(Constants.MAIN_MENU_SCENE);
+				break;
+
+			case Constants.SELECT_LEVEL_SCENE:
+				SceneManager.LoadScene(Constants.SELECT_PACKAGE_SCENE);
+				break;
+			
+
+			case Constants.MAIN_MENU_SCENE:
+				Application.Quit(); 
+			break;
+		}
+	}
+
+	void Update(){
+
+		// Exit app when we press phone back key
+		if (Input.GetKeyDown(KeyCode.Escape)) {
+			Debug.Log("APPP QUIT");
+			GoBack();
+		}
+	}
 }

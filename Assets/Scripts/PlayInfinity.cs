@@ -5,6 +5,6 @@ using UnityEngine.SceneManagement;
 public class PlayInfinity : ButtonText {
 	
 	public override void OnTouch() {
-		SceneManager.LoadScene("InfinityScene");
+		SceneManager.LoadScene(Constants.SELECT_PACKAGE_SCENE);
 	}
 }

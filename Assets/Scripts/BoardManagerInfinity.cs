@@ -254,7 +254,7 @@ public class BoardManagerInfinity : MonoBehaviour
 
 		canChooseNextHouse = false;
 
-		if(GameManager.instance.currentLevelFromPackage != GameManager.instance.currentPackage.levels.Length){
+		if(GameManager.instance.currentLevelFromPackage < GameManager.instance.currentPackage.levels.Length){
 			NewLevel();
 		} else {
 			Debug.Log("NO MORE LEVELS IN THS PACK");

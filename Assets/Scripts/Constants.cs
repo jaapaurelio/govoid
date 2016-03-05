@@ -13,4 +13,10 @@
 	public const int HOUSE_STATE_MISSING = 4;
 
 	public const int TIME_ATTACK_TIME = 30;
+
+	// States
+	public const string SELECT_PACKAGE_SCENE = "SelectPackageScene";
+	public const string MAIN_MENU_SCENE = "MainMenuScene";
+	public const string SELECT_LEVEL_SCENE = "SelectLevelScene";
+
 }
