@@ -9,11 +9,12 @@ public class SelectLevelManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-		TextAsset bindata= Resources.Load<TextAsset>("Levels/Pack" + GameManager.instance.currentPackage);
+		TextAsset bindata= Resources.Load<TextAsset>("Levels/Pack" + GameManager.instance.currentPackageNum);
 
 		Debug.Log(bindata);
 
 		Pack p = JsonUtility.FromJson<Pack>(bindata.text);
+		GameManager.instance.currentPackage = p;
 		Debug.Log(p.name);
 		int numberOfLevels = p.levels.Length;
 

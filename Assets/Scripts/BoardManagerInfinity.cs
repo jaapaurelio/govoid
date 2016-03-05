@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;       //Allows us to use Lists.
 using System.Collections;
 using Random = UnityEngine.Random;
+using UnityEngine.SceneManagement;
 
 public class BoardManagerInfinity : MonoBehaviour
 {
@@ -237,6 +238,8 @@ public class BoardManagerInfinity : MonoBehaviour
 	private void NextLevel() {
 		levelsCompleted++;
 
+		Debug.Log("NEXT LEVELLLL");
+		GameManager.instance.currentLevelFromPackage++;
 
 		googleAnalytics.LogEvent("InfinityMode", "NextLevel", "Score", levelsCompleted);
 
@@ -251,14 +254,21 @@ public class BoardManagerInfinity : MonoBehaviour
 
 		canChooseNextHouse = false;
 
-		NewLevel();
+		if(GameManager.instance.currentLevelFromPackage != GameManager.instance.currentPackage.levels.Length){
+			NewLevel();
+		} else {
+			Debug.Log("NO MORE LEVELS IN THS PACK");
+			SceneManager.LoadScene("SelectPackageScene");
+		}
+
 	}
 
 	private void NewLevel() {
 
-		int columns;                                         //Number of columns in our game board.
-		int rows;                                            //Number of rows in our game board.
-		int numberOfSteps;
+		int levelNumber = GameManager.instance.currentLevelFromPackage;
+		Pack package = GameManager.instance.currentPackage;
+
+		Debug.Log("levelNumber"+ levelNumber);
 
 		// Clear previous level
 		if(currentLevelGrid != null ) {
@@ -266,36 +276,8 @@ public class BoardManagerInfinity : MonoBehaviour
 				house.Destroy();
 			}
 		}
-
-		LevelGenerator levelGenerator =  new LevelGenerator();
-
-		// Easy in the beginner, and it get harder.
-
-		if(levelsCompleted <= 1 ) {
-			columns = 3;
-			rows = 3;
-			numberOfSteps = Random.Range (4, 7 +1);
-
-		} else if(levelsCompleted <= 3 ){
-			columns = 4;
-			rows = 4;
-			numberOfSteps = Random.Range (8, 15 +1);
-
-		} else if(levelsCompleted <= 5 ){
-			columns = 5;
-			rows = 5;
-			numberOfSteps = Random.Range (8, 15 +1);
-
-		} else {
-			columns = Random.Range (4, 5 +1);
-			rows = Random.Range (4, 5 +1);
-			numberOfSteps = Random.Range (10, 25 +1);
-		}
-
-
-		Debug.Log("logs: Level:" + levelsCompleted+ " \n cols: " + columns + "; rows: " + rows + "; stepts: " +  numberOfSteps);
-
-		currentLevelGrid = levelGenerator.CreateLevel(columns, rows, numberOfSteps);
+			
+		currentLevelGrid = LevelJsonGenerator.CreateLevel(package, levelNumber);
 
 		foreach(GridHouse house in currentLevelGrid.GetAllHouses() ) {
 

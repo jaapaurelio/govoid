@@ -22,6 +22,6 @@ public class PackageLister : MonoBehaviour {
 	}
 
 	public void OpenPackage(int num) {
-		SceneManager.LoadScene("SelectLevelFromPackage");
+		SceneManager.LoadScene("SelectLevelScene");
 	}
 }

@@ -16,7 +16,7 @@ public class LevelSelectButton : MonoBehaviour {
 	}
 
 	public void BtnClicked() {
-		
+		GameManager.instance.currentLevelFromPackage = level;
 		SceneManager.LoadScene("InfinityScene");
 	}
 }

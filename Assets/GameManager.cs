@@ -10,8 +10,9 @@ public class GameManager : MonoBehaviour {
 	// Static instance of GameManager which allows it to be accessed by any other script.
 	public static GameManager instance = null;
 
-	public int currentPackage = 1;
+	public int currentPackageNum = 1;
 	public int currentLevelFromPackage = 1;
+	public Pack currentPackage;
 
 	// Awake is always called before any Start functions
 	void Awake()
@@ -48,5 +49,5 @@ public class GameManager : MonoBehaviour {
 			// handle success or failure
 		});
 	}
-
+		
 }
