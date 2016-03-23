@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour {
 	public int currentLevelFromPackage = 1;
 	public Pack currentPackage;
 
+	public PlayerStatistics playerStatistics =  new PlayerStatistics();
+
 	// Awake is always called before any Start functions
 	void Awake()
 	{
@@ -39,6 +41,13 @@ public class GameManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+
+		playerStatistics.LoadData();
+
+		Debug.Log( "best scoreeee " + playerStatistics.bestScoreInTimeAttack );
+
+		playerStatistics.bestScoreInTimeAttack++;
+
 
 		// recommended for debugging:
 		PlayGamesPlatform.DebugLogEnabled = true;
@@ -80,5 +89,20 @@ public class GameManager : MonoBehaviour {
 			Debug.Log("APPP QUIT");
 			GoBack();
 		}
+	}
+
+
+	void OnApplicationPause(bool pauseStatus) {
+		Debug.Log("pauseeeeeeeeeeee" + pauseStatus);
+		if(pauseStatus) {
+			playerStatistics.SaveData();
+		}
+
+	}
+
+
+	void OnApplicationQuit() {
+		Debug.Log("quittttttttt");
+		playerStatistics.SaveData();
 	}
 }

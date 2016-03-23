@@ -17,7 +17,8 @@ public class PackageLister : MonoBehaviour {
 			GameObject packName =
 				Instantiate (packagename, new Vector3 (0, (i * -2f) + 4f, 0f), Quaternion.identity) as GameObject;
 
-			packName.GetComponent<PackgeName>().SetNumber(i);
+			string packInfo = " " + GameManager.instance.playerStatistics.GetNumberOfDoneLevelsFromPackage(i) + " from " + 15;
+			packName.GetComponent<PackgeName>().SetNumber(i, packInfo);
 		}
 	}
 

@@ -9,8 +9,8 @@ public class PackgeName : ButtonText {
 		GameObject.Find("PackageLister").GetComponent<PackageLister>().OpenPackage(packageNumber);
 	}
 
-	public void SetNumber(int num) {
-		gameObject.GetComponent<TextMesh>().text = "package " + num;
+	public void SetNumber(int num, string levelsInfo) {
+		gameObject.GetComponent<TextMesh>().text = "package " + num + " " + levelsInfo;
 		packageNumber = num;
 	}
 

@@ -23,6 +23,8 @@ public class BoardManagerTimeAttack : MonoBehaviour
 	private bool canInteractWithBoard = true;
 	private bool hasRestarted = false;
 
+	private GridHouse twoStepsBackHouse;
+
 	private LevelGrid currentLevelGrid;
 
 	private Transform boardHolder;                                  //A variable to store a reference to the transform of our Board object.
@@ -115,8 +117,13 @@ public class BoardManagerTimeAttack : MonoBehaviour
 
 							// The previous active house is now a normal house
 							// At the beginning we dont have an active house
+							if( twoStepsBackHouse != null ) {
+								twoStepsBackHouse.UnsetActive();
+							}
+
 							if( activeHouse != null ) {
-								activeHouse.UnsetActive();
+								activeHouse.SetState(Constants.HOUSE_STATE_TWO_STEPS_BACK);
+								twoStepsBackHouse = activeHouse;
 							}
 
 
@@ -193,6 +200,8 @@ public class BoardManagerTimeAttack : MonoBehaviour
 
 	public void RestartGame() {
 
+		twoStepsBackHouse = null;
+
 		if(!playing) {
 			return;
 		}
@@ -253,6 +262,7 @@ public class BoardManagerTimeAttack : MonoBehaviour
 	}
 
 	private void NextLevel() {
+		
 		levelsCompleted++;
 
 		if(hasRestarted) {
@@ -315,6 +325,8 @@ public class BoardManagerTimeAttack : MonoBehaviour
 		int numberOfSteps;
 
 		hasRestarted = false;
+
+		twoStepsBackHouse = null;
 
 		// Clear previous level
 		if(currentLevelGrid != null ) {

@@ -10,6 +10,8 @@ public class GridHouseUI : MonoBehaviour {
 	public Sprite backgroundActive;
 	public Sprite backgroundNormal;
 	public Sprite backgroundMissing;
+	public Sprite backgroundTwoStepsBack;
+	Animator anim;
 
 	public GridPosition HouseGridPosition {
 		get{
@@ -18,6 +20,10 @@ public class GridHouseUI : MonoBehaviour {
 		set {
 			houseGridPosition = value;
 		}
+	}
+
+	void Awake(){
+		anim = GetComponent<Animator>();
 	}
 
 	void Start() {
@@ -33,6 +39,9 @@ public class GridHouseUI : MonoBehaviour {
 		
 		SpriteRenderer background = transform.Find("SquareBackground").GetComponent<SpriteRenderer>();
 
+		Debug.Log("newwwww state" + newState);
+		anim.SetInteger("ActiveState", newState);
+
 		switch(newState) {
 		case Constants.HOUSE_STATE_ACTIVE:
 			background.sprite = backgroundActive;
@@ -41,11 +50,15 @@ public class GridHouseUI : MonoBehaviour {
 			background.sprite = backgroundNormal;
 			break;
 		case Constants.HOUSE_STATE_POSSIBLE:
+			
 			background.sprite = backgroundPossible;
 			break;
 		case Constants.HOUSE_STATE_MISSING:
 			background.sprite = backgroundMissing;
 			break;
+		case Constants.HOUSE_STATE_TWO_STEPS_BACK:
+			background.sprite = backgroundTwoStepsBack;
+		break;
 		}
 
 	}

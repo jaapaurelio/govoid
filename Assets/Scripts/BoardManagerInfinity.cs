@@ -52,7 +52,7 @@ public class BoardManagerInfinity : MonoBehaviour
 	public void Update() {
 		if (playing) {
 			
-			if(Input.touchCount > 0 ){
+			if(Input.touchCount > 0 ) {
 				var touch = Input.GetTouch(0);
 				if( touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled ) {
 					canChooseNextHouse = true;
@@ -116,7 +116,7 @@ public class BoardManagerInfinity : MonoBehaviour
 								}
 
 								if(won) {
-									NextLevel();
+									WonLevel();
 
 									// Lost
 								} else {
@@ -136,8 +136,6 @@ public class BoardManagerInfinity : MonoBehaviour
 			}
 		}
 	}
-
-
 
 	private int GetDirectionToSibling(GridHouse fromHouse, GridHouse toHouse) {
 		int possibleDirections = -1;
@@ -235,10 +233,15 @@ public class BoardManagerInfinity : MonoBehaviour
 		playing = true;
 	}
 
+	private void WonLevel() {
+
+		GameManager.instance.playerStatistics.SetLevelDone( GameManager.instance.currentPackageNum, GameManager.instance.currentLevelFromPackage);
+		NextLevel();
+	}
+
 	private void NextLevel() {
 		levelsCompleted++;
 
-		Debug.Log("NEXT LEVELLLL");
 		GameManager.instance.currentLevelFromPackage++;
 
 		googleAnalytics.LogEvent("InfinityMode", "NextLevel", "Score", levelsCompleted);
