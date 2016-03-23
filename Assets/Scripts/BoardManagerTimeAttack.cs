@@ -115,8 +115,13 @@ public class BoardManagerTimeAttack : MonoBehaviour
 							// The clicked house is now the active house
 							clickedHouse.SetActiveHouse(possibleDirections);
 
+							if( activeHouse != null ) {
+								activeHouse.UnsetActive();
+							}
+
 							// The previous active house is now a normal house
 							// At the beginning we dont have an active house
+							/*
 							if( twoStepsBackHouse != null ) {
 								twoStepsBackHouse.UnsetActive();
 							}
@@ -124,7 +129,7 @@ public class BoardManagerTimeAttack : MonoBehaviour
 							if( activeHouse != null ) {
 								activeHouse.SetState(Constants.HOUSE_STATE_TWO_STEPS_BACK);
 								twoStepsBackHouse = activeHouse;
-							}
+							}*/
 
 
 							// No more places to go
@@ -220,6 +225,8 @@ public class BoardManagerTimeAttack : MonoBehaviour
 				house.SetState(Constants.HOUSE_STATE_POSSIBLE);
 			}
 		}
+
+		AnimateRestart();
 
 	}
 
@@ -390,10 +397,24 @@ public class BoardManagerTimeAttack : MonoBehaviour
 			}
 		}
 
+		AnimateEntrance(currentLevelGrid.GetAllHouses());
 
 		// At the begginig any house can be selected
 		SetAllHousesToState(currentLevelGrid.GetAllHouses(), Constants.HOUSE_STATE_POSSIBLE);
 
+	}
+
+	private void AnimateEntrance(List<GridHouse> gridHouses) {
+		foreach(GridHouse house in gridHouses) {
+			house.gridHouseUIComponent.anim.Play("Entrance");
+		}
+	}
+
+	private void AnimateRestart() {
+		List<GridHouse> gridHouses = currentLevelGrid.GetAllHouses();
+		foreach(GridHouse house in gridHouses) {
+			house.gridHouseUIComponent.anim.Play("Restart");
+		}
 	}
 
 	public void PauseGame() {

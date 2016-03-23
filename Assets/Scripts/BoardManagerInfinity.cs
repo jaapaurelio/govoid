@@ -187,6 +187,8 @@ public class BoardManagerInfinity : MonoBehaviour
 		StartCoroutine(CanInteractWithBoardAgain());
 		tapToRestartGameObject.SetActive(false);
 
+		AnimateRestart();
+
 		foreach (var house in currentLevelGrid.GetAllHouses() ) {
 			house.Restart();
 
@@ -307,6 +309,7 @@ public class BoardManagerInfinity : MonoBehaviour
 			}
 		}
 
+		AnimateEntrance();
 
 		// At the begginig any house can be selected
 		SetAllHousesToState(currentLevelGrid.GetAllHouses(), Constants.HOUSE_STATE_POSSIBLE);
@@ -328,6 +331,20 @@ public class BoardManagerInfinity : MonoBehaviour
 		StartCoroutine(CanPlay());
 
 		googleAnalytics.LogEvent("InfinityMode", "UnPause", "", 0);
+	}
+
+	private void AnimateEntrance() {
+		List<GridHouse> gridHouses = currentLevelGrid.GetAllHouses();
+		foreach(GridHouse house in gridHouses) {
+			house.gridHouseUIComponent.anim.Play("Entrance");
+		}
+	}
+
+	private void AnimateRestart() {
+		List<GridHouse> gridHouses = currentLevelGrid.GetAllHouses();
+		foreach(GridHouse house in gridHouses) {
+			house.gridHouseUIComponent.anim.Play("Restart");
+		}
 	}
 
 }

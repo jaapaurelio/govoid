@@ -11,7 +11,7 @@ public class GridHouseUI : MonoBehaviour {
 	public Sprite backgroundNormal;
 	public Sprite backgroundMissing;
 	public Sprite backgroundTwoStepsBack;
-	Animator anim;
+	public Animator anim;
 
 	public GridPosition HouseGridPosition {
 		get{
@@ -38,9 +38,6 @@ public class GridHouseUI : MonoBehaviour {
 	public void SetState(int newState ) {
 		
 		SpriteRenderer background = transform.Find("SquareBackground").GetComponent<SpriteRenderer>();
-
-		Debug.Log("newwwww state" + newState);
-		anim.SetInteger("ActiveState", newState);
 
 		switch(newState) {
 		case Constants.HOUSE_STATE_ACTIVE:

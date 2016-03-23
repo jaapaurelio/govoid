@@ -17,7 +17,7 @@ public class GridHouse
 	public int State { get{return state;} }
 
 	private GameObject gridHouseUIGameObject;
-	private GridHouseUI gridHouseUIComponent;
+	public GridHouseUI gridHouseUIComponent;
 
 	//Assignment constructor.
 	public GridHouse (GridPosition _position, int _number)
