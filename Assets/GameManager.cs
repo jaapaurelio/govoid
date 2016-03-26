@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour {
 		}
 		else if (instance != this)
 		{ 
-			Debug.Log("destoy main game");
+			Debug.Log("Destoy main game");
 			// If instance already exists and it's not this:
 			// Then destroy this. This enforces our singleton pattern, meaning there can only ever be one instance of a GameManager.
 			Destroy(gameObject);   
@@ -43,8 +43,6 @@ public class GameManager : MonoBehaviour {
 	void Start () {
 
 		playerStatistics.LoadData();
-
-		Debug.Log( "best scoreeee " + playerStatistics.bestScoreInTimeAttack );
 
 		playerStatistics.bestScoreInTimeAttack++;
 
@@ -86,14 +84,12 @@ public class GameManager : MonoBehaviour {
 
 		// Exit app when we press phone back key
 		if (Input.GetKeyDown(KeyCode.Escape)) {
-			Debug.Log("APPP QUIT");
 			GoBack();
 		}
 	}
 
 
 	void OnApplicationPause(bool pauseStatus) {
-		Debug.Log("pauseeeeeeeeeeee" + pauseStatus);
 		if(pauseStatus) {
 			playerStatistics.SaveData();
 		}
@@ -102,7 +98,6 @@ public class GameManager : MonoBehaviour {
 
 
 	void OnApplicationQuit() {
-		Debug.Log("quittttttttt");
 		playerStatistics.SaveData();
 	}
 }

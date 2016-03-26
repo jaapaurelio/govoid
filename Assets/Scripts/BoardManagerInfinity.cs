@@ -120,21 +120,28 @@ public class BoardManagerInfinity : MonoBehaviour
 
 									// Lost
 								} else {
-									Debug.Log("tapppp to restart");
-									tapToRestartGameObject.SetActive(true);
+									StartCoroutine(ShowTapToRestart());
 									canInteractWithBoard = false;
+									googleAnalytics.LogEvent("InfinityMode", "NoExitHouse", "", 0);
 								}
+									
 							}
 
 							// no possible house. player must release is finger
 						} else if(clickedHouse.State == Constants.HOUSE_STATE_NORMAL){
 							canChooseNextHouse = false;
-							googleAnalytics.LogEvent("InfinityMode", "NoExitHouse", "", 0);
 						}
 					}
 				}
 			}
 		}
+	}
+
+	private IEnumerator ShowTapToRestart() {
+
+		yield return new WaitForSeconds(0.1f);
+		tapToRestartGameObject.SetActive(true);
+
 	}
 
 	private int GetDirectionToSibling(GridHouse fromHouse, GridHouse toHouse) {

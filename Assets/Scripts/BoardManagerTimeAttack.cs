@@ -169,19 +169,27 @@ public class BoardManagerTimeAttack : MonoBehaviour
 								// Lost
 								} else {
 									canInteractWithBoard = false;
-									tapToRestartGameObject.SetActive(true);
+									StartCoroutine(ShowTapToRestart());
+									googleAnalytics.LogEvent("TimeAttackMode", "NoExitHouse", "", 0);
 								}
+
 							}
 
 						// no possible house. player must release is finger
 						} else if(clickedHouse.State == Constants.HOUSE_STATE_NORMAL){
 							canChooseNextHouse = false;
-							googleAnalytics.LogEvent("TimeAttackMode", "NoExitHouse", "", 0);
 						}
 					}
 				}
 			}
 		}
+	}
+
+	private IEnumerator ShowTapToRestart() {
+
+		yield return new WaitForSeconds(0.1f);
+		tapToRestartGameObject.SetActive(true);
+
 	}
 
 	// just move arrow outside screen
@@ -276,6 +284,7 @@ public class BoardManagerTimeAttack : MonoBehaviour
 
 	public void RestartGame() {
 
+		Debug.Log("RESTARTTTT");
 		if(!playing) {
 			return;
 		}

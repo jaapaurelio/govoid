@@ -69,9 +69,9 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
-  m_Offset: {x: 0, y: -16}
+  m_Offset: {x: 0, y: -39}
   serializedVersion: 2
-  m_Size: {x: 180, y: 150}
+  m_Size: {x: 180, y: 167.7}
 --- !u!102 &10274540
 TextMesh:
   serializedVersion: 3
