@@ -16,10 +16,6 @@ public class BoardManagerTimeAttack : BoardManager
 
 	private bool canChooseNextHouse = true;
 
-	private bool hasRestarted = false;
-
-	private LevelGrid currentLevelGrid;
-
 	public override void Start(){
 		base.Start();
 
@@ -151,16 +147,6 @@ public class BoardManagerTimeAttack : BoardManager
 
 	}
 
-	// just move arrow outside screen
-	// TODO find a better way without setActive
-	private void HideAllArrows() {
-		arrowFrom.transform.localPosition = new Vector3(50,10,0);
-		arrowToTop.transform.localPosition = new Vector3(50,10,0);
-		arrowToBottom.transform.localPosition = new Vector3(50,10,0);
-		arrowToRight.transform.localPosition = new Vector3(50,10,0);
-		arrowToLeft.transform.localPosition = new Vector3(50,10,0);
-	}
-
 	private void ShowFromArrow(GridHouse fromP, GridHouse toP ) {
 		int direction = GetDirectionToSibling(fromP, toP);
 
@@ -241,30 +227,15 @@ public class BoardManagerTimeAttack : BoardManager
 		return null;
 	}
 
-	public void RestartGame() {
+	public override void RestartGame() {
 
-		if(!playing) {
-			return;
+		if(!base.RestartGame()) {
+			return false;
 		}
-
+			
 		googleAnalytics.LogEvent("TimeAttackMode", "RestartGame", "", 0);
 
-		hasRestarted = true;
-
-		HideAllArrows();
-		StartCoroutine(CanInteractWithBoardAgain());
-		tapToRestartGameObject.SetActive(false);
-
-		foreach (var house in currentLevelGrid.GetAllHouses() ) {
-			house.Restart();
-
-			if(house.Number > 0) {
-				house.SetState(Constants.HOUSE_STATE_POSSIBLE);
-			}
-		}
-
-		AnimateRestart();
-
+		return true;
 	}
 
 	public override void NewGame() {
@@ -420,13 +391,6 @@ public class BoardManagerTimeAttack : BoardManager
 	private void AnimateEntrance(List<GridHouse> gridHouses) {
 		foreach(GridHouse house in gridHouses) {
 			house.gridHouseUIComponent.anim.Play("Entrance");
-		}
-	}
-
-	private void AnimateRestart() {
-		List<GridHouse> gridHouses = currentLevelGrid.GetAllHouses();
-		foreach(GridHouse house in gridHouses) {
-			house.gridHouseUIComponent.anim.Play("Restart");
 		}
 	}
 
