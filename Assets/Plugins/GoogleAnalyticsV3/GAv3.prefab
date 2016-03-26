@@ -44,14 +44,14 @@ MonoBehaviour:
   otherTrackingCode: UA-58151786-3
   productName: Gozero
   bundleIdentifier: com.creativebackyard.gozero
-  bundleVersion: 1.0.9
+  bundleVersion: 1.0.10
   dispatchPeriod: 5
   sampleFrequency: 100
   logLevel: 2
   anonymizeIP: 0
   UncaughtExceptionReporting: 0
   sendLaunchEvent: 1
-  dryRun: 1
+  dryRun: 0
   sessionTimeout: 600
 --- !u!1001 &100100000
 Prefab:

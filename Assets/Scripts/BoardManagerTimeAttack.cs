@@ -284,7 +284,6 @@ public class BoardManagerTimeAttack : MonoBehaviour
 
 	public void RestartGame() {
 
-		Debug.Log("RESTARTTTT");
 		if(!playing) {
 			return;
 		}

@@ -56,7 +56,6 @@ public class GridHouseUI : MonoBehaviour {
 			numberText.color = new Color32(240, 98, 146, 255);
 			background.sprite = backgroundMissing;
 			break;
-		break;
 		}
 
 	}
