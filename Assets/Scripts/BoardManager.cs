@@ -72,7 +72,7 @@ public class BoardManager : MonoBehaviour {
 	public virtual void RestartGame() {
 
 		if(!playing) {
-			return false;
+			return;
 		}
 
 		hasRestarted = true;
@@ -90,8 +90,6 @@ public class BoardManager : MonoBehaviour {
 		}
 
 		AnimateRestart();
-
-		return true;
 
 	}
 

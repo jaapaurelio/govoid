@@ -228,14 +228,14 @@ public class BoardManagerTimeAttack : BoardManager
 	}
 
 	public override void RestartGame() {
+		base.RestartGame();
 
-		if(!base.RestartGame()) {
-			return false;
+		if(!playing) {
+			return;
 		}
 			
 		googleAnalytics.LogEvent("TimeAttackMode", "RestartGame", "", 0);
 
-		return true;
 	}
 
 	public override void NewGame() {
