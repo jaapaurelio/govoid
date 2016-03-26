@@ -114,6 +114,8 @@ public class BoardManagerTimeAttack : MonoBehaviour
 
 							GridHouse activeHouse = GetActiveHouse(currentLevelGrid.GetAllHouses());
 
+							clickedHouse.gridHouseUIComponent.anim.Play("AnimateActive");
+
 							List<GridHouse> clickedHouseSiblings = currentLevelGrid.GetSiblings(clickedHouse);
 
 							// Set all houses temporarily to normal state.
@@ -134,6 +136,7 @@ public class BoardManagerTimeAttack : MonoBehaviour
 										sibling.SetState(Constants.HOUSE_STATE_POSSIBLE);
 										possibleDirections.Add(GetDirectionToSibling(clickedHouse, sibling));
 
+										sibling.gridHouseUIComponent.anim.Play("AnimatePossible");
 										ShowArrows(clickedHouse.position, GetDirectionToSibling(clickedHouse, sibling));
 									}
 								}
@@ -144,6 +147,7 @@ public class BoardManagerTimeAttack : MonoBehaviour
 
 							if( activeHouse != null ) {
 								ShowFromArrow(clickedHouse, activeHouse);
+
 								activeHouse.UnsetActive();
 							}
 
@@ -155,6 +159,7 @@ public class BoardManagerTimeAttack : MonoBehaviour
 									if(house.Number > 0) {
 										won = false;
 										house.SetHouseMissing();
+										house.gridHouseUIComponent.anim.Play("AnimateMissing");
 									}
 								}
 
