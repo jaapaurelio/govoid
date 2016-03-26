@@ -4,78 +4,37 @@ using System.Collections.Generic;       //Allows us to use Lists.
 using System.Collections;
 using Random = UnityEngine.Random;
 
-public class BoardManagerTimeAttack : MonoBehaviour
+public class BoardManagerTimeAttack : BoardManager
 {
 
-	public GoogleAnalyticsV3 googleAnalytics;
-	public GameObject square;
+	public GameObject houseToInstantiate;
 
-	public GameObject gameOverPopupObject;
-	public GameObject gamePausedPopupObject;
-	public GameObject tapToRestartGameObject;
 	public GameObject backgroundTimerGameObject;
-	public GameObject arrowToInstanciate;
 
 	private int levelsCompleted = 0;
 	private float currentTime = 0.0f;
 
-	private bool playing = false;
 	private bool canChooseNextHouse = true;
-	private bool canInteractWithBoard = true;
+
 	private bool hasRestarted = false;
 
 	private LevelGrid currentLevelGrid;
 
-	private Transform boardHolder;                                  //A variable to store a reference to the transform of our Board object.
-
-	private GameObject arrowFrom;
-	private GameObject arrowToTop;
-	private GameObject arrowToBottom;
-	private GameObject arrowToLeft;
-	private GameObject arrowToRight;
-
-
-	void Start() {
+	public override void Start(){
+		base.Start();
 
 		googleAnalytics.LogScreen("TimeAttackMode");
-		
-		BoardSetup();
 
 		int bestScoreInTimeAttack = PlayerPrefs.GetInt("BestScoreInTimeAttack");
 
 		Debug.Log("Best score: " + bestScoreInTimeAttack);
 
-		tapToRestartGameObject.SetActive(false);
-
 		GameObject.Find("BestScore").GetComponent<TextMesh>().text = bestScoreInTimeAttack.ToString();
-
-		//Instantiate the GameObject instance using the prefab chosen for toInstantiate at the Vector3 corresponding to current grid position in loop, cast it to GameObject.
-		arrowFrom = Instantiate (arrowToInstanciate, new Vector3 (-2, 0, 0f), Quaternion.identity) as GameObject;
-		arrowFrom.transform.SetParent(boardHolder);
-		arrowFrom.GetComponent<SpriteRenderer>().color = new Color32(76, 73, 88, 255);
-
-		arrowToTop = Instantiate (arrowToInstanciate, new Vector3 (2, 0, 0f), new Quaternion(0, 0, 90, 90)) as GameObject;
-		arrowToTop.transform.SetParent(boardHolder);
-
-		arrowToBottom = Instantiate (arrowToInstanciate, new Vector3 (3, 0, 0f), new Quaternion(0f, 0f, -90, 90)) as GameObject;
-		arrowToBottom.transform.SetParent(boardHolder);
-
-		arrowToLeft = Instantiate (arrowToInstanciate, new Vector3 (4, 0, 0f), new Quaternion(0, 0, 180, 0)) as GameObject;
-		arrowToLeft.transform.SetParent(boardHolder);
-
-		arrowToRight = Instantiate (arrowToInstanciate, new Vector3 (5, 0, 0f), Quaternion.identity) as GameObject;
-		arrowToRight.transform.SetParent(boardHolder);
 
 		NewGame();
 	}
 
-	void BoardSetup ()
-	{
-		//Instantiate Board and set boardHolder to its transform.
-		boardHolder = new GameObject("Board").transform;
-		boardHolder.position = new Vector3(-5.0f, -8.0f, 0.0f);
 
-	}
 
 	void Update() {
 
@@ -308,42 +267,20 @@ public class BoardManagerTimeAttack : MonoBehaviour
 
 	}
 
-	private IEnumerator CanInteractWithBoardAgain() {
+	public override void NewGame() {
+		
+		base.NewGame();
 
-		yield return new WaitForSeconds(0.1f);
-		canInteractWithBoard = true;
-
-	}
-
-	public void NewGame() {
+		levelsCompleted = 0;
 
 		googleAnalytics.LogEvent("TimeAttackMode", "StartNewGame", "", 0);
 
-		gameOverPopupObject.GetComponent<GameOverPopup>().Hide();
-		gamePausedPopupObject.GetComponent<GamePausedPopup>().Hide();
-		tapToRestartGameObject.SetActive(false);
-
-		boardHolder.gameObject.SetActive(true);
-
-		canInteractWithBoard = false;
-		playing = false;
-
 		GameObject.Find("BestScore").GetComponent<TextMesh>().text = PlayerPrefs.GetInt("BestScoreInTimeAttack").ToString();
-
-
-		levelsCompleted = 0;
 		GameObject.Find("CurrentScore").GetComponent<TextMesh>().text = levelsCompleted.ToString();
 
 		currentTime = Constants.TIME_ATTACK_TIME;
-		StartCoroutine(CanPlay());
-		StartCoroutine(CanInteractWithBoardAgain());
 
 		NewLevel();
-	}
-
-	private IEnumerator CanPlay() {
-		yield return new WaitForSeconds(0.1f);
-		playing = true;
 	}
 
 	private void NextLevel() {
@@ -452,11 +389,9 @@ public class BoardManagerTimeAttack : MonoBehaviour
 
 		foreach(GridHouse house in currentLevelGrid.GetAllHouses() ) {
 
-			GameObject toInstantiate = square;
-
 			//Instantiate the GameObject instance using the prefab chosen for toInstantiate at the Vector3 corresponding to current grid position in loop, cast it to GameObject.
 			GameObject gridHouseObject =
-				Instantiate (toInstantiate, new Vector3 (0, 0, 0f), Quaternion.identity) as GameObject;
+				Instantiate (houseToInstantiate, new Vector3 (0, 0, 0f), Quaternion.identity) as GameObject;
 
 			//Set the parent of our newly instantiated object instance to boardHolder, this is just organizational to avoid cluttering hierarchy.
 			gridHouseObject.transform.SetParent(boardHolder);
