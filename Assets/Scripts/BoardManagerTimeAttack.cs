@@ -49,7 +49,6 @@ public class BoardManagerTimeAttack : MonoBehaviour
 
 		GameObject.Find("BestScore").GetComponent<TextMesh>().text = bestScoreInTimeAttack.ToString();
 
-
 		//Instantiate the GameObject instance using the prefab chosen for toInstantiate at the Vector3 corresponding to current grid position in loop, cast it to GameObject.
 		arrowFrom = Instantiate (arrowToInstanciate, new Vector3 (-2, 0, 0f), Quaternion.identity) as GameObject;
 		arrowFrom.transform.SetParent(boardHolder);
@@ -67,7 +66,6 @@ public class BoardManagerTimeAttack : MonoBehaviour
 		arrowToRight = Instantiate (arrowToInstanciate, new Vector3 (5, 0, 0f), Quaternion.identity) as GameObject;
 		arrowToRight.transform.SetParent(boardHolder);
 
-		HideAllArrows();
 		NewGame();
 	}
 
@@ -280,7 +278,8 @@ public class BoardManagerTimeAttack : MonoBehaviour
 		googleAnalytics.LogEvent("TimeAttackMode", "RestartGame", "", 0);
 
 		hasRestarted = true;
-			
+
+		HideAllArrows();
 		StartCoroutine(CanInteractWithBoardAgain());
 		tapToRestartGameObject.SetActive(false);
 
@@ -398,6 +397,8 @@ public class BoardManagerTimeAttack : MonoBehaviour
 		int numberOfSteps;
 
 		hasRestarted = false;
+
+		HideAllArrows();
 
 		// Clear previous level
 		if(currentLevelGrid != null ) {
