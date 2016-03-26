@@ -45,6 +45,7 @@ MonoBehaviour:
   gamePausedPopupObject: {fileID: 0}
   tapToRestartGameObject: {fileID: 0}
   backgroundTimerGameObject: {fileID: 0}
+  arrowToInstanciate: {fileID: 156372, guid: 80f4e2c3565c3424a827ba882d4d67ec, type: 2}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

@@ -36,25 +36,26 @@ public class GridHouseUI : MonoBehaviour {
 	}
 
 	public void SetState(int newState ) {
-		
+		TextMesh numberText = transform.Find("Number").GetComponent<TextMesh>();
 		SpriteRenderer background = transform.Find("SquareBackground").GetComponent<SpriteRenderer>();
+		numberText.color = new Color32(172, 172, 172, 255);
 
 		switch(newState) {
 		case Constants.HOUSE_STATE_ACTIVE:
 			background.sprite = backgroundActive;
+			numberText.color = new Color32(38, 166, 154, 255);
 			break;
 		case Constants.HOUSE_STATE_NORMAL:
 			background.sprite = backgroundNormal;
 			break;
 		case Constants.HOUSE_STATE_POSSIBLE:
-			
+			numberText.color = new Color32(38, 166, 154, 255);
 			background.sprite = backgroundPossible;
 			break;
 		case Constants.HOUSE_STATE_MISSING:
+			numberText.color = new Color32(240, 98, 146, 255);
 			background.sprite = backgroundMissing;
 			break;
-		case Constants.HOUSE_STATE_TWO_STEPS_BACK:
-			background.sprite = backgroundTwoStepsBack;
 		break;
 		}
 

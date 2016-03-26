@@ -36,10 +36,6 @@ public class GridHouse
 		gridHouseUIComponent.SetState(newState);
 	}
 
-	public void SetActiveHouse(List<int> possibleDirections) {
-		SetActiveHouse();
-	}
-
 	public void SetActiveHouse() {
 		number--;
 		state = Constants.HOUSE_STATE_ACTIVE;

@@ -14,6 +14,7 @@ public class BoardManagerTimeAttack : MonoBehaviour
 	public GameObject gamePausedPopupObject;
 	public GameObject tapToRestartGameObject;
 	public GameObject backgroundTimerGameObject;
+	public GameObject arrowToInstanciate;
 
 	private int levelsCompleted = 0;
 	private float currentTime = 0.0f;
@@ -23,11 +24,16 @@ public class BoardManagerTimeAttack : MonoBehaviour
 	private bool canInteractWithBoard = true;
 	private bool hasRestarted = false;
 
-	private GridHouse twoStepsBackHouse;
-
 	private LevelGrid currentLevelGrid;
 
 	private Transform boardHolder;                                  //A variable to store a reference to the transform of our Board object.
+
+	private GameObject arrowFrom;
+	private GameObject arrowToTop;
+	private GameObject arrowToBottom;
+	private GameObject arrowToLeft;
+	private GameObject arrowToRight;
+
 
 	void Start() {
 
@@ -43,6 +49,25 @@ public class BoardManagerTimeAttack : MonoBehaviour
 
 		GameObject.Find("BestScore").GetComponent<TextMesh>().text = bestScoreInTimeAttack.ToString();
 
+
+		//Instantiate the GameObject instance using the prefab chosen for toInstantiate at the Vector3 corresponding to current grid position in loop, cast it to GameObject.
+		arrowFrom = Instantiate (arrowToInstanciate, new Vector3 (-2, 0, 0f), Quaternion.identity) as GameObject;
+		arrowFrom.transform.SetParent(boardHolder);
+		arrowFrom.GetComponent<SpriteRenderer>().color = new Color32(76, 73, 88, 255);
+
+		arrowToTop = Instantiate (arrowToInstanciate, new Vector3 (2, 0, 0f), new Quaternion(0, 0, 90, 90)) as GameObject;
+		arrowToTop.transform.SetParent(boardHolder);
+
+		arrowToBottom = Instantiate (arrowToInstanciate, new Vector3 (3, 0, 0f), new Quaternion(0f, 0f, -90, 90)) as GameObject;
+		arrowToBottom.transform.SetParent(boardHolder);
+
+		arrowToLeft = Instantiate (arrowToInstanciate, new Vector3 (4, 0, 0f), new Quaternion(0, 0, 180, 0)) as GameObject;
+		arrowToLeft.transform.SetParent(boardHolder);
+
+		arrowToRight = Instantiate (arrowToInstanciate, new Vector3 (5, 0, 0f), Quaternion.identity) as GameObject;
+		arrowToRight.transform.SetParent(boardHolder);
+
+		HideAllArrows();
 		NewGame();
 	}
 
@@ -94,10 +119,12 @@ public class BoardManagerTimeAttack : MonoBehaviour
 							List<GridHouse> clickedHouseSiblings = currentLevelGrid.GetSiblings(clickedHouse);
 
 							// Set all houses temporarily to normal state.
-							// This can cause problems later with animations.
+							// TODO This can cause problems later with animations.
 							SetAllHousesToState(currentLevelGrid.GetAllHouses(), Constants.HOUSE_STATE_NORMAL);
 
 							List<int> possibleDirections = new List<int>();
+
+							HideAllArrows();
 
 							// All siblings from the clicked house are now possible houses to click
 							foreach(GridHouse sibling in clickedHouseSiblings) {
@@ -108,29 +135,19 @@ public class BoardManagerTimeAttack : MonoBehaviour
 
 										sibling.SetState(Constants.HOUSE_STATE_POSSIBLE);
 										possibleDirections.Add(GetDirectionToSibling(clickedHouse, sibling));
+
+										ShowArrows(clickedHouse.position, GetDirectionToSibling(clickedHouse, sibling));
 									}
 								}
 							}
 								
 							// The clicked house is now the active house
-							clickedHouse.SetActiveHouse(possibleDirections);
+							clickedHouse.SetActiveHouse();
 
 							if( activeHouse != null ) {
+								ShowFromArrow(clickedHouse, activeHouse);
 								activeHouse.UnsetActive();
 							}
-
-							// The previous active house is now a normal house
-							// At the beginning we dont have an active house
-							/*
-							if( twoStepsBackHouse != null ) {
-								twoStepsBackHouse.UnsetActive();
-							}
-
-							if( activeHouse != null ) {
-								activeHouse.SetState(Constants.HOUSE_STATE_TWO_STEPS_BACK);
-								twoStepsBackHouse = activeHouse;
-							}*/
-
 
 							// No more places to go
 							if(possibleDirections.Count == 0) {
@@ -148,8 +165,8 @@ public class BoardManagerTimeAttack : MonoBehaviour
 
 								// Lost
 								} else {
-									tapToRestartGameObject.SetActive(true);
 									canInteractWithBoard = false;
+									tapToRestartGameObject.SetActive(true);
 								}
 							}
 
@@ -161,6 +178,57 @@ public class BoardManagerTimeAttack : MonoBehaviour
 					}
 				}
 			}
+		}
+	}
+
+	// just move arrow outside screen
+	// TODO find a better way without setActive
+	private void HideAllArrows() {
+		arrowFrom.transform.localPosition = new Vector3(50,10,0);
+		arrowToTop.transform.localPosition = new Vector3(50,10,0);
+		arrowToBottom.transform.localPosition = new Vector3(50,10,0);
+		arrowToRight.transform.localPosition = new Vector3(50,10,0);
+		arrowToLeft.transform.localPosition = new Vector3(50,10,0);
+	}
+
+	private void ShowFromArrow(GridHouse fromP, GridHouse toP ) {
+		int direction = GetDirectionToSibling(fromP, toP);
+
+		switch(direction) {
+		case Constants.TOP:
+			arrowFrom.transform.localPosition = new Vector3(fromP.position.column * 2.5f , fromP.position.row * 2.5f + 1.24f, 0);
+			arrowFrom.transform.rotation = Quaternion.Euler(0,0,-90);
+			break;
+		case Constants.BOTTOM:
+			arrowFrom.transform.localPosition = new Vector3(fromP.position.column * 2.5f , fromP.position.row * 2.5f - 1.24f, 0);
+			arrowFrom.transform.rotation = Quaternion.Euler(0,0,90);
+			break;
+		case Constants.RIGHT:
+			arrowFrom.transform.localPosition = new Vector3(fromP.position.column * 2.5f + 1.24f, fromP.position.row * 2.5f, 0);
+			arrowFrom.transform.rotation = Quaternion.Euler(0,0,180);
+			break;
+		case Constants.LEFT:
+			arrowFrom.transform.localPosition = new Vector3(fromP.position.column * 2.5f - 1.24f, fromP.position.row * 2.5f, 0);
+			arrowFrom.transform.rotation = Quaternion.Euler(0,0,0);
+			break;
+		}
+	}
+
+	private void ShowArrows(GridPosition fromPosition, int direction) {
+
+		switch(direction) {
+		case Constants.TOP:
+			arrowToTop.transform.localPosition = new Vector3(fromPosition.column * 2.5f , fromPosition.row * 2.5f + 1.24f, 0);
+			break;
+		case Constants.BOTTOM:
+			arrowToBottom.transform.localPosition = new Vector3(fromPosition.column * 2.5f , fromPosition.row * 2.5f - 1.24f, 0);
+			break;
+		case Constants.RIGHT:
+			arrowToRight.transform.localPosition = new Vector3(fromPosition.column * 2.5f + 1.24f, fromPosition.row * 2.5f, 0);
+			break;
+		case Constants.LEFT:
+			arrowToLeft.transform.localPosition = new Vector3(fromPosition.column * 2.5f - 1.24f, fromPosition.row * 2.5f, 0);
+			break;
 		}
 	}
 
@@ -204,8 +272,6 @@ public class BoardManagerTimeAttack : MonoBehaviour
 	}
 
 	public void RestartGame() {
-
-		twoStepsBackHouse = null;
 
 		if(!playing) {
 			return;
@@ -332,8 +398,6 @@ public class BoardManagerTimeAttack : MonoBehaviour
 		int numberOfSteps;
 
 		hasRestarted = false;
-
-		twoStepsBackHouse = null;
 
 		// Clear previous level
 		if(currentLevelGrid != null ) {

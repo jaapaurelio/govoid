@@ -95,7 +95,7 @@ public class BoardManagerInfinity : MonoBehaviour
 							});
 
 							// The clicked house is now the active house
-							clickedHouse.SetActiveHouse(possibleDirections);
+							clickedHouse.SetActiveHouse();
 
 							// The previous active house is now a normal house
 							// At the beginning we dont have an active house
