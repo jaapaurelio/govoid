@@ -101,7 +101,11 @@ public class BoardManager : MonoBehaviour {
 	}
 
 	protected virtual void NewLevel() {
-		
+
+		hasRestarted = false;
+
+		HideAllArrows();
+
 		foreach(GridHouse house in currentLevelGrid.GetAllHouses() ) {
 
 			//Instantiate the GameObject instance using the prefab chosen for toInstantiate at the Vector3 corresponding to current grid position in loop, cast it to GameObject.
@@ -183,6 +187,99 @@ public class BoardManager : MonoBehaviour {
 	protected IEnumerator CanInteractWithBoardAgain() {
 		yield return new WaitForSeconds(0.1f);
 		canInteractWithBoard = true;
+	}
+
+	protected IEnumerator ShowTapToRestart() {
+
+		yield return new WaitForSeconds(0.1f);
+		tapToRestartGameObject.SetActive(true);
+
+	}
+
+
+	protected void ShowArrows(GridPosition fromPosition, int direction) {
+
+		switch(direction) {
+		case Constants.TOP:
+			arrowToTop.transform.localPosition = new Vector3(fromPosition.column * 2.5f , fromPosition.row * 2.5f + 1.24f, 0);
+			break;
+		case Constants.BOTTOM:
+			arrowToBottom.transform.localPosition = new Vector3(fromPosition.column * 2.5f , fromPosition.row * 2.5f - 1.24f, 0);
+			break;
+		case Constants.RIGHT:
+			arrowToRight.transform.localPosition = new Vector3(fromPosition.column * 2.5f + 1.24f, fromPosition.row * 2.5f, 0);
+			break;
+		case Constants.LEFT:
+			arrowToLeft.transform.localPosition = new Vector3(fromPosition.column * 2.5f - 1.24f, fromPosition.row * 2.5f, 0);
+			break;
+		}
+	}
+
+	protected void ShowFromArrow(GridHouse fromP, GridHouse toP ) {
+		int direction = GetDirectionToSibling(fromP, toP);
+
+		switch(direction) {
+		case Constants.TOP:
+			arrowFrom.transform.localPosition = new Vector3(fromP.position.column * 2.5f , fromP.position.row * 2.5f + 1.24f, 0);
+			arrowFrom.transform.rotation = Quaternion.Euler(0,0,-90);
+			break;
+		case Constants.BOTTOM:
+			arrowFrom.transform.localPosition = new Vector3(fromP.position.column * 2.5f , fromP.position.row * 2.5f - 1.24f, 0);
+			arrowFrom.transform.rotation = Quaternion.Euler(0,0,90);
+			break;
+		case Constants.RIGHT:
+			arrowFrom.transform.localPosition = new Vector3(fromP.position.column * 2.5f + 1.24f, fromP.position.row * 2.5f, 0);
+			arrowFrom.transform.rotation = Quaternion.Euler(0,0,180);
+			break;
+		case Constants.LEFT:
+			arrowFrom.transform.localPosition = new Vector3(fromP.position.column * 2.5f - 1.24f, fromP.position.row * 2.5f, 0);
+			arrowFrom.transform.rotation = Quaternion.Euler(0,0,0);
+			break;
+		}
+	}
+
+
+	protected int GetDirectionToSibling(GridHouse fromHouse, GridHouse toHouse) {
+		int possibleDirections = -1;
+
+		if(fromHouse.position.column < toHouse.position.column) {
+			possibleDirections = Constants.RIGHT;
+		}
+
+		if(fromHouse.position.column > toHouse.position.column) {
+			possibleDirections = Constants.LEFT;
+		}
+
+		if(fromHouse.position.row < toHouse.position.row) {
+			possibleDirections = Constants.TOP;
+		}
+
+		if(fromHouse.position.row > toHouse.position.row) {
+			possibleDirections = Constants.BOTTOM;
+		}
+
+		return possibleDirections;
+
+	}
+
+
+	protected GridHouse GetActiveHouse(List<GridHouse> gridHouses) {
+		foreach(GridHouse house in gridHouses) {
+			if(house.State == Constants.HOUSE_STATE_ACTIVE) {
+				return house;
+			}
+		}
+
+		return null;
+	}
+
+	protected void DestroyCurrentLevel(){
+		// Clear previous level
+		if(currentLevelGrid != null ) {
+			foreach(GridHouse house in currentLevelGrid.GetAllHouses() ) {
+				house.Destroy();
+			}
+		}
 	}
 
 }
