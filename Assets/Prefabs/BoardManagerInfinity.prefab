@@ -45,6 +45,7 @@ MonoBehaviour:
   gameOverPopupObject: {fileID: 197386, guid: aa251d6af2d0f4e71b9c6c27cf54a15c, type: 2}
   gamePausedPopupObject: {fileID: 0}
   houseToInstantiate: {fileID: 195940, guid: 7354aa6812163479189408f6348aec52, type: 2}
+  pauseButton: {fileID: 0}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

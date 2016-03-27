@@ -4,7 +4,7 @@ using System.Collections;
 public class GamePausedPopup : MonoBehaviour {
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 		transform.position = new Vector3(0, 0, -2);
 	}
 		

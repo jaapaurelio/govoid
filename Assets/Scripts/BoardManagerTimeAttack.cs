@@ -8,6 +8,7 @@ public class BoardManagerTimeAttack : BoardManager
 {
 
 	public GameObject backgroundTimerGameObject;
+	public GameObject gameOverPopupObject;
 
 	private int levelsCompleted = 0;
 	private float currentTime = 0.0f;
@@ -67,6 +68,8 @@ public class BoardManagerTimeAttack : BoardManager
 		
 		base.NewGame();
 
+		gameOverPopupObject.SendMessage("Hide");
+
 		levelsCompleted = 0;
 
 		googleAnalytics.LogEvent("TimeAttackMode", "StartNewGame", "", 0);
@@ -110,8 +113,11 @@ public class BoardManagerTimeAttack : BoardManager
 
 	}
 
-	protected override void GameOver() {
-		base.GameOver();
+	private void GameOver() {
+
+		playing = false;
+		tapToRestartGameObject.SetActive(false);
+
 
 		int bestScoreIn60s = PlayerPrefs.GetInt("BestScoreInTimeAttack");
 

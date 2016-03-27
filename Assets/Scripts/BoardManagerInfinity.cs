@@ -11,7 +11,14 @@ public class BoardManagerInfinity : BoardManager
 	private int levelsCompleted = 0;
 
 	public override void Start(){
+		// To be possible open game in any scene
+		if(GameManager.instance == null) {
+			SceneManager.LoadScene("MainMenuScene");
+			return;
+		}
+
 		base.Start();
+
 
 		googleAnalytics.LogScreen("InfinityMode");
 

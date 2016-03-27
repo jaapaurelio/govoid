@@ -49,7 +49,7 @@ GameObject:
   - 102: {fileID: 10229754}
   - 114: {fileID: 11483030}
   - 61: {fileID: 6171450}
-  - 114: {fileID: 11406106}
+  - 114: {fileID: 11459116}
   m_Layer: 0
   m_Name: PausedClosePopup
   m_TagString: Untagged
@@ -84,6 +84,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 402652}
   - 114: {fileID: 11420846}
+  - 114: {fileID: 11401946}
   m_Layer: 0
   m_Name: GamePausedPopupInfinity
   m_TagString: Untagged
@@ -103,7 +104,7 @@ GameObject:
   - 102: {fileID: 10228326}
   - 114: {fileID: 11480884}
   - 61: {fileID: 6119090}
-  - 114: {fileID: 11410144}
+  - 114: {fileID: 11423166}
   m_Layer: 0
   m_Name: PausedNewGame
   m_TagString: Untagged
@@ -434,26 +435,15 @@ TextMesh:
   m_Color:
     serializedVersion: 2
     rgba: 4294967295
---- !u!114 &11406106
+--- !u!114 &11401946
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 161224}
+  m_GameObject: {fileID: 194784}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ccb7ae9e50658462faedd011c6f69504, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &11410144
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 196624}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f306d3e9aafc54a9dac80e386ff0cc35, type: 3}
+  m_Script: {fileID: 11500000, guid: 668cf12c4209048b782a32f4b0e7bdf5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &11410234
@@ -491,6 +481,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 668cf12c4209048b782a32f4b0e7bdf5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &11423166
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 196624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3edef8695b1f445d48f096a8bf065c44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11442056
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -504,6 +505,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sortingLayerName: GamePopup
   sortingOrder: 2
+--- !u!114 &11459116
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 161224}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 900f873bed9aa4d7cb8dcf82f3657f43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11480884
 MonoBehaviour:
   m_ObjectHideFlags: 1

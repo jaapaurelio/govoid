@@ -7,7 +7,6 @@ public class BoardManager : MonoBehaviour {
 	public GoogleAnalyticsV3 googleAnalytics;
 	public GameObject tapToRestartGameObject;
 	public GameObject arrowToInstanciate;
-	public GameObject gameOverPopupObject;
 	public GameObject gamePausedPopupObject;
 	public GameObject houseToInstantiate;
 	public GameObject pauseButton;
@@ -26,6 +25,7 @@ public class BoardManager : MonoBehaviour {
 	protected bool canChooseNextHouse = true;
 
 	public virtual void Start() {
+
 		Debug.Log("Board manager Start");
 		BoardSetup();
 
@@ -52,6 +52,22 @@ public class BoardManager : MonoBehaviour {
 		NewGameBtn.OnClicked += NewGame;
 		RestartBtn.OnClicked += RestartGame;
 		TapToRestart.OnClicked += RestartGame;
+		Debug.Log("On START");
+	}
+
+	void OnEnable()
+	{
+		Debug.Log("On ENABLE");
+	}
+
+	void OnDisable()
+	{
+		Debug.Log("DISABLEEEEEEEEEEEEE");
+		PauseButton.OnClicked -= PauseGame;
+		ClosePausePopupButton.OnClicked -= ClosePausePopup;
+		NewGameBtn.OnClicked -= NewGame;
+		RestartBtn.OnClicked -= RestartGame;
+		TapToRestart.OnClicked -= RestartGame;
 	}
 
 	void BoardSetup ()
@@ -67,7 +83,6 @@ public class BoardManager : MonoBehaviour {
 
 		Debug.Log("new game dentro");
 
-		gameOverPopupObject.SendMessage("Hide");
 		gamePausedPopupObject.SendMessage("Hide");
 		tapToRestartGameObject.SetActive(false);
 		boardHolder.gameObject.SetActive(true);
@@ -242,20 +257,7 @@ public class BoardManager : MonoBehaviour {
 		canChooseNextHouse = false;
 	}
 
-	protected virtual void GameOver() {
-		playing = false;
-		tapToRestartGameObject.SetActive(false);
-	}
-
-	public void Teste() {
-		Debug.Log("chegou teste");
-	}
-
 	public virtual void PauseGame() {
-		Debug.Log("chama o show");
-		Debug.Log(gamePausedPopupObject);
-		gameObject.SendMessage("Teste");
-
 		gamePausedPopupObject.SendMessage("Show", SendMessageOptions.RequireReceiver);
 		boardHolder.gameObject.SetActive(false);
 		playing = false;
