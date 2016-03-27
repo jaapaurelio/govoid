@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class TapToRestart : ButtonText {
+public class ClosePausePopupButton : ButtonText {
 	public delegate void ClickAction();
 	public static event ClickAction OnClicked;
 

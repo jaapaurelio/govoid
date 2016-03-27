@@ -3,12 +3,12 @@ using System.Collections;
 
 public class GameOverPopup : MonoBehaviour {
 
-	void Start(){
+	void Awake(){
 		transform.position = new Vector3(0, 0, -2);
 	}
 
 	public void Hide() {
-		gameObject.SetActive(false);
+		transform.position = new Vector3(90, 0, -2);
 	}
 
 	public void Show(int score, bool isHighscore) {
@@ -21,6 +21,6 @@ public class GameOverPopup : MonoBehaviour {
 			transform.Find("GameOverNewHighscore").gameObject.SetActive(false);
 		} 
 
-		gameObject.SetActive(true);
+		transform.position = new Vector3(0, 0, -2);
 	}
 }

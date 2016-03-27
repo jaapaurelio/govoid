@@ -40,9 +40,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   googleAnalytics: {fileID: 0}
-  square: {fileID: 195940, guid: 7354aa6812163479189408f6348aec52, type: 2}
-  gamePausedPopupObject: {fileID: 0}
   tapToRestartGameObject: {fileID: 0}
+  arrowToInstanciate: {fileID: 156372, guid: 80f4e2c3565c3424a827ba882d4d67ec, type: 2}
+  gameOverPopupObject: {fileID: 197386, guid: aa251d6af2d0f4e71b9c6c27cf54a15c, type: 2}
+  gamePausedPopupObject: {fileID: 0}
+  houseToInstantiate: {fileID: 195940, guid: 7354aa6812163479189408f6348aec52, type: 2}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

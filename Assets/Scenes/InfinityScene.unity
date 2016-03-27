@@ -172,7 +172,8 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 11476292, guid: c18ea370bdfbb40e3a2d78791ebee646, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: c18ea370bdfbb40e3a2d78791ebee646, type: 2}
   m_IsPrefabParent: 0
 --- !u!1001 &258853539
@@ -219,13 +220,13 @@ Prefab:
       value: 
       objectReference: {fileID: 20103837}
     - target: {fileID: 11461590, guid: 309076af2c64b4c4eb51159d83abc763, type: 2}
-      propertyPath: gamePausedPopupObject
-      value: 
-      objectReference: {fileID: 1142290884}
-    - target: {fileID: 11461590, guid: 309076af2c64b4c4eb51159d83abc763, type: 2}
       propertyPath: tapToRestartGameObject
       value: 
       objectReference: {fileID: 327433954}
+    - target: {fileID: 11461590, guid: 309076af2c64b4c4eb51159d83abc763, type: 2}
+      propertyPath: gamePausedPopupObject
+      value: 
+      objectReference: {fileID: 1142290884}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 309076af2c64b4c4eb51159d83abc763, type: 2}
   m_IsPrefabParent: 0
@@ -455,6 +456,17 @@ Prefab:
 GameObject:
   m_PrefabParentObject: {fileID: 194784, guid: c18ea370bdfbb40e3a2d78791ebee646, type: 2}
   m_PrefabInternal: {fileID: 250274719}
+--- !u!114 &1142290885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1142290884}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 668cf12c4209048b782a32f4b0e7bdf5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1509338307
 Prefab:
   m_ObjectHideFlags: 0

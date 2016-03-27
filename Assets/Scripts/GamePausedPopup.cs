@@ -7,13 +7,13 @@ public class GamePausedPopup : MonoBehaviour {
 	void Start () {
 		transform.position = new Vector3(0, 0, -2);
 	}
-
+		
 	public void Show() {
-		gameObject.SetActive(true);
+		transform.position = new Vector3(0,0,-2);
 	}
 
 	public void Hide(){
-		gameObject.SetActive(false);
+		transform.position = new Vector3(90,0,-2);
 	}
 
 }

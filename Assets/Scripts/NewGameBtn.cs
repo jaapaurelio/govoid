@@ -2,8 +2,12 @@
 using System.Collections;
 
 public class NewGameBtn : ButtonText {
+	public delegate void ClickAction();
+	public static event ClickAction OnClicked;
 
 	override public void OnTouch() {
-		GameObject.Find("BoardManagerTimeAttack").GetComponent<BoardManagerTimeAttack>().NewGame();
+		if(OnClicked != null){
+			OnClicked();
+		}
 	}
 }

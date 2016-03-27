@@ -23,6 +23,7 @@ public class BoardManagerTimeAttack : BoardManager
 
 		GameObject.Find("BestScore").GetComponent<TextMesh>().text = bestScoreInTimeAttack.ToString();
 
+
 		NewGame();
 	}
 
@@ -46,7 +47,10 @@ public class BoardManagerTimeAttack : BoardManager
 		}
 	}
 
-
+	protected override void LostLevel() {
+		base.LostLevel();
+		googleAnalytics.LogEvent("TimeAttackMode", "NoExitHouse", "", 0);
+	}
 
 	public override void RestartGame() {
 		base.RestartGame();
@@ -75,9 +79,9 @@ public class BoardManagerTimeAttack : BoardManager
 		NewLevel();
 	}
 
-	protected override void NextLevel() {
+	protected override void WonLevel() {
 
-		base.NextLevel();
+		base.WonLevel();
 
 		levelsCompleted++;
 
@@ -186,5 +190,10 @@ public class BoardManagerTimeAttack : BoardManager
 		base.ClosePausePopup();
 		googleAnalytics.LogEvent("TimeAttackMode", "UnPause", "", 0);
 	}
+
+
+
+	// Connect to gameobjects
+
 
 }

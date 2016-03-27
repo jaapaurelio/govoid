@@ -10,6 +10,7 @@ public class BoardManager : MonoBehaviour {
 	public GameObject gameOverPopupObject;
 	public GameObject gamePausedPopupObject;
 	public GameObject houseToInstantiate;
+	public GameObject pauseButton;
 
 	protected bool playing = false;
 
@@ -45,6 +46,12 @@ public class BoardManager : MonoBehaviour {
 
 		arrowToRight = Instantiate (arrowToInstanciate, new Vector3 (5, 0, 0f), Quaternion.identity) as GameObject;
 		arrowToRight.transform.SetParent(boardHolder);
+
+		PauseButton.OnClicked += PauseGame;
+		ClosePausePopupButton.OnClicked += ClosePausePopup;
+		NewGameBtn.OnClicked += NewGame;
+		RestartBtn.OnClicked += RestartGame;
+		TapToRestart.OnClicked += RestartGame;
 	}
 
 	void BoardSetup ()
@@ -58,8 +65,10 @@ public class BoardManager : MonoBehaviour {
 
 	public virtual void NewGame() {
 
-		gameOverPopupObject.GetComponent<GameOverPopup>().Hide();
-		gamePausedPopupObject.GetComponent<GamePausedPopup>().Hide();
+		Debug.Log("new game dentro");
+
+		gameOverPopupObject.SendMessage("Hide");
+		gamePausedPopupObject.SendMessage("Hide");
 		tapToRestartGameObject.SetActive(false);
 		boardHolder.gameObject.SetActive(true);
 
@@ -94,12 +103,7 @@ public class BoardManager : MonoBehaviour {
 		AnimateRestart();
 
 	}
-
-	protected virtual void NextLevel() {
-
-		canChooseNextHouse = false;
-	}
-
+		
 	protected virtual void NewLevel() {
 
 		hasRestarted = false;
@@ -210,13 +214,12 @@ public class BoardManager : MonoBehaviour {
 							}
 
 							if(won) {
-								NextLevel();
+								WonLevel();
 
 								// Lost
 							} else {
-								canInteractWithBoard = false;
-								StartCoroutine(ShowTapToRestart());
-								googleAnalytics.LogEvent("TimeAttackMode", "NoExitHouse", "", 0);
+								LostLevel();
+
 							}
 
 						}
@@ -230,19 +233,36 @@ public class BoardManager : MonoBehaviour {
 		}
 	}
 
+	protected virtual void LostLevel() {
+		canInteractWithBoard = false;
+		StartCoroutine(ShowTapToRestart());
+	}
+
+	protected virtual void WonLevel() {
+		canChooseNextHouse = false;
+	}
+
 	protected virtual void GameOver() {
 		playing = false;
 		tapToRestartGameObject.SetActive(false);
 	}
 
+	public void Teste() {
+		Debug.Log("chegou teste");
+	}
+
 	public virtual void PauseGame() {
-		gamePausedPopupObject.GetComponent<GamePausedPopup>().Show();
+		Debug.Log("chama o show");
+		Debug.Log(gamePausedPopupObject);
+		gameObject.SendMessage("Teste");
+
+		gamePausedPopupObject.SendMessage("Show", SendMessageOptions.RequireReceiver);
 		boardHolder.gameObject.SetActive(false);
 		playing = false;
 	}
 
 	public virtual void ClosePausePopup() {
-		gamePausedPopupObject.GetComponent<GamePausedPopup>().Hide();
+		gamePausedPopupObject.SendMessage("Hide");
 		boardHolder.gameObject.SetActive(true);
 		StartCoroutine(CanPlay());
 	}

@@ -85,6 +85,10 @@ NavMeshSettings:
     cellSize: 0.16666667
     manualCellSize: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &60006980 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 171066, guid: 770c924ac8f1b4500bdbcd890e417ff4, type: 2}
+  m_PrefabInternal: {fileID: 765195678}
 --- !u!1001 &122168444
 Prefab:
   m_ObjectHideFlags: 0
@@ -451,6 +455,10 @@ Prefab:
       value: 
       objectReference: {fileID: 2095831404}
     - target: {fileID: 11468986, guid: da1f9946d6e3b4ced8b01cc28dbff22a, type: 2}
+      propertyPath: tapToRestartGameObject
+      value: 
+      objectReference: {fileID: 1483805071}
+    - target: {fileID: 11468986, guid: da1f9946d6e3b4ced8b01cc28dbff22a, type: 2}
       propertyPath: gameOverPopupObject
       value: 
       objectReference: {fileID: 581928950}
@@ -459,9 +467,9 @@ Prefab:
       value: 
       objectReference: {fileID: 1128557229}
     - target: {fileID: 11468986, guid: da1f9946d6e3b4ced8b01cc28dbff22a, type: 2}
-      propertyPath: tapToRestartGameObject
+      propertyPath: pauseButton
       value: 
-      objectReference: {fileID: 1483805071}
+      objectReference: {fileID: 60006980}
     - target: {fileID: 11468986, guid: da1f9946d6e3b4ced8b01cc28dbff22a, type: 2}
       propertyPath: backgroundTimerGameObject
       value: 
@@ -833,10 +841,6 @@ Prefab:
     - target: {fileID: 400000, guid: eb5b47b08880548c795ced5f38c9e001, type: 2}
       propertyPath: m_RootOrder
       value: 13
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400000, guid: eb5b47b08880548c795ced5f38c9e001, type: 2}
-      propertyPath: bundleVersion
-      value: 1.0.10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: eb5b47b08880548c795ced5f38c9e001, type: 2}

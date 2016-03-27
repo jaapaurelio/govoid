@@ -2,9 +2,14 @@
 using System.Collections;
 
 public class PauseButton : MonoBehaviour {
+	public delegate void ClickAction();
+	public static event ClickAction OnClicked;
 
 	public void OnTouch_TM() {
-		GameObject.Find("BoardManagerTimeAttack").GetComponent<BoardManagerTimeAttack>().PauseGame();
+		
+		if(OnClicked != null){
+			OnClicked();
+		}
 	}
 
 }
