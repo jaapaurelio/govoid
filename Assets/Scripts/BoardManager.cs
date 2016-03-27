@@ -132,6 +132,18 @@ public class BoardManager : MonoBehaviour {
 
 	}
 
+	public virtual void PauseGame() {
+		gamePausedPopupObject.GetComponent<GamePausedPopup>().Show();
+		boardHolder.gameObject.SetActive(false);
+		playing = false;
+	}
+
+	public virtual void ClosePausePopup() {
+		gamePausedPopupObject.GetComponent<GamePausedPopup>().Hide();
+		boardHolder.gameObject.SetActive(true);
+		StartCoroutine(CanPlay());
+	}
+
 	protected void SetAllHousesToState(List<GridHouse> gridHouses, int state) {
 		foreach(GridHouse house in gridHouses) {
 			house.SetState(state);

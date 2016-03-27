@@ -353,20 +353,14 @@ public class BoardManagerTimeAttack : BoardManager
 
 
 
-	public void PauseGame() {
-		gamePausedPopupObject.GetComponent<GamePausedPopup>().Show();
-
-		boardHolder.gameObject.SetActive(false);
-		playing = false;
+	public override void PauseGame() {
+		base.PauseGame();
 
 		googleAnalytics.LogEvent("TimeAttackMode", "Pause", "", 0);
 	}
 		
-	public void ClosePausePopup() {
-		gamePausedPopupObject.GetComponent<GamePausedPopup>().Hide();
-		boardHolder.gameObject.SetActive(true);
-		StartCoroutine(CanPlay());
-
+	public override void ClosePausePopup() {
+		base.ClosePausePopup();
 		googleAnalytics.LogEvent("TimeAttackMode", "UnPause", "", 0);
 	}
 
