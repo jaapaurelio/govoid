@@ -9,7 +9,12 @@ public class BoardManager : MonoBehaviour {
 	public GameObject arrowToInstanciate;
 	public GameObject gamePausedPopupObject;
 	public GameObject houseToInstantiate;
-	public GameObject pauseButton;
+
+	// Sounds
+	public AudioSource houseClickedSound;
+	public AudioSource levelPassedSound;
+	public AudioSource noExitSound;
+	public AudioSource noPossibleClick;
 
 	protected bool playing = false;
 
@@ -23,6 +28,11 @@ public class BoardManager : MonoBehaviour {
 	protected bool hasRestarted = false;
 	protected LevelGrid currentLevelGrid;
 	protected bool canChooseNextHouse = true;
+
+	private List<int> possibleDirections;
+	private List<GridHouse> possibleHouses;
+
+
 
 	public virtual void Start() {
 
@@ -52,17 +62,10 @@ public class BoardManager : MonoBehaviour {
 		NewGameBtn.OnClicked += NewGame;
 		RestartBtn.OnClicked += RestartGame;
 		TapToRestart.OnClicked += RestartGame;
-		Debug.Log("On START");
-	}
-
-	void OnEnable()
-	{
-		Debug.Log("On ENABLE");
 	}
 
 	void OnDisable()
 	{
-		Debug.Log("DISABLEEEEEEEEEEEEE");
 		PauseButton.OnClicked -= PauseGame;
 		ClosePausePopupButton.OnClicked -= ClosePausePopup;
 		NewGameBtn.OnClicked -= NewGame;
@@ -77,7 +80,6 @@ public class BoardManager : MonoBehaviour {
 		boardHolder.position = new Vector3(-5.0f, -8.0f, 0.0f);
 
 	}
-
 
 	public virtual void NewGame() {
 
@@ -177,6 +179,8 @@ public class BoardManager : MonoBehaviour {
 					// User can click in this house
 					if( clickedHouse.State == Constants.HOUSE_STATE_POSSIBLE ) {
 
+						houseClickedSound.Play();
+
 						GridHouse activeHouse = GetActiveHouse(currentLevelGrid.GetAllHouses());
 
 						clickedHouse.gridHouseUIComponent.anim.Play("AnimateActive");
@@ -187,7 +191,8 @@ public class BoardManager : MonoBehaviour {
 						// TODO This can cause problems later with animations.
 						SetAllHousesToState(currentLevelGrid.GetAllHouses(), Constants.HOUSE_STATE_NORMAL);
 
-						List<int> possibleDirections = new List<int>();
+						possibleDirections = new List<int>();
+						possibleHouses = new List<GridHouse>();
 
 						HideAllArrows();
 
@@ -200,7 +205,7 @@ public class BoardManager : MonoBehaviour {
 
 									sibling.SetState(Constants.HOUSE_STATE_POSSIBLE);
 									possibleDirections.Add(GetDirectionToSibling(clickedHouse, sibling));
-
+									possibleHouses.Add(sibling);
 									sibling.gridHouseUIComponent.anim.Play("AnimatePossible");
 									ShowArrows(clickedHouse.position, GetDirectionToSibling(clickedHouse, sibling));
 								}
@@ -242,18 +247,31 @@ public class BoardManager : MonoBehaviour {
 						// no possible house. player must release is finger
 					} else if(clickedHouse.State == Constants.HOUSE_STATE_NORMAL){
 						canChooseNextHouse = false;
+						noPossibleClick.Play();
+						AnimatePossibleHouses();
+
 					}
 				}
 			}
 		}
 	}
 
+	private void AnimatePossibleHouses(){
+		foreach(GridHouse house in possibleHouses) {
+			house.gridHouseUIComponent.anim.Play("AnimatePossible");
+		}
+	}
+
 	protected virtual void LostLevel() {
+
+		noExitSound.Play();
 		canInteractWithBoard = false;
 		StartCoroutine(ShowTapToRestart());
 	}
 
 	protected virtual void WonLevel() {
+
+		levelPassedSound.Play();
 		canChooseNextHouse = false;
 	}
 
