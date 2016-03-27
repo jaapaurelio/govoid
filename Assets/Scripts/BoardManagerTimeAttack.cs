@@ -7,14 +7,10 @@ using Random = UnityEngine.Random;
 public class BoardManagerTimeAttack : BoardManager
 {
 
-	public GameObject houseToInstantiate;
-
 	public GameObject backgroundTimerGameObject;
 
 	private int levelsCompleted = 0;
 	private float currentTime = 0.0f;
-
-	private bool canChooseNextHouse = true;
 
 	public override void Start(){
 		base.Start();
@@ -211,12 +207,6 @@ public class BoardManagerTimeAttack : BoardManager
 
 	}
 
-	private void SetAllHousesToState(List<GridHouse> gridHouses, int state) {
-		foreach(GridHouse house in gridHouses) {
-			house.SetState(state);
-		}
-	}
-
 	private GridHouse GetActiveHouse(List<GridHouse> gridHouses) {
 		foreach(GridHouse house in gridHouses) {
 			if(house.State == Constants.HOUSE_STATE_ACTIVE) {
@@ -254,8 +244,10 @@ public class BoardManagerTimeAttack : BoardManager
 		NewLevel();
 	}
 
-	private void NextLevel() {
-		
+	protected override void NextLevel() {
+
+		base.NextLevel();
+
 		levelsCompleted++;
 
 		if(hasRestarted) {
@@ -269,9 +261,7 @@ public class BoardManagerTimeAttack : BoardManager
 		}
 
 		GameObject.Find("CurrentScore").GetComponent<TextMesh>().text = levelsCompleted.ToString();
-
-		canChooseNextHouse = false;
-
+		
 		NewLevel();
 	}
 
@@ -311,7 +301,7 @@ public class BoardManagerTimeAttack : BoardManager
 
 	}
 
-	private void NewLevel() {
+	protected override void NewLevel() {
 
 		int columns;                                         //Number of columns in our game board.
 		int rows;                                            //Number of rows in our game board.
@@ -358,41 +348,10 @@ public class BoardManagerTimeAttack : BoardManager
 
 		currentLevelGrid = levelGenerator.CreateLevel(columns, rows, numberOfSteps);
 
-		foreach(GridHouse house in currentLevelGrid.GetAllHouses() ) {
-
-			//Instantiate the GameObject instance using the prefab chosen for toInstantiate at the Vector3 corresponding to current grid position in loop, cast it to GameObject.
-			GameObject gridHouseObject =
-				Instantiate (houseToInstantiate, new Vector3 (0, 0, 0f), Quaternion.identity) as GameObject;
-
-			//Set the parent of our newly instantiated object instance to boardHolder, this is just organizational to avoid cluttering hierarchy.
-			gridHouseObject.transform.SetParent(boardHolder);
-
-			// TODO Find a way to set the sprite position given the grid position
-			gridHouseObject.transform.localPosition = new Vector3 (house.position.column * 2.5f, house.position.row * 2.5f, 0f);
-
-			gridHouseObject.GetComponent<GridHouseUI>().SetNumber(house.Number);
-			gridHouseObject.GetComponent<GridHouseUI>().HouseGridPosition = house.position;
-
-			house.SetGameObject(gridHouseObject);
-
-			// Do not display houses that start as zero
-			if(house.Number == 0) {
-				gridHouseObject.SetActive(false);
-			}
-		}
-
-		AnimateEntrance(currentLevelGrid.GetAllHouses());
-
-		// At the begginig any house can be selected
-		SetAllHousesToState(currentLevelGrid.GetAllHouses(), Constants.HOUSE_STATE_POSSIBLE);
-
+		base.NewLevel();
 	}
 
-	private void AnimateEntrance(List<GridHouse> gridHouses) {
-		foreach(GridHouse house in gridHouses) {
-			house.gridHouseUIComponent.anim.Play("Entrance");
-		}
-	}
+
 
 	public void PauseGame() {
 		gamePausedPopupObject.GetComponent<GamePausedPopup>().Show();
