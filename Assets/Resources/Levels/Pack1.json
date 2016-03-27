@@ -2,77 +2,103 @@
 	"name":"teste",
 	"levels": [
 		{
-			"columns": 3,
-			"rows": 3,
+			"columns": 2,
+			"rows": 2,
+			"messageen": "Go zero in all houses. You can start anywhere",
+			"message": "Coloca todas as casas a zero para ganhares.",
 			"grid": [
-				0,0,0,
-				1,1,0,
-				0,0,0
+				1,1,
+				1,1
 			]
 		},
 		{
 			"columns": 3,
 			"rows": 3,
+			"messageen": "You can only move to neighbour houses",
+			"message": "So te podes mover para casas vizinhas.\nSegue as setas.",
 			"grid": [
-				0,0,0,
 				1,1,1,
-				0,0,0
+				1,1,1,
+				1,1,1
 			]
-		},		{
+		},
+
+		{
 			"columns": 3,
 			"rows": 3,
+			"messageen": "You can start anywhere, but choose the right place",
+			"message": "Podes começar em qualquer casa,\nmas escolhe bem.",
 			"grid": [
-				0,0,1,
-				1,1,1,
-				0,0,0
+				1,0,0,
+				1,0,0,
+				1,1,1
+			]
+		}, {
+			"columns": 4,
+			"rows": 4,
+			"message": "Lembra-te, escolhe bem a primeira casa.",
+			"grid": [
+				0,0,0,0,
+				1,0,1,1,
+				1,0,1,1,
+				1,1,1,0
+			]
+		},{
+			"columns": 3,
+			"rows": 3,
+			"messageen": "You have to pass twice in houses with number 2",
+			"message": "Tens que passar duas vezes\nna casa com o número 2.",
+			"grid": [
+				1,2,1,
+				1,0,1,
+				1,1,1
 			]
 		},
 		{
 			"columns": 3,
 			"rows": 3,
+			"messageen": "Remember, you can start anywhere",
+			"message": "Lembra-te, podes começar\nem qualquer casa.",
 			"grid": [
 				0,1,1,
-				1,1,1,
-				0,0,0
-			]
-		},
-				{
-			"columns": 3,
-			"rows": 3,
-			"grid": [
-				0,0,1,
-				1,1,1,
-				0,1,1
-			]
-		},
-		{
-			"columns": 3,
-			"rows": 3,
-			"grid": [
-				1,1,1,
-				1,1,1,
-				0,0,0
-			]
-		},
-				{
-			"columns": 3,
-			"rows": 3,
-			"grid": [
-				1,1,0,
-				1,1,0,
-				1,0,0
-			]
-		},
-		{
-			"columns": 3,
-			"rows": 3,
-			"grid": [
-				0,0,0,
-				1,1,0,
+				1,2,1,
 				0,1,0
 			]
 		},
 		{
+			"columns": 3,
+			"rows": 3,
+			"message": "Tens que passar três vezes\nna casa com o número 3.",
+			"grid": [
+				1,1,0,
+				1,3,1,
+				0,1,1
+			]
+		},
+		{
+			"columns": 4,
+			"rows": 4,
+			"message": "É isso, começa bem, segue as setas\ne coloca tudo a zero.",
+			"grid": [
+				0,0,0,0,
+				0,1,1,1,
+				1,2,2,1,
+				0,1,1,0
+			]
+		},
+		{
+			"message": "Podes arrastar o dedo\nquando sabes o caminho.",
+			"columns": 3,
+			"rows": 4,
+			"grid": [
+				1,1,1,
+				1,1,1,
+				0,2,2,
+				0,1,1
+			]
+		},
+		{
+			"message": "Bom trabalho.\nAgora é continuar assim!",
 			"columns": 3,
 			"rows": 3,
 			"grid": [

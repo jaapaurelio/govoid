@@ -8,8 +8,6 @@ using UnityEngine.SceneManagement;
 public class BoardManagerInfinity : BoardManager
 {
 
-	private int levelsCompleted = 0;
-
 	public override void Start(){
 		// To be possible open game in any scene
 		if(GameManager.instance == null) {
@@ -21,12 +19,6 @@ public class BoardManagerInfinity : BoardManager
 
 
 		googleAnalytics.LogScreen("InfinityMode");
-
-		int bestScore = PlayerPrefs.GetInt("BestScoreInInfinityMode");
-
-		Debug.Log("Best score: " + bestScore);
-
-		GameObject.Find("BestScore").GetComponent<TextMesh>().text = bestScore.ToString();
 
 		NewGame();
 	}
@@ -54,10 +46,7 @@ public class BoardManagerInfinity : BoardManager
 
 		googleAnalytics.LogEvent("InfinityMode", "StartNewGame", "", 0);
 
-		GameObject.Find("BestScore").GetComponent<TextMesh>().text = PlayerPrefs.GetInt("BestScoreInInfinityMode").ToString();
-
-		levelsCompleted = 0;
-		GameObject.Find("CurrentScore").GetComponent<TextMesh>().text = levelsCompleted.ToString();
+		GameObject.Find("CurrentLevel").GetComponent<TextMesh>().text = GameManager.instance.currentLevelFromPackage.ToString();
 
 
 		NewLevel();
@@ -73,21 +62,12 @@ public class BoardManagerInfinity : BoardManager
 
 		GameManager.instance.playerStatistics.SetLevelDone( GameManager.instance.currentPackageNum, GameManager.instance.currentLevelFromPackage);
 
-		levelsCompleted++;
-
 		GameManager.instance.currentLevelFromPackage++;
 
-		googleAnalytics.LogEvent("InfinityMode", "NextLevel", "Score", levelsCompleted);
+		googleAnalytics.LogEvent("InfinityMode", "NextLevel", "Score", GameManager.instance.currentLevelFromPackage);
 
-		GameObject.Find("CurrentScore").GetComponent<TextMesh>().text = levelsCompleted.ToString();
+		GameObject.Find("CurrentLevel").GetComponent<TextMesh>().text = GameManager.instance.currentLevelFromPackage.ToString();
 
-		if(levelsCompleted > PlayerPrefs.GetInt("BestScoreInInfinityMode")){
-			PlayerPrefs.SetInt("BestScoreInInfinityMode", levelsCompleted);
-			GameObject.Find("BestScore").GetComponent<TextMesh>().text = levelsCompleted.ToString();
-			googleAnalytics.LogEvent("InfinityMode", "NextLevel", "NewBestScore", levelsCompleted);
-
-		}
-			
 		if(GameManager.instance.currentLevelFromPackage <= GameManager.instance.currentPackage.levels.Length){
 			NewLevel();
 		} else {
@@ -107,6 +87,8 @@ public class BoardManagerInfinity : BoardManager
 		Debug.Log("levelNumber"+ levelNumber);
 
 		currentLevelGrid = LevelJsonGenerator.CreateLevel(package, levelNumber);
+
+		GameObject.Find("Messages").GetComponent<TextMesh>().text = currentLevelGrid.message;
 
 		base.NewLevel();
 

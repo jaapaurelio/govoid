@@ -14,7 +14,7 @@ public class SelectLevelManager : MonoBehaviour {
 
 		Pack p = JsonUtility.FromJson<Pack>(bindata.text);
 		GameManager.instance.currentPackage = p;
-		Debug.Log(p.name);
+
 		int numberOfLevels = p.levels.Length;
 
 		List<int> levelsDone =  GameManager.instance.playerStatistics.GetLevelsDoneFromPackage(GameManager.instance.currentPackageNum);

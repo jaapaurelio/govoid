@@ -7,7 +7,13 @@ public static class LevelJsonGenerator  {
 
 		Level level = pack.levels[levelNum - 1];
 
+		Debug.Log("message" + level.message);
+
 		LevelGrid levelGrid = new LevelGrid(level.columns, level.rows); 
+
+		if(level.message != null){
+			levelGrid.message = level.message;
+		}
 
 		Debug.Log("level " + level.columns + " " + level.rows);
 		int row = level.rows - 1;

@@ -8,6 +8,7 @@ public class LevelGrid
 	private int columns;           
 	private int rows; 
 	private List <GridHouse> gridHouses = new List <GridHouse> ();
+	public string message = "";
 
 	//Assignment constructor.
 	public LevelGrid (int _cols, int _rows)

@@ -8,6 +8,7 @@ public struct Level
 
 	public int columns;
 	public int rows;
+	public string message;
 	public int[] grid;
 
 }
