@@ -41,96 +41,8 @@ public class BoardManagerTimeAttack : BoardManager
 				return;
 			}
 
-			if(Input.touchCount > 0 ){
-				var touch = Input.GetTouch(0);
-				if( touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled ) {
-					canChooseNextHouse = true;
-				}
+			base.BoardInteraction();
 
-				if( canInteractWithBoard && canChooseNextHouse && (touch.phase == TouchPhase.Began || touch.phase == TouchPhase.Moved) ) {
-					Vector3 pos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
-
-					RaycastHit2D hit = Physics2D.Raycast(pos, Vector2.zero);
-
-					if (hit.collider && hit.collider.tag == "GridHouse" ) {
-
-						GridHouseUI houseUI = hit.collider.gameObject.GetComponent<GridHouseUI>();
-
-						GridHouse clickedHouse = currentLevelGrid.GetHouseInPosition(houseUI.HouseGridPosition);
-
-						// User can click in this house
-						if( clickedHouse.State == Constants.HOUSE_STATE_POSSIBLE ) {
-
-							GridHouse activeHouse = GetActiveHouse(currentLevelGrid.GetAllHouses());
-
-							clickedHouse.gridHouseUIComponent.anim.Play("AnimateActive");
-
-							List<GridHouse> clickedHouseSiblings = currentLevelGrid.GetSiblings(clickedHouse);
-
-							// Set all houses temporarily to normal state.
-							// TODO This can cause problems later with animations.
-							SetAllHousesToState(currentLevelGrid.GetAllHouses(), Constants.HOUSE_STATE_NORMAL);
-
-							List<int> possibleDirections = new List<int>();
-
-							HideAllArrows();
-
-							// All siblings from the clicked house are now possible houses to click
-							foreach(GridHouse sibling in clickedHouseSiblings) {
-
-								// Except the current active house, player can not go back
-								if( !sibling.Equals(activeHouse)) {
-									if(sibling.Number > 0) {
-
-										sibling.SetState(Constants.HOUSE_STATE_POSSIBLE);
-										possibleDirections.Add(GetDirectionToSibling(clickedHouse, sibling));
-
-										sibling.gridHouseUIComponent.anim.Play("AnimatePossible");
-										ShowArrows(clickedHouse.position, GetDirectionToSibling(clickedHouse, sibling));
-									}
-								}
-							}
-								
-							// The clicked house is now the active house
-							clickedHouse.SetActiveHouse();
-
-							if( activeHouse != null ) {
-								ShowFromArrow(clickedHouse, activeHouse);
-
-								activeHouse.UnsetActive();
-							}
-
-							// No more places to go
-							if(possibleDirections.Count == 0) {
-								bool won = true;
-								// check if we are some missing houses to pass
-								foreach (GridHouse house in currentLevelGrid.GetAllHouses()) {
-									if(house.Number > 0) {
-										won = false;
-										house.SetHouseMissing();
-										house.gridHouseUIComponent.anim.Play("AnimateMissing");
-									}
-								}
-
-								if(won) {
-									NextLevel();
-
-								// Lost
-								} else {
-									canInteractWithBoard = false;
-									StartCoroutine(ShowTapToRestart());
-									googleAnalytics.LogEvent("TimeAttackMode", "NoExitHouse", "", 0);
-								}
-
-							}
-
-						// no possible house. player must release is finger
-						} else if(clickedHouse.State == Constants.HOUSE_STATE_NORMAL){
-							canChooseNextHouse = false;
-						}
-					}
-				}
-			}
 		}
 	}
 
@@ -194,10 +106,8 @@ public class BoardManagerTimeAttack : BoardManager
 
 	}
 
-	private void GameOver() {
-		playing = false;
-
-		tapToRestartGameObject.SetActive(false);
+	protected override void GameOver() {
+		base.GameOver();
 
 		int bestScoreIn60s = PlayerPrefs.GetInt("BestScoreInTimeAttack");
 
@@ -216,7 +126,6 @@ public class BoardManagerTimeAttack : BoardManager
 		} else {
 			gameOverPopupObject.GetComponent<GameOverPopup>().Show(levelsCompleted, false);
 		}
-
 
 	}
 
