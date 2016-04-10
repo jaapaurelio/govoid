@@ -20,8 +20,6 @@ public class BoardManagerTimeAttack : BoardManager
 
 		int bestScoreInTimeAttack = PlayerPrefs.GetInt("BestScoreInTimeAttack");
 
-		Debug.Log("Best score: " + bestScoreInTimeAttack);
-
 		GameObject.Find("BestScore").GetComponent<TextMesh>().text = bestScoreInTimeAttack.ToString();
 
 

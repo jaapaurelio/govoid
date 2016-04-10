@@ -210,7 +210,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 10246352, guid: 5f02a2926091d46c7953847c9d65a023, type: 2}
       propertyPath: m_Text
-      value: Free Play
+      value: Levels
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5f02a2926091d46c7953847c9d65a023, type: 2}
@@ -399,6 +399,10 @@ Prefab:
     - target: {fileID: 400000, guid: eb5b47b08880548c795ced5f38c9e001, type: 2}
       propertyPath: m_RootOrder
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: eb5b47b08880548c795ced5f38c9e001, type: 2}
+      propertyPath: bundleVersion
+      value: 1.0.13
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: eb5b47b08880548c795ced5f38c9e001, type: 2}

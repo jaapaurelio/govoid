@@ -36,7 +36,6 @@ public class BoardManager : MonoBehaviour {
 
 	public virtual void Start() {
 
-		Debug.Log("Board manager Start");
 		BoardSetup();
 
 		tapToRestartGameObject.SetActive(false);
@@ -82,8 +81,6 @@ public class BoardManager : MonoBehaviour {
 	}
 
 	public virtual void NewGame() {
-
-		Debug.Log("new game dentro");
 
 		gamePausedPopupObject.SendMessage("Hide");
 		tapToRestartGameObject.SetActive(false);
