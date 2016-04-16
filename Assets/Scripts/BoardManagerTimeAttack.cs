@@ -9,6 +9,7 @@ public class BoardManagerTimeAttack : BoardManager
 
 	public GameObject backgroundTimerGameObject;
 	public GameObject gameOverPopupObject;
+	public GameObject boostPopupObject;
 
 	private int levelsCompleted = 0;
 	private float currentTime = 0.0f;
@@ -23,7 +24,6 @@ public class BoardManagerTimeAttack : BoardManager
 		int bestScoreInTimeAttack = PlayerPrefs.GetInt("BestScoreInTimeAttack");
 
 		GameObject.Find("BestScore").GetComponent<TextMesh>().text = bestScoreInTimeAttack.ToString();
-
 
 		NewGame();
 	}
@@ -65,19 +65,29 @@ public class BoardManagerTimeAttack : BoardManager
 	}
 
 	public override void NewGame() {
-		
-		base.NewGame();
+
+		base.ResetForNewGame();
+
+		boostPopupObject.GetComponent<BoostPopup>().ShowPopup();
 
 		gameOverPopupObject.SendMessage("Hide");
 
 		levelsCompleted = 0;
 
-		googleAnalytics.LogEvent("TimeAttackMode", "StartNewGame", "", 0);
-
 		GameObject.Find("BestScore").GetComponent<TextMesh>().text = PlayerPrefs.GetInt("BestScoreInTimeAttack").ToString();
 		GameObject.Find("CurrentScore").GetComponent<TextMesh>().text = levelsCompleted.ToString();
 
 		currentTime = Constants.TIME_ATTACK_TIME;
+
+	}
+
+	public void StartNewGame() {
+		base.NewGame();
+
+		boostPopupObject.GetComponent<BoostPopup>().HidePopup();
+
+		googleAnalytics.LogEvent("TimeAttackMode", "StartNewGame", "", 0);
+
 
 		NewLevel();
 	}
@@ -116,6 +126,9 @@ public class BoardManagerTimeAttack : BoardManager
 
 	}
 
+	public void ExtraTime(int time) {
+		currentTime += time;
+	}
 
 	private IEnumerator ShowBonusEasyLevel() {
 

@@ -44,13 +44,13 @@ MonoBehaviour:
   arrowToInstanciate: {fileID: 156372, guid: 80f4e2c3565c3424a827ba882d4d67ec, type: 2}
   gamePausedPopupObject: {fileID: 0}
   houseToInstantiate: {fileID: 195940, guid: 7354aa6812163479189408f6348aec52, type: 2}
-  pauseButton: {fileID: 0}
   houseClickedSound: {fileID: 0}
   levelPassedSound: {fileID: 0}
   noExitSound: {fileID: 0}
   noPossibleClick: {fileID: 0}
   backgroundTimerGameObject: {fileID: 0}
   gameOverPopupObject: {fileID: 0}
+  boostPopupObject: {fileID: 0}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

@@ -88,16 +88,21 @@ public class BoardManager : MonoBehaviour {
 
 	public virtual void NewGame() {
 
+		ResetForNewGame();
+
+		StartCoroutine(CanPlay());
+		StartCoroutine(CanInteractWithBoardAgain());
+	
+	}
+
+	protected virtual void ResetForNewGame(){
+		
 		gamePausedPopupObject.SendMessage("Hide");
 		tapToRestartGameObject.SetActive(false);
 		boardHolder.gameObject.SetActive(true);
 
 		canInteractWithBoard = false;
 		this.playing = false;
-
-		StartCoroutine(CanPlay());
-		StartCoroutine(CanInteractWithBoardAgain());
-	
 	}
 
 	public virtual void RestartGame() {

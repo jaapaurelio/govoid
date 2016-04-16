@@ -85,10 +85,6 @@ NavMeshSettings:
     cellSize: 0.16666667
     manualCellSize: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &60006980 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 171066, guid: 770c924ac8f1b4500bdbcd890e417ff4, type: 2}
-  m_PrefabInternal: {fileID: 765195678}
 --- !u!1001 &122168444
 Prefab:
   m_ObjectHideFlags: 0
@@ -686,10 +682,6 @@ Prefab:
       value: 
       objectReference: {fileID: 1128557229}
     - target: {fileID: 11468986, guid: da1f9946d6e3b4ced8b01cc28dbff22a, type: 2}
-      propertyPath: pauseButton
-      value: 
-      objectReference: {fileID: 60006980}
-    - target: {fileID: 11468986, guid: da1f9946d6e3b4ced8b01cc28dbff22a, type: 2}
       propertyPath: houseClickedSound
       value: 
       objectReference: {fileID: 873299864}
@@ -713,6 +705,10 @@ Prefab:
       propertyPath: gameOverPopupObject
       value: 
       objectReference: {fileID: 581928950}
+    - target: {fileID: 11468986, guid: da1f9946d6e3b4ced8b01cc28dbff22a, type: 2}
+      propertyPath: boostPopupObject
+      value: 
+      objectReference: {fileID: 2063306488}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: da1f9946d6e3b4ced8b01cc28dbff22a, type: 2}
   m_IsPrefabParent: 0
@@ -969,6 +965,60 @@ Prefab:
 GameObject:
   m_PrefabParentObject: {fileID: 123482, guid: 7e8bbaa2ab1e6479f9426f3dc3888a9f, type: 2}
   m_PrefabInternal: {fileID: 1778240143}
+--- !u!1001 &1568706321
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 440062, guid: e32943432e5a947a79162a1134ec1871, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 440062, guid: e32943432e5a947a79162a1134ec1871, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 440062, guid: e32943432e5a947a79162a1134ec1871, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 440062, guid: e32943432e5a947a79162a1134ec1871, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 440062, guid: e32943432e5a947a79162a1134ec1871, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 440062, guid: e32943432e5a947a79162a1134ec1871, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 440062, guid: e32943432e5a947a79162a1134ec1871, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 440062, guid: e32943432e5a947a79162a1134ec1871, type: 2}
+      propertyPath: m_RootOrder
+      value: 22
+      objectReference: {fileID: 0}
+    - target: {fileID: 164018, guid: e32943432e5a947a79162a1134ec1871, type: 2}
+      propertyPath: m_Name
+      value: BoostPopup
+      objectReference: {fileID: 0}
+    - target: {fileID: 11482602, guid: e32943432e5a947a79162a1134ec1871, type: 2}
+      propertyPath: boardManagerTimeAttack
+      value: 
+      objectReference: {fileID: 1933675229}
+    - target: {fileID: 11482602, guid: e32943432e5a947a79162a1134ec1871, type: 2}
+      propertyPath: googleAnalytics
+      value: 
+      objectReference: {fileID: 2095831404}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: e32943432e5a947a79162a1134ec1871, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1001 &1667959091
 Prefab:
   m_ObjectHideFlags: 0
@@ -1053,6 +1103,10 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7e8bbaa2ab1e6479f9426f3dc3888a9f, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1933675229 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 174294, guid: da1f9946d6e3b4ced8b01cc28dbff22a, type: 2}
+  m_PrefabInternal: {fileID: 659139679}
 --- !u!1001 &1989843936
 Prefab:
   m_ObjectHideFlags: 0
@@ -1099,6 +1153,10 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bbc1b5e559a504a3097209d1dff518b4, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &2063306488 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 164018, guid: e32943432e5a947a79162a1134ec1871, type: 2}
+  m_PrefabInternal: {fileID: 1568706321}
 --- !u!1001 &2095831403
 Prefab:
   m_ObjectHideFlags: 0
@@ -1137,6 +1195,10 @@ Prefab:
     - target: {fileID: 400000, guid: eb5b47b08880548c795ced5f38c9e001, type: 2}
       propertyPath: m_RootOrder
       value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: eb5b47b08880548c795ced5f38c9e001, type: 2}
+      propertyPath: bundleVersion
+      value: 1.0.15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: eb5b47b08880548c795ced5f38c9e001, type: 2}
