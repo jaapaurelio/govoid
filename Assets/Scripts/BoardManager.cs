@@ -32,6 +32,7 @@ public class BoardManager : MonoBehaviour {
 	private List<int> possibleDirections;
 	private List<GridHouse> possibleHouses;
 
+	private List<AudioSource> houseClickedSounds;
 
 
 	public virtual void Start() {
@@ -61,6 +62,11 @@ public class BoardManager : MonoBehaviour {
 		NewGameBtn.OnClicked += NewGame;
 		RestartBtn.OnClicked += RestartGame;
 		TapToRestart.OnClicked += RestartGame;
+
+		houseClickedSounds = new List<AudioSource>();
+		for(int i = 0; i < 10; i++) {
+			houseClickedSounds.Add(Instantiate (houseClickedSound, new Vector3 (3, 0, 0f), new Quaternion(0f, 0f, -90, 90)) as AudioSource);
+		}
 	}
 
 	void OnDisable()
@@ -176,7 +182,7 @@ public class BoardManager : MonoBehaviour {
 					// User can click in this house
 					if( clickedHouse.State == Constants.HOUSE_STATE_POSSIBLE ) {
 
-						houseClickedSound.Play();
+						PlayHouseClickSound();
 
 						GridHouse activeHouse = GetActiveHouse(currentLevelGrid.GetAllHouses());
 
@@ -249,6 +255,17 @@ public class BoardManager : MonoBehaviour {
 
 					}
 				}
+			}
+		}
+	}
+
+	private void PlayHouseClickSound(){
+
+		// Multiple sources to be possible play multiple sounds at the same time 
+		for(int i = 0; i < houseClickedSounds.Count; i++ ) {
+			if(!houseClickedSounds[i].isPlaying) {
+				houseClickedSounds[i].Play();
+				return;
 			}
 		}
 	}
@@ -416,6 +433,8 @@ public class BoardManager : MonoBehaviour {
 				house.Destroy();
 			}
 		}
+
+		currentLevelGrid = null;
 	}
 
 }

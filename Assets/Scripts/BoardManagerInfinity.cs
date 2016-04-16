@@ -62,9 +62,9 @@ public class BoardManagerInfinity : BoardManager
 
 		GameManager.instance.playerStatistics.SetLevelDone( GameManager.instance.currentPackageNum, GameManager.instance.currentLevelFromPackage);
 
-		GameManager.instance.currentLevelFromPackage++;
+		googleAnalytics.LogEvent("InfinityMode", "WonLevel", "level", GameManager.instance.currentLevelFromPackage);
 
-		googleAnalytics.LogEvent("InfinityMode", "NextLevel", "Score", GameManager.instance.currentLevelFromPackage);
+		GameManager.instance.currentLevelFromPackage++;
 
 		GameObject.Find("CurrentLevel").GetComponent<TextMesh>().text = GameManager.instance.currentLevelFromPackage.ToString();
 
@@ -72,7 +72,7 @@ public class BoardManagerInfinity : BoardManager
 			NewLevel();
 		} else {
 			Debug.Log("NO MORE LEVELS IN THS PACK");
-			SceneManager.LoadScene("SelectPackageScene");
+			SceneManager.LoadScene(Constants.SELECT_LEVEL_SCENE);
 		}
 
 	}

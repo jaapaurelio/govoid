@@ -13,6 +13,8 @@ public class BoardManagerTimeAttack : BoardManager
 	private int levelsCompleted = 0;
 	private float currentTime = 0.0f;
 
+	private bool bonusEasyLevel = false;
+
 	public override void Start(){
 		base.Start();
 
@@ -84,6 +86,10 @@ public class BoardManagerTimeAttack : BoardManager
 
 		base.WonLevel();
 
+		if(bonusEasyLevel) {
+			bonusEasyLevel = false;
+		}
+
 		levelsCompleted++;
 
 		if(hasRestarted) {
@@ -97,8 +103,30 @@ public class BoardManagerTimeAttack : BoardManager
 		}
 
 		GameObject.Find("CurrentScore").GetComponent<TextMesh>().text = levelsCompleted.ToString();
-		
+
+
+		/*if(levelsCompleted % 5 == 0) {
+			bonusEasyLevel = true;
+			base.DestroyCurrentLevel();
+			StartCoroutine(ShowBonusEasyLevel());
+		} else {*/
+			NewLevel();
+		//}
+
+
+	}
+
+
+	private IEnumerator ShowBonusEasyLevel() {
+
+		GameObject.Find("BonusMessages").GetComponent<TextMesh>().text = "Power\none easy level";
+
+		yield return new WaitForSeconds(1);
+
+		GameObject.Find("BonusMessages").GetComponent<TextMesh>().text = "";
+
 		NewLevel();
+
 	}
 
 	private IEnumerator ShowBonusTime(int time) {
@@ -154,27 +182,37 @@ public class BoardManagerTimeAttack : BoardManager
 
 		LevelGenerator levelGenerator =  new LevelGenerator();
 
-		// Easy in the beginner, and it get harder.
+		// Easy in the beginner, and it gets harder.
 
 		if(levelsCompleted <= 1 ) {
 			columns = 3;
 			rows = 3;
-			numberOfSteps = Random.Range (4, 7 +1);
+			numberOfSteps = Random.Range (2, 4 +1);
 
-		} else if(levelsCompleted <= 3 ){
+		} else if(levelsCompleted <= 4 ){
 			columns = 4;
 			rows = 4;
-			numberOfSteps = Random.Range (8, 15 +1);
+			numberOfSteps = Random.Range (3, 4 +1);
 
-		} else if(levelsCompleted <= 5 ){
-			columns = 5;
-			rows = 5;
-			numberOfSteps = Random.Range (8, 15 +1);
-
-		} else {
+		} else if(levelsCompleted <= 8 ) {
 			columns = Random.Range (4, 5 +1);
 			rows = Random.Range (4, 5 +1);
-			numberOfSteps = Random.Range (10, 25 +1);
+			numberOfSteps = Random.Range (5, 8 +1);
+
+		} else {
+			columns = Random.Range (3, 5 +1);
+			rows = Random.Range (3, 5 +1);
+			numberOfSteps = Random.Range (levelsCompleted -3, levelsCompleted +1);
+		}
+		/*
+		columns = Random.Range (3, 5 +1);
+		rows = Random.Range (3, 5 +1);
+		numberOfSteps = Random.Range (levelsCompleted -3, levelsCompleted +1);
+*/
+		if(bonusEasyLevel) {
+			columns = 3;
+			rows = 3;
+			numberOfSteps = Random.Range (5, 7 +1);
 		}
 
 		Debug.Log("logs: Level:" + levelsCompleted+ " \n cols: " + columns + "; rows: " + rows + "; stepts: " +  numberOfSteps);
@@ -194,10 +232,5 @@ public class BoardManagerTimeAttack : BoardManager
 		base.ClosePausePopup();
 		googleAnalytics.LogEvent("TimeAttackMode", "UnPause", "", 0);
 	}
-
-
-
-	// Connect to gameobjects
-
 
 }
