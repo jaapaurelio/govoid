@@ -258,6 +258,10 @@ public class BoardManager : MonoBehaviour {
 						noPossibleClick.Play();
 						AnimatePossibleHouses();
 
+					} else if( clickedHouse.State == Constants.HOUSE_STATE_ACTIVE) {
+						if(touch.phase == TouchPhase.Began) {
+							AnimatePossibleHouses();
+						}
 					}
 				}
 			}
