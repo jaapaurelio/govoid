@@ -14,6 +14,9 @@ public class BoardManagerTimeAttack : BoardManager
 	private int levelsCompleted = 0;
 	private float currentTime = 0.0f;
 
+	private int timeWon;
+	private int timeWonRestart;
+	private int currentLevelDifilculty;
 	public override void Start(){
 		base.Start();
 
@@ -71,6 +74,9 @@ public class BoardManagerTimeAttack : BoardManager
 		gameOverPopupObject.SendMessage("Hide");
 
 		levelsCompleted = 0;
+		timeWon = 3;
+		timeWonRestart = 1;
+		currentLevelDifilculty = 1;
 
 		GameObject.Find("BestScore").GetComponent<TextMesh>().text = PlayerPrefs.GetInt("BestScoreInTimeAttack").ToString();
 		GameObject.Find("CurrentScore").GetComponent<TextMesh>().text = levelsCompleted.ToString();
@@ -96,14 +102,23 @@ public class BoardManagerTimeAttack : BoardManager
 
 		levelsCompleted++;
 
+		// From 10 to 10 levels player win more time betweent levels
+		if(levelsCompleted >= 10 && levelsCompleted % 10 == 0) {
+			timeWon = timeWon + 2;
+			timeWonRestart = timeWonRestart + 2;
+
+			Debug.Log("timeWon "+ timeWon);
+			Debug.Log("timeWonRestart "+ timeWonRestart);
+		}
+
 		if(hasRestarted) {
 			googleAnalytics.LogEvent("TimeAttackMode", "NextLevel", "HasRestarted", 0);
-			currentTime = currentTime + 3;
-			StartCoroutine(ShowBonusTime(3));
+			currentTime = currentTime + timeWonRestart;
+			StartCoroutine(ShowBonusTime(timeWonRestart));
 		} else {
 			googleAnalytics.LogEvent("TimeAttackMode", "NextLevel", "NoRestarted", 0);
-			currentTime = currentTime + 5;
-			StartCoroutine(ShowBonusTime(5));
+			currentTime = currentTime + timeWon;
+			StartCoroutine(ShowBonusTime(timeWon));
 		}
 
 		GameObject.Find("CurrentScore").GetComponent<TextMesh>().text = levelsCompleted.ToString();
@@ -183,25 +198,25 @@ public class BoardManagerTimeAttack : BoardManager
 
 		// Easy in the beginner, and it gets harder.
 
-		if(levelsCompleted <= 1 ) {
-			columns = 3;
-			rows = 3;
-			numberOfSteps = Random.Range (2, 4 +1);
-
-		} else if(levelsCompleted <= 4 ){
+		if(levelsCompleted <= 9 ) {
 			columns = 4;
 			rows = 4;
-			numberOfSteps = Random.Range (3, 4 +1);
-
-		} else if(levelsCompleted <= 8 ) {
-			columns = Random.Range (4, 5 +1);
-			rows = Random.Range (4, 5 +1);
-			numberOfSteps = Random.Range (5, 8 +1);
+			numberOfSteps = levelsCompleted + 2;
+			currentLevelDifilculty = 5;
 
 		} else {
 			columns = Random.Range (3, 5 +1);
 			rows = Random.Range (3, 5 +1);
-			numberOfSteps = Random.Range (levelsCompleted -3, levelsCompleted +1);
+
+			if ( levelsCompleted % 5 == 0 ) {
+				currentLevelDifilculty += 5;
+			}
+
+			numberOfSteps = Random.Range (currentLevelDifilculty -2, currentLevelDifilculty +1);
+
+			Debug.Log("levelsCompleted " +levelsCompleted );
+			Debug.Log("currentLevelDifilculty "+ currentLevelDifilculty);
+			Debug.Log("numberOfSteps " + numberOfSteps);
 		}
 
 		Debug.Log("logs: Level:" + levelsCompleted+ " \n cols: " + columns + "; rows: " + rows + "; stepts: " +  numberOfSteps);
