@@ -9,15 +9,35 @@ public class BoostPopup : MonoBehaviour {
 	public GameObject adResultText;
 	public GoogleAnalyticsV3 googleAnalytics;
 
+	private bool toShowAdButton = true;
+	private bool isOpen = false;
+
 	public void HidePopup() {
 		transform.position = new Vector3(90, 90, 0);
+		isOpen = false;
 	}
 
 	public void ShowPopup() {
+		isOpen = true;
+		toShowAdButton = true;
 		transform.position = new Vector3(0, 0, 0);
 
 		viewAdText.SetActive(true);
 		adResultText.SetActive(false);
+	}
+
+	public void Update() {
+		if(!isOpen) {
+			return;
+		}
+
+		if(toShowAdButton) {
+			if (Advertisement.IsReady("rewardedVideoZone")) {
+				viewAdText.SetActive(true);
+			} else {
+				viewAdText.SetActive(false);
+			}
+		}
 	}
 
 	public void ShowAd() {
@@ -33,6 +53,8 @@ public class BoostPopup : MonoBehaviour {
 	}
 
 	private void HandleShowResult(ShowResult result){
+
+		toShowAdButton = false;
 		switch (result) {
 		case ShowResult.Finished:
 
