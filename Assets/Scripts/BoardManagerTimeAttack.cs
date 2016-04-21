@@ -14,8 +14,6 @@ public class BoardManagerTimeAttack : BoardManager
 	private int levelsCompleted = 0;
 	private float currentTime = 0.0f;
 
-	private bool bonusEasyLevel = false;
-
 	public override void Start(){
 		base.Start();
 
@@ -96,10 +94,6 @@ public class BoardManagerTimeAttack : BoardManager
 
 		base.WonLevel();
 
-		if(bonusEasyLevel) {
-			bonusEasyLevel = false;
-		}
-
 		levelsCompleted++;
 
 		if(hasRestarted) {
@@ -114,15 +108,7 @@ public class BoardManagerTimeAttack : BoardManager
 
 		GameObject.Find("CurrentScore").GetComponent<TextMesh>().text = levelsCompleted.ToString();
 
-
-		/*if(levelsCompleted % 5 == 0) {
-			bonusEasyLevel = true;
-			base.DestroyCurrentLevel();
-			StartCoroutine(ShowBonusEasyLevel());
-		} else {*/
-			NewLevel();
-		//}
-
+		NewLevel();
 
 	}
 
@@ -216,16 +202,6 @@ public class BoardManagerTimeAttack : BoardManager
 			columns = Random.Range (3, 5 +1);
 			rows = Random.Range (3, 5 +1);
 			numberOfSteps = Random.Range (levelsCompleted -3, levelsCompleted +1);
-		}
-		/*
-		columns = Random.Range (3, 5 +1);
-		rows = Random.Range (3, 5 +1);
-		numberOfSteps = Random.Range (levelsCompleted -3, levelsCompleted +1);
-*/
-		if(bonusEasyLevel) {
-			columns = 3;
-			rows = 3;
-			numberOfSteps = Random.Range (5, 7 +1);
 		}
 
 		Debug.Log("logs: Level:" + levelsCompleted+ " \n cols: " + columns + "; rows: " + rows + "; stepts: " +  numberOfSteps);
