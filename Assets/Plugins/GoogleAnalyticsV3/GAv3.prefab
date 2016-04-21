@@ -44,7 +44,7 @@ MonoBehaviour:
   otherTrackingCode: UA-58151786-3
   productName: Gozero
   bundleIdentifier: com.creativebackyard.gozero
-  bundleVersion: 1.0.16
+  bundleVersion: 1.0.17
   dispatchPeriod: 5
   sampleFrequency: 100
   logLevel: 2

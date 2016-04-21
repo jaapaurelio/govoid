@@ -90,14 +90,14 @@ PlayerSettings:
     16:9: 1
     Others: 1
   bundleIdentifier: com.creativebackyard.gozero
-  bundleVersion: 1.0.16
+  bundleVersion: 1.0.17
   preloadedAssets: []
   metroEnableIndependentInputSource: 0
   metroEnableLowLatencyPresentationAPI: 0
   xboxOneDisableKinectGpuReservation: 0
   virtualRealitySupported: 0
   productGUID: d0bf7747bae2244c9b029117e7d1fbe3
-  AndroidBundleVersionCode: 13
+  AndroidBundleVersionCode: 14
   AndroidMinSdkVersion: 14
   AndroidPreferredInstallLocation: 1
   aotOptions: 
@@ -437,10 +437,14 @@ PlayerSettings:
   XboxOne::enus: 1
   stringPropertyNames:
   - Build_ServiceEnabled::Build_ServiceEnabled
+  - ErrorHub_ServiceEnabled::ErrorHub_ServiceEnabled
+  - Hub_ServiceEnabled::Hub_ServiceEnabled
   - UNet_ServiceEnabled::UNet_ServiceEnabled
   Build_ServiceEnabled::Build_ServiceEnabled: True
+  ErrorHub_ServiceEnabled::ErrorHub_ServiceEnabled: False
+  Hub_ServiceEnabled::Hub_ServiceEnabled: False
   UNet_ServiceEnabled::UNet_ServiceEnabled: True
-  cloudProjectId: de9859a7-33d6-4fbd-a92e-e3f697b83b60
-  projectName: Gozero
-  organizationId: backyarddeveloper
+  cloudProjectId: 2ba7fb8e-50b7-45d9-ab2e-4fe5a5795b98
+  projectName: Gozero Game
+  organizationId: jaapaurelio
   cloudEnabled: 0

@@ -32,7 +32,7 @@ public class BoostPopup : MonoBehaviour {
 		}
 
 		if(toShowAdButton) {
-			if (Advertisement.IsReady("rewardedVideoZone")) {
+			if (Advertisement.IsReady("rewardedVideo")) {
 				viewAdText.SetActive(true);
 			} else {
 				viewAdText.SetActive(false);
@@ -42,11 +42,11 @@ public class BoostPopup : MonoBehaviour {
 
 	public void ShowAd() {
 		
-		if (Advertisement.IsReady("rewardedVideoZone"))
+		if (Advertisement.IsReady("rewardedVideo"))
 		{
 			googleAnalytics.LogEvent("ShowAd", "IsReady", "", 0);
 			var options = new ShowOptions { resultCallback = HandleShowResult };
-			Advertisement.Show("rewardedVideoZone", options);
+			Advertisement.Show("rewardedVideo", options);
 		} else {
 			googleAnalytics.LogEvent("ShowAd", "NotReady", "", 0);
 		}
