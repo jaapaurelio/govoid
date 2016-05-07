@@ -205,6 +205,7 @@ public class BoardManagerTimeAttack : BoardManager
 			currentLevelDifilculty = 5;
 
 		} else {
+			
 			columns = Random.Range (3, 5 +1);
 			rows = Random.Range (3, 5 +1);
 
@@ -221,7 +222,7 @@ public class BoardManagerTimeAttack : BoardManager
 
 		Debug.Log("logs: Level:" + levelsCompleted+ " \n cols: " + columns + "; rows: " + rows + "; stepts: " +  numberOfSteps);
 
-		return levelGenerator.CreateLevel(columns, rows, numberOfSteps);;
+		return levelGenerator.CreateLevel(columns, rows, numberOfSteps);
 
 	}
 

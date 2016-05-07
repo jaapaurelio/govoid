@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;       //Allows us to use Lists.
-using Random = UnityEngine.Random;      //Tells Random to use the Unity Engine random number generator.
+using Random = System.Random;      //Tells Random to use the Unity Engine random number generator.
 
 public class LevelGrid
 {
@@ -9,12 +9,30 @@ public class LevelGrid
 	private int rows; 
 	private List <GridHouse> gridHouses = new List <GridHouse> ();
 	public string message = "";
+	private Random rng;
 
-	//Assignment constructor.
-	public LevelGrid (int _cols, int _rows)
-	{
+	public LevelGrid (int _cols, int _rows, Random _rng ) {
+		rng = _rng;
+
 		columns = _cols;
 		rows = _rows;
+		rng = _rng;
+
+		CreateGrid();
+	}
+
+	public LevelGrid (int _cols, int _rows ) {
+		
+		columns = _cols;
+		rows = _rows;
+		rng = new Random();
+
+		CreateGrid();
+	}
+
+	//Assignment constructor.
+	public void CreateGrid ()
+	{
 
 		//Loop through x axis (columns).
 		for(int x = 0; x < columns; x++)
@@ -29,7 +47,7 @@ public class LevelGrid
 	}
 
 	public GridHouse ChooseRandomHouse(){
-		return gridHouses[Random.Range (0, gridHouses.Count)];
+		return gridHouses[rng.Next(0, gridHouses.Count)];
 	}
 
 	public List<GridHouse> GetSiblings(GridHouse currentHouse) {

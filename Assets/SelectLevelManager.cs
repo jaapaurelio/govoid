@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class SelectLevelManager : MonoBehaviour {
 
@@ -9,6 +10,12 @@ public class SelectLevelManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+
+		// To be possible open game in any scene
+		if(GameManager.instance == null) {
+			SceneManager.LoadScene("MainMenuScene");
+			return;
+		}
 
 		TextAsset bindata= Resources.Load<TextAsset>("Levels/Pack" + GameManager.instance.currentPackageNum);
 
@@ -19,7 +26,8 @@ public class SelectLevelManager : MonoBehaviour {
 
 		List<int> levelsDone =  GameManager.instance.playerStatistics.GetLevelsDoneFromPackage(GameManager.instance.currentPackageNum);
 
-		for(int i = 1; i <= numberOfLevels; i++) {
+		// TODO remove 100
+		for(int i = 1; i <= 100; i++) {
 			//Instantiate the GameObject instance using the prefab chosen for toInstantiate at the Vector3 corresponding to current grid position in loop, cast it to GameObject.
 			GameObject levelButton =
 				Instantiate (levelButtonGameObject, new Vector3 (0, 0, 0f), Quaternion.identity) as GameObject;

@@ -2,12 +2,10 @@
 using System;
 using System.Collections.Generic;       //Allows us to use Lists.
 using System.Collections;
-using Random = UnityEngine.Random;
 using UnityEngine.SceneManagement;
 
 public class BoardManagerInfinity : BoardManager
 {
-
 	public override void Start(){
 		// To be possible open game in any scene
 		if(GameManager.instance == null) {
@@ -16,7 +14,6 @@ public class BoardManagerInfinity : BoardManager
 		}
 
 		base.Start();
-
 
 		googleAnalytics.LogScreen("InfinityMode");
 
@@ -68,7 +65,8 @@ public class BoardManagerInfinity : BoardManager
 
 		GameObject.Find("CurrentLevel").GetComponent<TextMesh>().text = GameManager.instance.currentLevelFromPackage.ToString();
 
-		if(GameManager.instance.currentLevelFromPackage <= GameManager.instance.currentPackage.levels.Length){
+		// TODO Remove 100
+		if(GameManager.instance.currentLevelFromPackage <= 100 ) {//GameManager.instance.currentPackage.levels.Length){
 			NewLevel();
 		} else {
 			Debug.Log("NO MORE LEVELS IN THS PACK");
@@ -86,7 +84,23 @@ public class BoardManagerInfinity : BoardManager
 
 		Debug.Log("levelNumber"+ levelNumber);
 
-		currentLevelGrid = LevelJsonGenerator.CreateLevel(package, levelNumber);
+		// First levels are static to show the tutorial
+		if( levelNumber <= 15 ) {
+			currentLevelGrid = LevelJsonGenerator.CreateLevel(package, levelNumber);
+		
+			// Next levels are automatically generated
+		} else {
+			System.Random newRandom = new System.Random(levelNumber);
+
+			LevelGenerator levelGenerator = new LevelGenerator(newRandom);
+			int rows = newRandom.Next(3,6);
+			int cols = newRandom.Next(3,6);
+				
+			Debug.Log("level:" + levelNumber + " " + rows + " " + cols );
+			currentLevelGrid = levelGenerator.CreateLevel(rows, cols, levelNumber);
+
+		}
+
 
 		GameObject.Find("Messages").GetComponent<TextMesh>().text = currentLevelGrid.message;
 
