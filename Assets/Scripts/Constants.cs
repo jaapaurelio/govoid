@@ -22,4 +22,11 @@
 	public const string SELECT_LEVEL_SCENE = "SelectLevelScene";
 	public const string INFINITY_MODE_SCENE = "InfinityScene";
 
+	public const int MAX_NUMBER_OF_LEVELS = 100;
+
+	// PlayerPref
+	public const string PLAYER_SETTINGS_SAVE = "PLAYER_SETTINGS_SAVE_BETA";
+	public const string AVAIABLE_LEVELS = "AvailableLevelsBETA";
+
+
 }

@@ -65,14 +65,13 @@ public class BoardManagerInfinity : BoardManager
 
 		GameObject.Find("CurrentLevel").GetComponent<TextMesh>().text = GameManager.instance.currentLevelFromPackage.ToString();
 
-		// TODO Remove 100
-		if(GameManager.instance.currentLevelFromPackage <= 100 ) {//GameManager.instance.currentPackage.levels.Length){
+		int availableLevels = PlayerPrefs.GetInt(Constants.AVAIABLE_LEVELS);
+		if(GameManager.instance.currentLevelFromPackage <= availableLevels ) {//GameManager.instance.currentPackage.levels.Length){
 			NewLevel();
 		} else {
 			Debug.Log("NO MORE LEVELS IN THS PACK");
 			SceneManager.LoadScene(Constants.SELECT_LEVEL_SCENE);
 		}
-
 	}
 
 	protected override void NewLevel() {

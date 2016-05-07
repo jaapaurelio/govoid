@@ -53,7 +53,6 @@ public class LevelGenerator {
 
 	public GridHouse ChooseRandomHouse(List<GridHouse> houses){
 		int h = rng.Next (0, houses.Count);
-		Debug.Log(h);
 		return houses[h];
 	}
 }

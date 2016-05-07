@@ -42,6 +42,7 @@ MonoBehaviour:
   levelButtonGameObject: {fileID: 181286, guid: fd41ad1bfe2654275b0419642bff0618,
     type: 2}
   levelGridContainerObject: {fileID: 0}
+  generatingLevelObject: {fileID: 0}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
