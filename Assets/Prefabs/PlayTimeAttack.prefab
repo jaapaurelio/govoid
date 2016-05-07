@@ -70,7 +70,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Size: {x: 75, y: 16}
+  m_Size: {x: 87.5, y: 16}
 --- !u!102 &10246352
 TextMesh:
   serializedVersion: 3
