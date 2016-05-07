@@ -70,7 +70,7 @@ public class GameManager : MonoBehaviour {
 				break;
 
 		case Constants.INFINITY_MODE_SCENE:
-			SceneManager.LoadScene(Constants.MAIN_MENU_SCENE);
+			SceneManager.LoadScene(Constants.SELECT_LEVEL_SCENE);
 			break;
 			
 

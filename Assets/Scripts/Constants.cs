@@ -23,10 +23,13 @@
 	public const string INFINITY_MODE_SCENE = "InfinityScene";
 
 	public const int MAX_NUMBER_OF_LEVELS = 100;
+	public const int MINUTES_TO_GENERATE_LEVELS = 20;
+
 
 	// PlayerPref
 	public const string PLAYER_SETTINGS_SAVE = "PLAYER_SETTINGS_SAVE_BETA";
-	public const string AVAIABLE_LEVELS = "AvailableLevelsBETA";
+	public const string PS_AVAIABLE_LEVELS = "AvailableLevelsBETA";
+	public const string PS_DATE_TO_GENERATE_LEVELS = "DATE_TO_GENERATE_LEVELS";
 
 
 }

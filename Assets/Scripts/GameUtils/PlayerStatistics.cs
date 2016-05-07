@@ -20,6 +20,7 @@ public class PlayerStatistics {
 	public List<LevelStatistics> levels;
 
 	public void LoadData() {
+
 		string json = PlayerPrefs.GetString(Constants.PLAYER_SETTINGS_SAVE);
 
 		Debug.Log("loadData" + json);
@@ -44,6 +45,7 @@ public class PlayerStatistics {
 	
 		PlayerPrefs.SetString(Constants.PLAYER_SETTINGS_SAVE, thisJson);
 		PlayerPrefs.Save();
+
 	}
 
 

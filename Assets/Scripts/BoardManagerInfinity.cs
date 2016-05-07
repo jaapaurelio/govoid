@@ -65,7 +65,7 @@ public class BoardManagerInfinity : BoardManager
 
 		GameObject.Find("CurrentLevel").GetComponent<TextMesh>().text = GameManager.instance.currentLevelFromPackage.ToString();
 
-		int availableLevels = PlayerPrefs.GetInt(Constants.AVAIABLE_LEVELS);
+		int availableLevels = PlayerPrefs.GetInt(Constants.PS_AVAIABLE_LEVELS);
 		if(GameManager.instance.currentLevelFromPackage <= availableLevels ) {//GameManager.instance.currentPackage.levels.Length){
 			NewLevel();
 		} else {

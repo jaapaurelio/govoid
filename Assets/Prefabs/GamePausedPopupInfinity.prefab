@@ -326,7 +326,7 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 133396}
-  m_Text: home
+  m_Text: levels
   m_OffsetZ: 0
   m_CharacterSize: 1
   m_LineSpacing: 1

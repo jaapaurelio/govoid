@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine.Advertisements;
+using DateTime = System.DateTime;
 
 public class SelectLevelManager : MonoBehaviour {
 
@@ -15,11 +16,13 @@ public class SelectLevelManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
+
 		// To be possible open game in any scene
 		if(GameManager.instance == null) {
 			SceneManager.LoadScene("MainMenuScene");
 			return;
 		}
+
 
 		TextAsset bindata= Resources.Load<TextAsset>("Levels/Pack" + GameManager.instance.currentPackageNum);
 
@@ -28,13 +31,18 @@ public class SelectLevelManager : MonoBehaviour {
 
 		List<int> levelsDone =  GameManager.instance.playerStatistics.GetLevelsDoneFromPackage(GameManager.instance.currentPackageNum);
 
-		int availableLevels = PlayerPrefs.GetInt(Constants.AVAIABLE_LEVELS);
+		int availableLevels = PlayerPrefs.GetInt(Constants.PS_AVAIABLE_LEVELS);
 
+		// First time we enter here
 		if(availableLevels == 0) {
 			availableLevels = 20;
-			PlayerPrefs.SetInt(Constants.AVAIABLE_LEVELS, 20);
+			PlayerPrefs.SetInt(Constants.PS_AVAIABLE_LEVELS, 20);
 		}
 	
+		Debug.Log("date" + DateTime.Now.ToString());
+
+		var d = DateTime.Now.ToString();
+		Debug.Log(DateTime.Parse(d) );
 		// Some people can have more levels done in updates
 		if(levelsDone.Count > availableLevels) {
 			availableLevels = levelsDone.Count;
@@ -43,9 +51,19 @@ public class SelectLevelManager : MonoBehaviour {
 		Debug.Log("LEVEL DONE" + levelsDone.Count);
 		Debug.Log("availableLevels" + availableLevels);
 
+		// All levels are done, must generate news
 		if(levelsDone.Count == availableLevels) {
-			Debug.Log("show ad");
+
 			toShowAdButton = true;
+			string dateToGenerate = PlayerPrefs.GetString(Constants.PS_DATE_TO_GENERATE_LEVELS);
+
+			Debug.Log("dateToGenerate" + dateToGenerate);
+			// First time in this stage.
+			if(dateToGenerate == "") {
+				// Generate levels in a few minutes
+				PlayerPrefs.SetString(Constants.PS_DATE_TO_GENERATE_LEVELS, DateTime.Now.AddMinutes(Constants.MINUTES_TO_GENERATE_LEVELS).ToString());
+			}
+
 		} else {
 			Debug.Log("hide ad");
 			toShowAdButton = false;
@@ -80,18 +98,29 @@ public class SelectLevelManager : MonoBehaviour {
 			} else {
 				generatingLevelObject.SetActive(false);
 			}
+				
+			string dateToGenerate = PlayerPrefs.GetString(Constants.PS_DATE_TO_GENERATE_LEVELS);
+
+			DateTime date = DateTime.Parse(dateToGenerate);
+
+			System.TimeSpan timeLeft = date.Subtract(DateTime.Now);
+
+			if(timeLeft.Minutes <= 0) {
+				AddMoreLevels();
+			}
+
 		} else {
 			generatingLevelObject.SetActive(false);
 		}
-
 	}
 
 	private void AddMoreLevels() {
-		int availableLevels = PlayerPrefs.GetInt(Constants.AVAIABLE_LEVELS);
+		int availableLevels = PlayerPrefs.GetInt(Constants.PS_AVAIABLE_LEVELS);
 
 		availableLevels += 20;
 
-		PlayerPrefs.SetInt(Constants.AVAIABLE_LEVELS, availableLevels);
+		PlayerPrefs.SetInt(Constants.PS_AVAIABLE_LEVELS, availableLevels);
+		PlayerPrefs.SetString(Constants.PS_DATE_TO_GENERATE_LEVELS, "");
 
 		// TODO: for now just restart to load all new levels
 		SceneManager.LoadScene(Constants.SELECT_LEVEL_SCENE);
