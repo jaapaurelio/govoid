@@ -18,7 +18,7 @@ public class TimeLeftToGenerate : MonoBehaviour {
 			string text = "new levels in ";
 
 			if(timeLeft.Minutes > 1) {
-				text += timeLeft.Minutes + " and " + timeLeft.Seconds + " seconds";
+				text += timeLeft.Minutes + " minutes and " + timeLeft.Seconds + " seconds";
 			} else {
 				text += timeLeft.Seconds + " seconds";
 			}

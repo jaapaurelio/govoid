@@ -20,7 +20,7 @@ public class PlayerStatistics {
 	public List<LevelStatistics> levels;
 
 	public void LoadData() {
-
+		//PlayerPrefs.DeleteAll();
 		string json = PlayerPrefs.GetString(Constants.PLAYER_SETTINGS_SAVE);
 
 		Debug.Log("loadData" + json);

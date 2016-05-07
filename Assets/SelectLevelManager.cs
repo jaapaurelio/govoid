@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine.Advertisements;
+using UnityEngine.UI;
 using DateTime = System.DateTime;
 
 public class SelectLevelManager : MonoBehaviour {
@@ -87,6 +88,10 @@ public class SelectLevelManager : MonoBehaviour {
 			// This will put the object in the right position inside parent
 			levelButton.transform.SetParent(levelGridContainerObject.transform, false);
 		}
+
+		// scroll to the right place
+		float per = 1.0f - (levelsDone.Count * 1.0f) / (availableLevels * 1.0f);
+		GameObject.Find ("LevelList").GetComponent<ScrollRect>().verticalNormalizedPosition = per;
 
 	}
 
