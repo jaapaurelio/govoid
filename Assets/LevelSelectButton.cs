@@ -10,9 +10,14 @@ public class LevelSelectButton : MonoBehaviour {
 		gameObject.GetComponent<Button>().onClick.AddListener(delegate { BtnClicked(); });	
 	}
 
-	public void SetLevel(int num, string levelInfo) {
+	public void SetLevel(int num, bool levelDone) {
 		level = num;
-		gameObject.GetComponentInChildren<Text>().text = "level " + num + " " + levelInfo;
+		gameObject.GetComponentInChildren<Text>().text = "level " + num;
+
+		if(levelDone) {
+			gameObject.GetComponentInChildren<Text>().color = new Color32(38, 166, 154, 255);
+		}
+
 	}
 
 	public void BtnClicked() {

@@ -34,7 +34,7 @@ public class BoardManagerInfinity : BoardManager
 			return;
 		}
 
-		googleAnalytics.LogEvent("InfinityMode", "RestartGame", "", 0);
+		googleAnalytics.LogEvent("InfinityMode", "RestartGame",  "level" + GameManager.instance.currentLevelFromPackage, 0);
 
 	}
 
@@ -51,7 +51,7 @@ public class BoardManagerInfinity : BoardManager
 		
 	protected override void LostLevel() {
 		base.LostLevel();
-		googleAnalytics.LogEvent("InfinityMode", "NoExitHouse", "", 0);
+		googleAnalytics.LogEvent("InfinityMode", "NoExitHouse", "level" + GameManager.instance.currentLevelFromPackage, 0);
 	}
 		
 	protected override void WonLevel() {
@@ -59,7 +59,7 @@ public class BoardManagerInfinity : BoardManager
 
 		GameManager.instance.playerStatistics.SetLevelDone( GameManager.instance.currentPackageNum, GameManager.instance.currentLevelFromPackage);
 
-		googleAnalytics.LogEvent("InfinityMode", "WonLevel", "level", GameManager.instance.currentLevelFromPackage);
+		googleAnalytics.LogEvent("InfinityMode", "WonLevel", "level" + GameManager.instance.currentLevelFromPackage, 0);
 
 		GameManager.instance.currentLevelFromPackage++;
 
@@ -78,11 +78,10 @@ public class BoardManagerInfinity : BoardManager
 	protected override void NewLevel() {
 
 		base.DestroyCurrentLevel();
+		boardHolder.localScale = new Vector3(1, 1, 1);
 
 		int levelNumber = GameManager.instance.currentLevelFromPackage;
 		Pack package = GameManager.instance.currentPackage;
-
-		Debug.Log("levelNumber"+ levelNumber);
 
 		// First levels are static to show the tutorial
 		if( levelNumber <= 15 ) {
@@ -93,14 +92,17 @@ public class BoardManagerInfinity : BoardManager
 			System.Random newRandom = new System.Random(levelNumber);
 
 			LevelGenerator levelGenerator = new LevelGenerator(newRandom);
-			int rows = newRandom.Next(3,6);
-			int cols = newRandom.Next(3,6);
-				
+			int rows = newRandom.Next(3,6 +1);
+			int cols = newRandom.Next(3,6 +1);
+
+			if(rows > 5 || cols> 5) {
+				boardHolder.localScale = new Vector3(0.82f, 0.82f, 0.82f);
+			}
+
 			Debug.Log("level:" + levelNumber + " " + rows + " " + cols );
 			currentLevelGrid = levelGenerator.CreateLevel(rows, cols, levelNumber);
 
 		}
-
 
 		GameObject.Find("Messages").GetComponent<TextMesh>().text = currentLevelGrid.message;
 

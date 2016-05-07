@@ -22,8 +22,6 @@ public class SelectLevelManager : MonoBehaviour {
 		Pack p = JsonUtility.FromJson<Pack>(bindata.text);
 		GameManager.instance.currentPackage = p;
 
-		int numberOfLevels = p.levels.Length;
-
 		List<int> levelsDone =  GameManager.instance.playerStatistics.GetLevelsDoneFromPackage(GameManager.instance.currentPackageNum);
 
 		// TODO remove 100
@@ -32,10 +30,10 @@ public class SelectLevelManager : MonoBehaviour {
 			GameObject levelButton =
 				Instantiate (levelButtonGameObject, new Vector3 (0, 0, 0f), Quaternion.identity) as GameObject;
 
-			string done = "not done";
+			bool done = false;
 
 			if(levelsDone.Contains(i)) {
-				done = "done";
+				done = true;
 			}
 
 			levelButton.GetComponent<LevelSelectButton>().SetLevel(i, done);
