@@ -44,8 +44,7 @@ public class GameManager : MonoBehaviour {
 
 		playerStatistics.LoadData();
 
-		playerStatistics.bestScoreInTimeAttack++;
-
+		//LoadLanguage();
 
 		// recommended for debugging:
 		PlayGamesPlatform.DebugLogEnabled = true;
@@ -78,6 +77,17 @@ public class GameManager : MonoBehaviour {
 				Application.Quit(); 
 			break;
 		}
+	}
+
+	void LoadLanguage() {
+		Debug.Log("Application.systemLanguage "+ Application.systemLanguage);
+		TextAsset bindata = Resources.Load<TextAsset>("Languages/" + Application.systemLanguage);
+
+		if(bindata == null) {
+			bindata = Resources.Load<TextAsset>("Languages/English" );
+		}
+
+		Debug.Log();
 	}
 
 	void Update(){

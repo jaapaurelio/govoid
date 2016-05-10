@@ -16,7 +16,6 @@ public class LevelStatistics {
 public class PlayerStatistics {
 
 	public int bestScoreInInfinityMode = 0;
-	public int bestScoreInTimeAttack = 0;
 	public List<LevelStatistics> levels;
 
 	public void LoadData() {
@@ -33,7 +32,6 @@ public class PlayerStatistics {
 
 			// Load previous data
 			bestScoreInInfinityMode = loadedData.bestScoreInInfinityMode;
-			bestScoreInTimeAttack = loadedData.bestScoreInTimeAttack;
 			levels = loadedData.levels;
 		}
 	}
