@@ -63,6 +63,10 @@ public class BoardManagerInfinity : BoardManager
 
 		GameManager.instance.currentLevelFromPackage++;
 
+		Social.ReportScore(GameManager.instance.playerStatistics.GetNumberOfDoneLevelsFromPackage(1), "CgkI2ab42cEaEAIQBw", (bool success) => {
+			// handle success or failure
+		});
+
 		GameObject.Find("CurrentLevel").GetComponent<TextMesh>().text = GameManager.instance.currentLevelFromPackage.ToString();
 
 		int availableLevels = PlayerPrefs.GetInt(Constants.PS_AVAIABLE_LEVELS);

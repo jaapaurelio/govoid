@@ -86,8 +86,6 @@ public class GameManager : MonoBehaviour {
 		if(bindata == null) {
 			bindata = Resources.Load<TextAsset>("Languages/English" );
 		}
-
-		Debug.Log();
 	}
 
 	void Update(){
