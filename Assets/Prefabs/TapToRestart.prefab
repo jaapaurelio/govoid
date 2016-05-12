@@ -79,7 +79,7 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 123482}
-  m_Text: tap to restart
+  m_Text: tap to start
   m_OffsetZ: 0
   m_CharacterSize: 1
   m_LineSpacing: 1

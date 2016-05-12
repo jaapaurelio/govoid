@@ -19,10 +19,10 @@ public class BoostPopup : MonoBehaviour {
 
 	public void ShowPopup() {
 		isOpen = true;
-		toShowAdButton = true;
+		toShowAdButton = false;
 		transform.position = new Vector3(0, 0, 0);
 
-		viewAdText.SetActive(true);
+		viewAdText.SetActive(false);
 		adResultText.SetActive(false);
 	}
 

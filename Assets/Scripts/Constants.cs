@@ -15,6 +15,7 @@
 
 
 	public const int TIME_ATTACK_TIME = 30;
+	public const int TIME_ATTACK_TIME_EXTRA_TIME = 30;
 
 	// States
 	public const string SELECT_PACKAGE_SCENE = "SelectPackageScene";
@@ -31,5 +32,6 @@
 	public const string PS_AVAIABLE_LEVELS = "AvailableLevelsBETA";
 	public const string PS_DATE_TO_GENERATE_LEVELS = "DATE_TO_GENERATE_LEVELS";
 
-
+	// Ads ids
+	public const string AD_INFINITY_EXTRA_TIME = "rewardedVideo";
 }

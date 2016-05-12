@@ -10,9 +10,12 @@ public class BoardManagerTimeAttack : BoardManager
 	public GameObject backgroundTimerGameObject;
 	public GameObject gameOverPopupObject;
 	public GameObject boostPopupObject;
+	public GameObject tapToStartGameObject;
+
 
 	private int levelsCompleted = 0;
 	private float currentTime = 0.0f;
+	private bool extraTime = false;
 
 	private int timeWon;
 	private int timeWonRestart;
@@ -21,6 +24,7 @@ public class BoardManagerTimeAttack : BoardManager
 		base.Start();
 
 		googleAnalytics.LogScreen("TimeAttackMode");
+		tapToStartGameObject.SetActive(false);
 
 		int bestScoreInTimeAttack = PlayerPrefs.GetInt("BestScoreInTimeAttack");
 
@@ -30,14 +34,14 @@ public class BoardManagerTimeAttack : BoardManager
 	}
 
 	void Update() {
+		
+		GameObject.Find("Timer").GetComponent<TextMesh>().text = Mathf.Round(currentTime).ToString();
+
+		backgroundTimerGameObject.GetComponent<BackgroundTimer>().UpdateTime(currentTime);
 
 		if (playing) {
 
 			currentTime -= Time.deltaTime;
-
-			GameObject.Find("Timer").GetComponent<TextMesh>().text = Mathf.Round(currentTime).ToString();
-
-			backgroundTimerGameObject.GetComponent<BackgroundTimer>().UpdateTime(currentTime);
 
 			if(currentTime < 0) {
 				GameOver();
@@ -56,10 +60,6 @@ public class BoardManagerTimeAttack : BoardManager
 
 	public override void RestartGame() {
 		base.RestartGame();
-
-		if(!playing) {
-			return;
-		}
 			
 		googleAnalytics.LogEvent("TimeAttackMode", "RestartGame", "", 0);
 
@@ -77,6 +77,7 @@ public class BoardManagerTimeAttack : BoardManager
 		timeWon = 3;
 		timeWonRestart = 1;
 		currentLevelDifilculty = 1;
+		extraTime = false;
 
 		GameObject.Find("BestScore").GetComponent<TextMesh>().text = PlayerPrefs.GetInt("BestScoreInTimeAttack").ToString();
 		GameObject.Find("CurrentScore").GetComponent<TextMesh>().text = levelsCompleted.ToString();
@@ -131,6 +132,22 @@ public class BoardManagerTimeAttack : BoardManager
 		currentTime += time;
 	}
 
+	public void KeepPlaying(){
+		currentTime += Constants.TIME_ATTACK_TIME_EXTRA_TIME;
+		gameOverPopupObject.GetComponent<GameOverPopup>().Hide();
+		playing = false;
+		extraTime = true;
+		tapToStartGameObject.SetActive(true);
+	}
+
+	public void StartCounting() {
+		StartCoroutine(CanPlay());
+		StartCoroutine(CanInteractWithBoardAgain());
+		tapToStartGameObject.SetActive(false);
+		boardHolder.gameObject.SetActive(true);
+		RestartGame();
+	}
+
 	private IEnumerator ShowBonusEasyLevel() {
 
 		GameObject.Find("BonusMessages").GetComponent<TextMesh>().text = "Power\none easy level";
@@ -157,7 +174,7 @@ public class BoardManagerTimeAttack : BoardManager
 
 		playing = false;
 		tapToRestartGameObject.SetActive(false);
-
+		boardHolder.gameObject.SetActive(false);
 
 		int bestScoreIn60s = PlayerPrefs.GetInt("BestScoreInTimeAttack");
 
@@ -167,14 +184,16 @@ public class BoardManagerTimeAttack : BoardManager
 			// handle success or failure
 		});
 
+		Debug.Log("extraTimeextraTime" + extraTime);
+
 		// new best score
 		if( levelsCompleted > bestScoreIn60s) {
 			PlayerPrefs.SetInt("BestScoreInTimeAttack", levelsCompleted);
 			googleAnalytics.LogEvent("TimeAttackMode", "GameOver", "NewHighScore", levelsCompleted);
 
-			gameOverPopupObject.GetComponent<GameOverPopup>().Show(levelsCompleted, true);
+			gameOverPopupObject.GetComponent<GameOverPopup>().Show(levelsCompleted, true, !extraTime);
 		} else {
-			gameOverPopupObject.GetComponent<GameOverPopup>().Show(levelsCompleted, false);
+			gameOverPopupObject.GetComponent<GameOverPopup>().Show(levelsCompleted, false, !extraTime);
 		}
 
 	}

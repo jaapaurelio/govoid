@@ -107,10 +107,6 @@ public class BoardManager : MonoBehaviour {
 
 	public virtual void RestartGame() {
 
-		if(!playing) {
-			return;
-		}
-
 		hasRestarted = true;
 
 		HideAllArrows();
