@@ -9,6 +9,9 @@ public class GameOverPopup : MonoBehaviour {
 	public GameObject adButtonGroup;
 	public GoogleAnalyticsV3 googleAnalytics;
 	public GameObject boardManagerTimeAttack;
+	public GameObject clickBlockerObject;
+	public GameObject gameOverScoreObject;
+	public GameObject gameOverNewHighscore;
 
 	void Awake(){
 		transform.position = new Vector3(0, 0, -2);
@@ -21,17 +24,30 @@ public class GameOverPopup : MonoBehaviour {
 
 	public void Show(int score, bool isHighscore, bool showAd) {
 		isOpen = true;
-		transform.Find("GameOverScore").GetComponent<TextMesh>().text = score + " levels done";
+		clickBlockerObject.SetActive(true);
+		gameOverScoreObject.GetComponent<TextMesh>().text = score + " levels done";
 
 		if(isHighscore) {
-			transform.Find("GameOverNewHighscore").gameObject.SetActive(true);
+			gameOverNewHighscore.SetActive(true);
 		} else {
-			transform.Find("GameOverNewHighscore").gameObject.SetActive(false);
+			gameOverNewHighscore.SetActive(false);
 		} 
 
 		toShowAdButton = showAd;
 
 		transform.position = new Vector3(0, 0, -2);
+		Debug.Log("altera posicaooo");
+
+		gameObject.GetComponent<Animator>().Play("GameOverShow");
+
+		StartCoroutine(EnableClick());
+	}
+
+	protected IEnumerator EnableClick() {
+
+		yield return new WaitForSeconds(1f);
+		clickBlockerObject.SetActive(false);
+
 	}
 
 	public void Update() {
