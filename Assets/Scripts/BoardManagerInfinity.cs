@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class BoardManagerInfinity : BoardManager
 {
+	public GameObject endLevelPopup;
+
 	public override void Start(){
 		// To be possible open game in any scene
 		if(GameManager.instance == null) {
@@ -57,15 +59,24 @@ public class BoardManagerInfinity : BoardManager
 	protected override void WonLevel() {
 		base.WonLevel();
 
+		endLevelPopup.GetComponent<EndLevelPopup>().Show(GameManager.instance.currentLevelFromPackage);
+
 		GameManager.instance.playerStatistics.SetLevelDone( GameManager.instance.currentPackageNum, GameManager.instance.currentLevelFromPackage);
 
 		googleAnalytics.LogEvent("InfinityMode", "WonLevel", "level" + GameManager.instance.currentLevelFromPackage, 0);
 
-		GameManager.instance.currentLevelFromPackage++;
-
 		Social.ReportScore(GameManager.instance.playerStatistics.GetNumberOfDoneLevelsFromPackage(1), "CgkI2ab42cEaEAIQBw", (bool success) => {
 			// handle success or failure
 		});
+			
+	}
+
+	// End level popup will call this
+	public void GoNextLevel() {
+
+		endLevelPopup.GetComponent<EndLevelPopup>().Hide();
+
+		GameManager.instance.currentLevelFromPackage++;
 
 		GameObject.Find("CurrentLevel").GetComponent<TextMesh>().text = GameManager.instance.currentLevelFromPackage.ToString();
 
