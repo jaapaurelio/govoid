@@ -70,7 +70,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Size: {x: 75, y: 16}
+  m_Size: {x: 92.77, y: 16}
 --- !u!102 &10246352
 TextMesh:
   serializedVersion: 3
@@ -78,7 +78,7 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 131248}
-  m_Text: Infinite Levels
+  m_Text: Levels
   m_OffsetZ: 0
   m_CharacterSize: 1
   m_LineSpacing: 1
