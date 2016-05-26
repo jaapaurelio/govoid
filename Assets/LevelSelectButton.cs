@@ -15,7 +15,11 @@ public class LevelSelectButton : MonoBehaviour {
 		gameObject.GetComponentInChildren<Text>().text = num.ToString();
 
 		if(levelDone) {
-			gameObject.GetComponentInChildren<Text>().color = new Color32(38, 166, 154, 255);
+			gameObject.GetComponent<Image>().color = new Color32(1, 225, 137, 255);
+			gameObject.GetComponentInChildren<Text>().color = new Color32(34, 122, 80, 255);
+		} else {
+			gameObject.GetComponent<Image>().color = new Color32(93, 93, 93, 255);
+			gameObject.GetComponentInChildren<Text>().color = new Color32(255, 255, 255, 255);
 		}
 
 	}
