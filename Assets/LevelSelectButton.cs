@@ -12,7 +12,7 @@ public class LevelSelectButton : MonoBehaviour {
 
 	public void SetLevel(int num, bool levelDone) {
 		level = num;
-		gameObject.GetComponentInChildren<Text>().text = "level " + num;
+		gameObject.GetComponentInChildren<Text>().text = num.ToString();
 
 		if(levelDone) {
 			gameObject.GetComponentInChildren<Text>().color = new Color32(38, 166, 154, 255);

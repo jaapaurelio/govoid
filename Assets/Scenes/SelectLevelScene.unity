@@ -278,7 +278,7 @@ Camera:
   m_PrefabParentObject: {fileID: 2047916, guid: c2082b513cb434628be792c31e295351,
     type: 2}
   m_PrefabInternal: {fileID: 401879672}
---- !u!1001 &1386785131
+--- !u!1001 &1426005646
 Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -361,29 +361,13 @@ Prefab:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1150408837}
-    - target: {fileID: 22493736, guid: 8b8f94973d77c44cb8f9760d62f1a1d1, type: 2}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 22493736, guid: 8b8f94973d77c44cb8f9760d62f1a1d1, type: 2}
-      propertyPath: m_SizeDelta.y
-      value: 1316
-      objectReference: {fileID: 0}
-    - target: {fileID: 22493736, guid: 8b8f94973d77c44cb8f9760d62f1a1d1, type: 2}
-      propertyPath: m_AnchorMin.y
-      value: 0.14600001
-      objectReference: {fileID: 0}
-    - target: {fileID: 22493736, guid: 8b8f94973d77c44cb8f9760d62f1a1d1, type: 2}
-      propertyPath: m_AnchorMax.y
-      value: 0.14600001
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8b8f94973d77c44cb8f9760d62f1a1d1, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &1509438235 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 187834, guid: 8b8f94973d77c44cb8f9760d62f1a1d1, type: 2}
-  m_PrefabInternal: {fileID: 1386785131}
+  m_PrefabInternal: {fileID: 1426005646}
 --- !u!1001 &1538232309
 Prefab:
   m_ObjectHideFlags: 0
@@ -397,7 +381,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 479136, guid: dae67ef8b2db64633acff96f30292cda, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 479136, guid: dae67ef8b2db64633acff96f30292cda, type: 2}
       propertyPath: m_LocalPosition.z

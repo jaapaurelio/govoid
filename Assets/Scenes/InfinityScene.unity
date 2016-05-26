@@ -825,15 +825,6 @@ Prefab:
       propertyPath: boardManagerInfinity
       value: 
       objectReference: {fileID: 499787784}
-    - target: {fileID: 10201984, guid: 2c928d16e5eea419e9adc8523feed80a, type: 2}
-      propertyPath: m_Font
-      value: 
-      objectReference: {fileID: 12800000, guid: bbbde74c794364da4a5e7e83aad678ba,
-        type: 3}
-    - target: {fileID: 2352076, guid: 2c928d16e5eea419e9adc8523feed80a, type: 2}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: bbbde74c794364da4a5e7e83aad678ba, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2c928d16e5eea419e9adc8523feed80a, type: 2}
   m_IsPrefabParent: 0
