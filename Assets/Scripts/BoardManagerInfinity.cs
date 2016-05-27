@@ -14,6 +14,8 @@ public class BoardManagerInfinity : BoardManager
 
 		GameManager.instance.googleAnalytics.LogScreen("InfinityMode");
 
+
+
 		NewGame();
 	}
 
@@ -23,7 +25,6 @@ public class BoardManagerInfinity : BoardManager
 		}
 	}
 		
-
 	public override void RestartGame() {
 		base.RestartGame();
 
@@ -48,8 +49,10 @@ public class BoardManagerInfinity : BoardManager
 		
 	protected override void LostLevel() {
 		base.LostLevel();
+
 		GameManager.instance.googleAnalytics.LogEvent("InfinityMode", "NoExitHouse", "level" + GameManager.instance.currentLevelFromPackage, 0);
 	}
+
 		
 	protected override void WonLevel() {
 		base.WonLevel();

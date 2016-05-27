@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class BoardManager : MonoBehaviour {
 
-	public GameObject tapToRestartGameObject;
 	public GameObject arrowToInstanciate;
 	public GameObject gamePausedPopupObject;
 	public GameObject houseToInstantiate;
@@ -45,8 +44,6 @@ public class BoardManager : MonoBehaviour {
 	public virtual void Start() {
 
 		BoardSetup();
-
-		tapToRestartGameObject.SetActive(false);
 
 		arrowFrom = Instantiate (arrowToInstanciate, new Vector3 (-2, 0, 0f), Quaternion.identity) as GameObject;
 		arrowFrom.transform.SetParent(boardHolder);
@@ -105,7 +102,7 @@ public class BoardManager : MonoBehaviour {
 	protected virtual void ResetForNewGame(){
 		
 		gamePausedPopupObject.SendMessage("Hide");
-		tapToRestartGameObject.SetActive(false);
+
 		boardHolder.gameObject.SetActive(true);
 
 		canInteractWithBoard = false;
@@ -118,7 +115,6 @@ public class BoardManager : MonoBehaviour {
 
 		HideAllArrows();
 		StartCoroutine(CanInteractWithBoardAgain());
-		tapToRestartGameObject.SetActive(false);
 
 		foreach (var house in currentLevelGrid.GetAllHouses() ) {
 			house.Restart();
@@ -292,7 +288,7 @@ public class BoardManager : MonoBehaviour {
 
 		noExitSound.Play();
 		canInteractWithBoard = false;
-		StartCoroutine(ShowTapToRestart());
+
 	}
 
 	protected virtual void WonLevel() {
@@ -353,14 +349,6 @@ public class BoardManager : MonoBehaviour {
 		yield return new WaitForSeconds(0.1f);
 		canInteractWithBoard = true;
 	}
-
-	protected IEnumerator ShowTapToRestart() {
-
-		yield return new WaitForSeconds(0.1f);
-		tapToRestartGameObject.SetActive(true);
-
-	}
-
 
 	protected void ShowArrows(GridPosition fromPosition, int direction) {
 

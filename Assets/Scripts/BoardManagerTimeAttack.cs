@@ -10,6 +10,7 @@ public class BoardManagerTimeAttack : BoardManager
 	public GameObject backgroundTimerGameObject;
 	public GameObject gameOverPopupObject;
 	public GameObject tapToStartGameObject;
+	public GameObject tapToRestartGameObject;
 	public GameObject timeRed;
 
 	private int levelsCompleted = 0;
@@ -25,6 +26,7 @@ public class BoardManagerTimeAttack : BoardManager
 		GameManager.instance.googleAnalytics.LogScreen("TimeAttackMode");
 		tapToStartGameObject.SetActive(false);
 		timeRed.SetActive(false);
+		tapToRestartGameObject.SetActive(false);
 
 		int bestScoreInTimeAttack = PlayerPrefs.GetInt("BestScoreInTimeAttack");
 
@@ -61,19 +63,36 @@ public class BoardManagerTimeAttack : BoardManager
 
 	protected override void LostLevel() {
 		base.LostLevel();
+		StartCoroutine(ShowTapToRestart());
 		GameManager.instance.googleAnalytics.LogEvent("TimeAttackMode", "NoExitHouse", "", 0);
 	}
 
 	public override void RestartGame() {
 		base.RestartGame();
+
+		tapToRestartGameObject.SetActive(false);
 			
 		GameManager.instance.googleAnalytics.LogEvent("TimeAttackMode", "RestartGame", "", 0);
 
 	}
 
+	protected IEnumerator ShowTapToRestart() {
+
+		yield return new WaitForSeconds(0.1f);
+		tapToRestartGameObject.SetActive(true);
+
+	}
+
+	protected override void ResetForNewGame(){
+		base.ResetForNewGame();
+		tapToRestartGameObject.SetActive(false);
+
+	}
+
+
 	public override void NewGame() {
 
-		base.ResetForNewGame();
+		ResetForNewGame();
 
 		gameOverPopupObject.SendMessage("Hide");
 

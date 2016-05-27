@@ -227,7 +227,7 @@ Prefab:
     - target: {fileID: 11461590, guid: 309076af2c64b4c4eb51159d83abc763, type: 2}
       propertyPath: tapToRestartGameObject
       value: 
-      objectReference: {fileID: 327433954}
+      objectReference: {fileID: 0}
     - target: {fileID: 11461590, guid: 309076af2c64b4c4eb51159d83abc763, type: 2}
       propertyPath: gamePausedPopupObject
       value: 
@@ -255,52 +255,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 309076af2c64b4c4eb51159d83abc763, type: 2}
   m_IsPrefabParent: 0
---- !u!1001 &327433953
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 452540, guid: 73b8bcc53d0bf4d58ba7f3e7e2b4bd53, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 452540, guid: 73b8bcc53d0bf4d58ba7f3e7e2b4bd53, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0.87
-      objectReference: {fileID: 0}
-    - target: {fileID: 452540, guid: 73b8bcc53d0bf4d58ba7f3e7e2b4bd53, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 452540, guid: 73b8bcc53d0bf4d58ba7f3e7e2b4bd53, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 452540, guid: 73b8bcc53d0bf4d58ba7f3e7e2b4bd53, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 452540, guid: 73b8bcc53d0bf4d58ba7f3e7e2b4bd53, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 452540, guid: 73b8bcc53d0bf4d58ba7f3e7e2b4bd53, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 452540, guid: 73b8bcc53d0bf4d58ba7f3e7e2b4bd53, type: 2}
-      propertyPath: m_RootOrder
-      value: 3
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 73b8bcc53d0bf4d58ba7f3e7e2b4bd53, type: 2}
-  m_IsPrefabParent: 0
---- !u!1 &327433954 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 123482, guid: 73b8bcc53d0bf4d58ba7f3e7e2b4bd53, type: 2}
-  m_PrefabInternal: {fileID: 327433953}
 --- !u!1 &499787784 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 174294, guid: 309076af2c64b4c4eb51159d83abc763, type: 2}
