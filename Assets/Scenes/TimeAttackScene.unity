@@ -257,7 +257,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 452540, guid: 7e8bbaa2ab1e6479f9426f3dc3888a9f, type: 2}
       propertyPath: m_RootOrder
-      value: 22
+      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 123482, guid: 7e8bbaa2ab1e6479f9426f3dc3888a9f, type: 2}
       propertyPath: m_Name
@@ -319,7 +319,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 408800, guid: 4c5f79907aa5f48eb98e33a155f7e14b, type: 2}
       propertyPath: m_RootOrder
-      value: 21
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 10247488, guid: 4c5f79907aa5f48eb98e33a155f7e14b, type: 2}
       propertyPath: m_Text
@@ -466,6 +466,10 @@ Prefab:
     - target: {fileID: 430452, guid: 5831fa17f24344ae9ab6b3780ba65e87, type: 2}
       propertyPath: m_RootOrder
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 176580, guid: 5831fa17f24344ae9ab6b3780ba65e87, type: 2}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5831fa17f24344ae9ab6b3780ba65e87, type: 2}
@@ -737,10 +741,6 @@ Prefab:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 11468986, guid: da1f9946d6e3b4ced8b01cc28dbff22a, type: 2}
-      propertyPath: googleAnalytics
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 11468986, guid: da1f9946d6e3b4ced8b01cc28dbff22a, type: 2}
       propertyPath: tapToRestartGameObject
       value: 
       objectReference: {fileID: 1483805071}
@@ -773,10 +773,6 @@ Prefab:
       value: 
       objectReference: {fileID: 581928950}
     - target: {fileID: 11468986, guid: da1f9946d6e3b4ced8b01cc28dbff22a, type: 2}
-      propertyPath: boostPopupObject
-      value: 
-      objectReference: {fileID: 2063306488}
-    - target: {fileID: 11468986, guid: da1f9946d6e3b4ced8b01cc28dbff22a, type: 2}
       propertyPath: tapToStartGameObject
       value: 
       objectReference: {fileID: 192003466}
@@ -784,6 +780,10 @@ Prefab:
       propertyPath: timeRed
       value: 
       objectReference: {fileID: 962223993}
+    - target: {fileID: 11468986, guid: da1f9946d6e3b4ced8b01cc28dbff22a, type: 2}
+      propertyPath: restartBtnObject
+      value: 
+      objectReference: {fileID: 2014317007}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: da1f9946d6e3b4ced8b01cc28dbff22a, type: 2}
   m_IsPrefabParent: 0
@@ -974,64 +974,6 @@ AudioSource:
   m_PrefabParentObject: {fileID: 8298286, guid: 33b12b9e39243499e89a68e10949bc59,
     type: 2}
   m_PrefabInternal: {fileID: 183752640}
---- !u!1001 &1246659415
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 440062, guid: e32943432e5a947a79162a1134ec1871, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 25
-      objectReference: {fileID: 0}
-    - target: {fileID: 440062, guid: e32943432e5a947a79162a1134ec1871, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 440062, guid: e32943432e5a947a79162a1134ec1871, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 440062, guid: e32943432e5a947a79162a1134ec1871, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 440062, guid: e32943432e5a947a79162a1134ec1871, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 440062, guid: e32943432e5a947a79162a1134ec1871, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 440062, guid: e32943432e5a947a79162a1134ec1871, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 440062, guid: e32943432e5a947a79162a1134ec1871, type: 2}
-      propertyPath: m_RootOrder
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 11482602, guid: e32943432e5a947a79162a1134ec1871, type: 2}
-      propertyPath: boardManagerTimeAttack
-      value: 
-      objectReference: {fileID: 1933675229}
-    - target: {fileID: 11482602, guid: e32943432e5a947a79162a1134ec1871, type: 2}
-      propertyPath: viewAdText
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 11482602, guid: e32943432e5a947a79162a1134ec1871, type: 2}
-      propertyPath: adResultText
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 164018, guid: e32943432e5a947a79162a1134ec1871, type: 2}
-      propertyPath: m_Name
-      value: BoostPopup
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: e32943432e5a947a79162a1134ec1871, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1001 &1251116602
 Prefab:
   m_ObjectHideFlags: 0
@@ -1069,7 +1011,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 416464, guid: e58861808405e4f20ba01670e8dc939f, type: 2}
       propertyPath: m_RootOrder
-      value: 23
+      value: 22
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e58861808405e4f20ba01670e8dc939f, type: 2}
@@ -1300,10 +1242,10 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bbc1b5e559a504a3097209d1dff518b4, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &2063306488 stripped
+--- !u!1 &2014317007 stripped
 GameObject:
-  m_PrefabParentObject: {fileID: 164018, guid: e32943432e5a947a79162a1134ec1871, type: 2}
-  m_PrefabInternal: {fileID: 1246659415}
+  m_PrefabParentObject: {fileID: 176580, guid: 5831fa17f24344ae9ab6b3780ba65e87, type: 2}
+  m_PrefabInternal: {fileID: 336047167}
 --- !u!1 &2090944481 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 171066, guid: 770c924ac8f1b4500bdbcd890e417ff4, type: 2}

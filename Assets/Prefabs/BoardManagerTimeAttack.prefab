@@ -39,7 +39,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fd3be1827bdb4f7c892aef5b0d0f685, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  googleAnalytics: {fileID: 0}
   tapToRestartGameObject: {fileID: 0}
   arrowToInstanciate: {fileID: 156372, guid: 80f4e2c3565c3424a827ba882d4d67ec, type: 2}
   gamePausedPopupObject: {fileID: 0}
@@ -50,9 +49,9 @@ MonoBehaviour:
   noPossibleClick: {fileID: 0}
   backgroundTimerGameObject: {fileID: 0}
   gameOverPopupObject: {fileID: 0}
-  boostPopupObject: {fileID: 0}
   tapToStartGameObject: {fileID: 0}
   timeRed: {fileID: 0}
+  restartBtnObject: {fileID: 0}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

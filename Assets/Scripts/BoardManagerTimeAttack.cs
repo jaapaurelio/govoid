@@ -9,10 +9,8 @@ public class BoardManagerTimeAttack : BoardManager
 
 	public GameObject backgroundTimerGameObject;
 	public GameObject gameOverPopupObject;
-	public GameObject boostPopupObject;
 	public GameObject tapToStartGameObject;
 	public GameObject timeRed;
-
 
 	private int levelsCompleted = 0;
 	private float currentTime = 0.0f;
@@ -77,8 +75,6 @@ public class BoardManagerTimeAttack : BoardManager
 
 		base.ResetForNewGame();
 
-		boostPopupObject.GetComponent<BoostPopup>().ShowPopup();
-
 		gameOverPopupObject.SendMessage("Hide");
 
 		levelsCompleted = 0;
@@ -92,16 +88,18 @@ public class BoardManagerTimeAttack : BoardManager
 
 		currentTime = Constants.TIME_ATTACK_TIME;
 
+		tapToStartGameObject.SetActive(true);
+
+		boardHolder.gameObject.SetActive(false);
+
 	}
 
 	public void StartNewGame() {
 		base.NewGame();
 
-		boostPopupObject.GetComponent<BoostPopup>().HidePopup();
-
 		GameManager.instance.googleAnalytics.LogEvent("TimeAttackMode", "StartNewGame", "", 0);
 
-
+		boardHolder.gameObject.SetActive(true);
 		NewLevel();
 	}
 
@@ -148,10 +146,21 @@ public class BoardManagerTimeAttack : BoardManager
 		tapToStartGameObject.SetActive(true);
 	}
 
-	public void StartCounting() {
+	public void StartFromTap() {
+
+		tapToStartGameObject.SetActive(false);
+
+		if(extraTime) {
+			StartCounting();
+		} else {
+			StartNewGame();
+		}
+
+	}
+
+	private void StartCounting() {
 		StartCoroutine(CanPlay());
 		StartCoroutine(CanInteractWithBoardAgain());
-		tapToStartGameObject.SetActive(false);
 		boardHolder.gameObject.SetActive(true);
 		RestartGame();
 	}
