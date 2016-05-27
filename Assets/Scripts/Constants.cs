@@ -31,6 +31,8 @@
 	public const string PLAYER_SETTINGS_SAVE = "PLAYER_SETTINGS_SAVE_BETA";
 	public const string PS_AVAIABLE_LEVELS = "AvailableLevelsBETA";
 	public const string PS_DATE_TO_GENERATE_LEVELS = "DATE_TO_GENERATE_LEVELS";
+	public const string PS_SOUND_STATE_KEY = "PS_SOUND_STATE_KEY";
+
 
 	// Ads ids
 	public const string AD_INFINITY_EXTRA_TIME = "rewardedVideo";

@@ -1,15 +1,14 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &177214
+--- !u!1 &191222
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
   m_Component:
-  - 4: {fileID: 421996}
-  - 114: {fileID: 11487564}
-  - 114: {fileID: 11417850}
+  - 4: {fileID: 498096}
+  - 114: {fileID: 11445706}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -17,43 +16,37 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &421996
+--- !u!4 &498096
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 177214}
+  m_GameObject: {fileID: 191222}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 0, y: 4, z: -5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!114 &11417850
+--- !u!114 &11445706
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 177214}
+  m_GameObject: {fileID: 191222}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2fd3be1827bdb4f7c892aef5b0d0f685, type: 3}
+  m_Script: {fileID: 11500000, guid: 1465041566b4a4a4e82975ed6b9ba87e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  square: {fileID: 195940, guid: 7354aa6812163479189408f6348aec52, type: 2}
-  gameOverPopupObject: {fileID: 0}
-  gamePausedPopupObject: {fileID: 0}
---- !u!114 &11487564
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 177214}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab95f9e2a8d0d48edb4fe94cf3936148, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  currentPackageNum: 1
+  currentLevelFromPackage: 1
+  currentPackage:
+    levels: []
+    name: 
+  playerStatistics:
+    bestScoreInInfinityMode: 0
+    levels: []
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -63,5 +56,5 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 177214}
+  m_RootGameObject: {fileID: 191222}
   m_IsPrefabParent: 1

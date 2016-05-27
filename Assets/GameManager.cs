@@ -55,6 +55,14 @@ public class GameManager : MonoBehaviour {
 		Social.localUser.Authenticate((bool success) => {
 			// handle success or failure
 		});
+
+		// Use player settings. If not set, sound is active by default.
+		if( PlayerPrefs.HasKey(Constants.PS_SOUND_STATE_KEY) ) {
+			AudioListener.volume = PlayerPrefs.GetInt(Constants.PS_SOUND_STATE_KEY);
+		} else {
+			PlayerPrefs.SetInt(Constants.PS_SOUND_STATE_KEY, 1);
+		}
+
 	}
 
 	public void GoBack() {
