@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour {
 
 	// Static instance of GameManager which allows it to be accessed by any other script.
 	public static GameManager instance = null;
+	public GoogleAnalyticsV3 googleAnalytics;
 
 	public int currentPackageNum = 1;
 	public int currentLevelFromPackage = 1;

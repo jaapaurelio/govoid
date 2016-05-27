@@ -9,15 +9,10 @@ public class BoardManagerInfinity : BoardManager
 	public GameObject endLevelPopup;
 
 	public override void Start(){
-		// To be possible open game in any scene
-		if(GameManager.instance == null) {
-			SceneManager.LoadScene("MainMenuScene");
-			return;
-		}
 
 		base.Start();
 
-		googleAnalytics.LogScreen("InfinityMode");
+		GameManager.instance.googleAnalytics.LogScreen("InfinityMode");
 
 		NewGame();
 	}
@@ -36,14 +31,14 @@ public class BoardManagerInfinity : BoardManager
 			return;
 		}
 
-		googleAnalytics.LogEvent("InfinityMode", "RestartGame",  "level" + GameManager.instance.currentLevelFromPackage, 0);
+		GameManager.instance.googleAnalytics.LogEvent("InfinityMode", "RestartGame",  "level" + GameManager.instance.currentLevelFromPackage, 0);
 
 	}
 
 	public override void NewGame() {
 		base.NewGame();
 
-		googleAnalytics.LogEvent("InfinityMode", "StartNewGame", "", 0);
+		GameManager.instance.googleAnalytics.LogEvent("InfinityMode", "StartNewGame", "", 0);
 
 		GameObject.Find("CurrentLevel").GetComponent<TextMesh>().text = GameManager.instance.currentLevelFromPackage.ToString();
 
@@ -53,7 +48,7 @@ public class BoardManagerInfinity : BoardManager
 		
 	protected override void LostLevel() {
 		base.LostLevel();
-		googleAnalytics.LogEvent("InfinityMode", "NoExitHouse", "level" + GameManager.instance.currentLevelFromPackage, 0);
+		GameManager.instance.googleAnalytics.LogEvent("InfinityMode", "NoExitHouse", "level" + GameManager.instance.currentLevelFromPackage, 0);
 	}
 		
 	protected override void WonLevel() {
@@ -63,7 +58,7 @@ public class BoardManagerInfinity : BoardManager
 
 		GameManager.instance.playerStatistics.SetLevelDone( GameManager.instance.currentPackageNum, GameManager.instance.currentLevelFromPackage);
 
-		googleAnalytics.LogEvent("InfinityMode", "WonLevel", "level" + GameManager.instance.currentLevelFromPackage, 0);
+		GameManager.instance.googleAnalytics.LogEvent("InfinityMode", "WonLevel", "level" + GameManager.instance.currentLevelFromPackage, 0);
 
 		Social.ReportScore(GameManager.instance.playerStatistics.GetNumberOfDoneLevelsFromPackage(1), "CgkI2ab42cEaEAIQBw", (bool success) => {
 			// handle success or failure
@@ -127,12 +122,12 @@ public class BoardManagerInfinity : BoardManager
 	public override void PauseGame() {
 		base.PauseGame();
 
-		googleAnalytics.LogEvent("InfinityMode", "Pause", "", 0);
+		GameManager.instance.googleAnalytics.LogEvent("InfinityMode", "Pause", "", 0);
 	}
 		
 	public override void ClosePausePopup() {
 		base.ClosePausePopup();
-		googleAnalytics.LogEvent("InfinityMode", "UnPause", "", 0);
+		GameManager.instance.googleAnalytics.LogEvent("InfinityMode", "UnPause", "", 0);
 	}
 
 }

@@ -39,6 +39,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1465041566b4a4a4e82975ed6b9ba87e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  googleAnalytics: {fileID: 0}
   currentPackageNum: 1
   currentLevelFromPackage: 1
   currentPackage:

@@ -24,7 +24,7 @@ public class BoardManagerTimeAttack : BoardManager
 	public override void Start(){
 		base.Start();
 
-		googleAnalytics.LogScreen("TimeAttackMode");
+		GameManager.instance.googleAnalytics.LogScreen("TimeAttackMode");
 		tapToStartGameObject.SetActive(false);
 		timeRed.SetActive(false);
 
@@ -63,13 +63,13 @@ public class BoardManagerTimeAttack : BoardManager
 
 	protected override void LostLevel() {
 		base.LostLevel();
-		googleAnalytics.LogEvent("TimeAttackMode", "NoExitHouse", "", 0);
+		GameManager.instance.googleAnalytics.LogEvent("TimeAttackMode", "NoExitHouse", "", 0);
 	}
 
 	public override void RestartGame() {
 		base.RestartGame();
 			
-		googleAnalytics.LogEvent("TimeAttackMode", "RestartGame", "", 0);
+		GameManager.instance.googleAnalytics.LogEvent("TimeAttackMode", "RestartGame", "", 0);
 
 	}
 
@@ -99,7 +99,7 @@ public class BoardManagerTimeAttack : BoardManager
 
 		boostPopupObject.GetComponent<BoostPopup>().HidePopup();
 
-		googleAnalytics.LogEvent("TimeAttackMode", "StartNewGame", "", 0);
+		GameManager.instance.googleAnalytics.LogEvent("TimeAttackMode", "StartNewGame", "", 0);
 
 
 		NewLevel();
@@ -121,11 +121,11 @@ public class BoardManagerTimeAttack : BoardManager
 		}
 
 		if(hasRestarted) {
-			googleAnalytics.LogEvent("TimeAttackMode", "NextLevel", "HasRestarted", 0);
+			GameManager.instance.googleAnalytics.LogEvent("TimeAttackMode", "NextLevel", "HasRestarted", 0);
 			currentTime = currentTime + timeWonRestart;
 			StartCoroutine(ShowBonusTime(timeWonRestart));
 		} else {
-			googleAnalytics.LogEvent("TimeAttackMode", "NextLevel", "NoRestarted", 0);
+			GameManager.instance.googleAnalytics.LogEvent("TimeAttackMode", "NextLevel", "NoRestarted", 0);
 			currentTime = currentTime + timeWon;
 			StartCoroutine(ShowBonusTime(timeWon));
 		}
@@ -187,7 +187,7 @@ public class BoardManagerTimeAttack : BoardManager
 
 		int bestScoreIn60s = PlayerPrefs.GetInt("BestScoreInTimeAttack");
 
-		googleAnalytics.LogEvent("TimeAttackMode", "GameOver", "Score", levelsCompleted);
+		GameManager.instance.googleAnalytics.LogEvent("TimeAttackMode", "GameOver", "Score", levelsCompleted);
 
 		Social.ReportScore(levelsCompleted, "CgkI2ab42cEaEAIQAQ", (bool success) => {
 			// handle success or failure
@@ -198,7 +198,7 @@ public class BoardManagerTimeAttack : BoardManager
 		// new best score
 		if( levelsCompleted > bestScoreIn60s) {
 			PlayerPrefs.SetInt("BestScoreInTimeAttack", levelsCompleted);
-			googleAnalytics.LogEvent("TimeAttackMode", "GameOver", "NewHighScore", levelsCompleted);
+			GameManager.instance.googleAnalytics.LogEvent("TimeAttackMode", "GameOver", "NewHighScore", levelsCompleted);
 
 			gameOverPopupObject.GetComponent<GameOverPopup>().Show(levelsCompleted, true, !extraTime);
 		} else {
@@ -258,12 +258,12 @@ public class BoardManagerTimeAttack : BoardManager
 	public override void PauseGame() {
 		base.PauseGame();
 
-		googleAnalytics.LogEvent("TimeAttackMode", "Pause", "", 0);
+		GameManager.instance.googleAnalytics.LogEvent("TimeAttackMode", "Pause", "", 0);
 	}
 		
 	public override void ClosePausePopup() {
 		base.ClosePausePopup();
-		googleAnalytics.LogEvent("TimeAttackMode", "UnPause", "", 0);
+		GameManager.instance.googleAnalytics.LogEvent("TimeAttackMode", "UnPause", "", 0);
 	}
 
 }

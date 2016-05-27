@@ -7,7 +7,6 @@ public class BoostPopup : MonoBehaviour {
 	public GameObject boardManagerTimeAttack;
 	public GameObject viewAdText;
 	public GameObject adResultText;
-	public GoogleAnalyticsV3 googleAnalytics;
 
 	private bool toShowAdButton = true;
 	private bool isOpen = false;
@@ -44,11 +43,11 @@ public class BoostPopup : MonoBehaviour {
 		
 		if (Advertisement.IsReady("rewardedVideo"))
 		{
-			googleAnalytics.LogEvent("ShowAd", "IsReady", "", 0);
+			GameManager.instance.googleAnalytics.LogEvent("ShowAd", "IsReady", "", 0);
 			var options = new ShowOptions { resultCallback = HandleShowResult };
 			Advertisement.Show("rewardedVideo", options);
 		} else {
-			googleAnalytics.LogEvent("ShowAd", "NotReady", "", 0);
+			GameManager.instance.googleAnalytics.LogEvent("ShowAd", "NotReady", "", 0);
 		}
 	}
 
@@ -58,7 +57,7 @@ public class BoostPopup : MonoBehaviour {
 		switch (result) {
 		case ShowResult.Finished:
 
-			googleAnalytics.LogEvent("ShowAdFinished", "", "", 0);
+			GameManager.instance.googleAnalytics.LogEvent("ShowAdFinished", "", "", 0);
 			viewAdText.SetActive(false);
 			adResultText.SetActive(true);
 
@@ -73,14 +72,14 @@ public class BoostPopup : MonoBehaviour {
 			break;
 		case ShowResult.Skipped:
 
-			googleAnalytics.LogEvent("ShowAdSkipped", "", "", 0);
+			GameManager.instance.googleAnalytics.LogEvent("ShowAdSkipped", "", "", 0);
 			Debug.Log("The ad was skipped before reaching the end.");
 			viewAdText.SetActive(false);
 
 			break;
 		case ShowResult.Failed:
 
-			googleAnalytics.LogEvent("ShowAdFailed", "", "", 0);
+			GameManager.instance.googleAnalytics.LogEvent("ShowAdFailed", "", "", 0);
 			Debug.LogError("The ad failed to be shown.");
 			viewAdText.SetActive(false);
 

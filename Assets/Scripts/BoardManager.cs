@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;       //Allows us to use Lists.
+using UnityEngine.SceneManagement;
 
 public class BoardManager : MonoBehaviour {
 
-	public GoogleAnalyticsV3 googleAnalytics;
 	public GameObject tapToRestartGameObject;
 	public GameObject arrowToInstanciate;
 	public GameObject gamePausedPopupObject;
@@ -34,6 +34,13 @@ public class BoardManager : MonoBehaviour {
 
 	private List<AudioSource> houseClickedSounds;
 
+	public virtual void Awake(){
+		// To be possible open game in any scene
+		if(GameManager.instance == null) {
+			SceneManager.LoadScene("IntroScene");
+			return;
+		}
+	}
 
 	public virtual void Start() {
 
