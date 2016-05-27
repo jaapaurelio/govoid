@@ -7,7 +7,6 @@ public class GameOverPopup : MonoBehaviour {
 	private bool isOpen = false;
 	private bool toShowAdButton = true;
 	public GameObject adButtonGroup;
-	public GoogleAnalyticsV3 googleAnalytics;
 	public GameObject boardManagerTimeAttack;
 	public GameObject clickBlockerObject;
 	public GameObject gameOverScoreObject;
@@ -72,11 +71,11 @@ public class GameOverPopup : MonoBehaviour {
 
 		if (Advertisement.IsReady("rewardedVideo"))
 		{
-			googleAnalytics.LogEvent("ShowAdExtraTime", "IsReady", "", 0);
+			GameManager.instance.googleAnalytics.LogEvent("ShowAdExtraTime", "IsReady", "", 0);
 			var options = new ShowOptions { resultCallback = HandleShowResult };
 			Advertisement.Show("rewardedVideo", options);
 		} else {
-			googleAnalytics.LogEvent("ShowAdExtraTime", "NotReady", "", 0);
+			GameManager.instance.googleAnalytics.LogEvent("ShowAdExtraTime", "NotReady", "", 0);
 		}
 	}
 
@@ -86,7 +85,7 @@ public class GameOverPopup : MonoBehaviour {
 		switch (result) {
 		case ShowResult.Finished:
 
-			googleAnalytics.LogEvent("ShowAdExtraTimeFinished", "", "", 0);
+			GameManager.instance.googleAnalytics.LogEvent("ShowAdExtraTimeFinished", "", "", 0);
 			adButtonGroup.SetActive(false);
 
 			boardManagerTimeAttack.GetComponent<BoardManagerTimeAttack>().KeepPlaying();
@@ -96,14 +95,14 @@ public class GameOverPopup : MonoBehaviour {
 			break;
 		case ShowResult.Skipped:
 
-			googleAnalytics.LogEvent("ShowAdExtraTimeSkipped", "", "", 0);
+			GameManager.instance.googleAnalytics.LogEvent("ShowAdExtraTimeSkipped", "", "", 0);
 			Debug.Log("The ad was skipped before reaching the end.");
 			adButtonGroup.SetActive(false);
 
 			break;
 		case ShowResult.Failed:
 
-			googleAnalytics.LogEvent("ShowAdExtraTimeFailed", "", "", 0);
+			GameManager.instance.googleAnalytics.LogEvent("ShowAdExtraTimeFailed", "", "", 0);
 			Debug.LogError("The ad failed to be shown.");
 			adButtonGroup.SetActive(false);
 
