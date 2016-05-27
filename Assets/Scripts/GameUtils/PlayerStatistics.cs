@@ -18,6 +18,8 @@ public class PlayerStatistics {
 	public int bestScoreInInfinityMode = 0;
 	public List<LevelStatistics> levels;
 
+	private bool loaded = false;
+
 	public void LoadData() {
 		//PlayerPrefs.DeleteAll();
 		string json = PlayerPrefs.GetString(Constants.PLAYER_SETTINGS_SAVE);
@@ -34,9 +36,17 @@ public class PlayerStatistics {
 			bestScoreInInfinityMode = loadedData.bestScoreInInfinityMode;
 			levels = loadedData.levels;
 		}
+
+		loaded = true;
 	}
 
 	public void SaveData() {
+
+		if(!loaded) {
+			Debug.Log("Prevent save data without loading it first.");
+			return;
+		}
+
 		string thisJson = JsonUtility.ToJson(this);
 		Debug.Log("saveData" + thisJson);
 
