@@ -16,7 +16,7 @@ public class GameOverPopup : MonoBehaviour {
 
 
 	void Awake(){
-		transform.position = new Vector3(0, 0, -2);
+		transform.position = new Vector3(90, 0, -2);
 	}
 
 	public void Hide() {
@@ -40,7 +40,6 @@ public class GameOverPopup : MonoBehaviour {
 		toShowAdButton = showAd;
 
 		transform.position = new Vector3(0, 0, -2);
-		Debug.Log("altera posicaooo");
 
 		gameObject.GetComponent<Animator>().Play("GameOverShow");
 
