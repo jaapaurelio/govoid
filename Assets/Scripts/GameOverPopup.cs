@@ -12,6 +12,8 @@ public class GameOverPopup : MonoBehaviour {
 	public GameObject clickBlockerObject;
 	public GameObject gameOverScoreObject;
 	public GameObject gameOverNewHighscore;
+	public GameObject bestScoreGameOverObject;
+
 
 	void Awake(){
 		transform.position = new Vector3(0, 0, -2);
@@ -25,7 +27,9 @@ public class GameOverPopup : MonoBehaviour {
 	public void Show(int score, bool isHighscore, bool showAd) {
 		isOpen = true;
 		clickBlockerObject.SetActive(true);
-		gameOverScoreObject.GetComponent<TextMesh>().text = score + " levels done";
+		gameOverScoreObject.GetComponent<TextMesh>().text = score.ToString();
+		bestScoreGameOverObject.GetComponent<TextMesh>().text = PlayerPrefs.GetInt("BestScoreInTimeAttack").ToString();
+
 
 		if(isHighscore) {
 			gameOverNewHighscore.SetActive(true);
