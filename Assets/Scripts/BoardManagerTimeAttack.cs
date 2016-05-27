@@ -11,6 +11,7 @@ public class BoardManagerTimeAttack : BoardManager
 	public GameObject gameOverPopupObject;
 	public GameObject boostPopupObject;
 	public GameObject tapToStartGameObject;
+	public GameObject timeRed;
 
 
 	private int levelsCompleted = 0;
@@ -25,6 +26,7 @@ public class BoardManagerTimeAttack : BoardManager
 
 		googleAnalytics.LogScreen("TimeAttackMode");
 		tapToStartGameObject.SetActive(false);
+		timeRed.SetActive(false);
 
 		int bestScoreInTimeAttack = PlayerPrefs.GetInt("BestScoreInTimeAttack");
 
@@ -42,6 +44,12 @@ public class BoardManagerTimeAttack : BoardManager
 		if (playing) {
 
 			currentTime -= Time.deltaTime;
+
+			if( currentTime < Constants.TIME_TO_SHOW_RED) {
+				timeRed.SetActive(true);
+			} else {
+				timeRed.SetActive(false);
+			}
 
 			if(currentTime < 0) {
 				GameOver();
@@ -175,6 +183,7 @@ public class BoardManagerTimeAttack : BoardManager
 		playing = false;
 		tapToRestartGameObject.SetActive(false);
 		boardHolder.gameObject.SetActive(false);
+		timeRed.SetActive(false);
 
 		int bestScoreIn60s = PlayerPrefs.GetInt("BestScoreInTimeAttack");
 

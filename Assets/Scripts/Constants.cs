@@ -35,5 +35,8 @@
 	// Ads ids
 	public const string AD_INFINITY_EXTRA_TIME = "rewardedVideo";
 
+	// TIME ATTACK
+	public const int TIME_TO_SHOW_RED = 10;
+
 
 }
