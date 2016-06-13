@@ -14,8 +14,8 @@
 	public const int HOUSE_STATE_TWO_STEPS_BACK = 5;
 
 
-	public const int TIME_ATTACK_TIME = 3;
-	public const int TIME_ATTACK_TIME_EXTRA_TIME = 3;
+	public const int TIME_ATTACK_TIME = 30;
+	public const int TIME_ATTACK_TIME_EXTRA_TIME = 30;
 
 	// States
 	public const string SELECT_PACKAGE_SCENE = "SelectPackageScene";

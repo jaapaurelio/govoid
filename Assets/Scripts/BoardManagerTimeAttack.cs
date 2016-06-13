@@ -12,10 +12,12 @@ public class BoardManagerTimeAttack : BoardManager
 	public GameObject tapToStartGameObject;
 	public GameObject tapToRestartGameObject;
 	public GameObject timeRed;
+	public GameObject gamePausedPopupObject;
 
 	private int levelsCompleted = 0;
 	private float currentTime = 0.0f;
 	private bool extraTime = false;
+	private bool hasStarted = false;
 
 	private int timeWon;
 	private int timeWonRestart;
@@ -32,7 +34,16 @@ public class BoardManagerTimeAttack : BoardManager
 
 		GameObject.Find("BestScore").GetComponent<TextMesh>().text = bestScoreInTimeAttack.ToString();
 
+		PauseButton.OnClicked += PauseGame;
+		ClosePausePopupButton.OnClicked += ClosePausePopup;
+
 		NewGame();
+	}
+
+	public override void OnDisable(){
+		base.OnDisable();
+		PauseButton.OnClicked -= PauseGame;
+		ClosePausePopupButton.OnClicked -= ClosePausePopup;
 	}
 
 	void Update() {
@@ -85,6 +96,7 @@ public class BoardManagerTimeAttack : BoardManager
 
 	protected override void ResetForNewGame(){
 		base.ResetForNewGame();
+		gamePausedPopupObject.SendMessage("Hide");
 		tapToRestartGameObject.SetActive(false);
 
 	}
@@ -101,6 +113,7 @@ public class BoardManagerTimeAttack : BoardManager
 		timeWonRestart = 1;
 		currentLevelDifilculty = 1;
 		extraTime = false;
+		hasStarted = false;
 
 		GameObject.Find("BestScore").GetComponent<TextMesh>().text = PlayerPrefs.GetInt("BestScoreInTimeAttack").ToString();
 		GameObject.Find("CurrentScore").GetComponent<TextMesh>().text = levelsCompleted.ToString();
@@ -119,6 +132,7 @@ public class BoardManagerTimeAttack : BoardManager
 		GameManager.instance.googleAnalytics.LogEvent("TimeAttackMode", "StartNewGame", "", 0);
 
 		boardHolder.gameObject.SetActive(true);
+		hasStarted = true;
 		NewLevel();
 	}
 
@@ -283,15 +297,21 @@ public class BoardManagerTimeAttack : BoardManager
 	}
 
 
-	public override void PauseGame() {
-		base.PauseGame();
-
+	public virtual void PauseGame() {
+		gamePausedPopupObject.SendMessage("Show", SendMessageOptions.RequireReceiver);
+		playing = false;
 		GameManager.instance.googleAnalytics.LogEvent("TimeAttackMode", "Pause", "", 0);
 	}
-		
-	public override void ClosePausePopup() {
-		base.ClosePausePopup();
+
+	public virtual void ClosePausePopup() {
+		gamePausedPopupObject.SendMessage("Hide");
+
+		if(hasStarted) {
+			StartCoroutine(CanPlay());
+		}
+
 		GameManager.instance.googleAnalytics.LogEvent("TimeAttackMode", "UnPause", "", 0);
 	}
+
 
 }

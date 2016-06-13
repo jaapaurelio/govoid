@@ -122,15 +122,4 @@ public class BoardManagerInfinity : BoardManager
 
 	}
 
-	public override void PauseGame() {
-		base.PauseGame();
-
-		GameManager.instance.googleAnalytics.LogEvent("InfinityMode", "Pause", "", 0);
-	}
-		
-	public override void ClosePausePopup() {
-		base.ClosePausePopup();
-		GameManager.instance.googleAnalytics.LogEvent("InfinityMode", "UnPause", "", 0);
-	}
-
 }

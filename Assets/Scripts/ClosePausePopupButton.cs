@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ClosePausePopupButton : ButtonText {
+public class ClosePausePopupButton : MonoBehaviour {
 	public delegate void ClickAction();
 	public static event ClickAction OnClicked;
 
-	override public void OnTouch() {
+	public void OnTouch_TM() {
 		if(OnClicked != null){
 			OnClicked();
 		}

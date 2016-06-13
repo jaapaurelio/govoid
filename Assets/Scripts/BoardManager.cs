@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 public class BoardManager : MonoBehaviour {
 
 	public GameObject arrowToInstanciate;
-	public GameObject gamePausedPopupObject;
 	public GameObject houseToInstantiate;
 
 	// Sounds
@@ -61,8 +60,6 @@ public class BoardManager : MonoBehaviour {
 		arrowToRight = Instantiate (arrowToInstanciate, new Vector3 (5, 0, 0f), Quaternion.identity) as GameObject;
 		arrowToRight.transform.SetParent(boardHolder);
 
-		PauseButton.OnClicked += PauseGame;
-		ClosePausePopupButton.OnClicked += ClosePausePopup;
 		NewGameBtn.OnClicked += NewGame;
 		RestartBtn.OnClicked += RestartGame;
 		TapToRestart.OnClicked += RestartGame;
@@ -73,10 +70,8 @@ public class BoardManager : MonoBehaviour {
 		}
 	}
 
-	void OnDisable()
+	public virtual void OnDisable()
 	{
-		PauseButton.OnClicked -= PauseGame;
-		ClosePausePopupButton.OnClicked -= ClosePausePopup;
 		NewGameBtn.OnClicked -= NewGame;
 		RestartBtn.OnClicked -= RestartGame;
 		TapToRestart.OnClicked -= RestartGame;
@@ -100,8 +95,6 @@ public class BoardManager : MonoBehaviour {
 	}
 
 	protected virtual void ResetForNewGame(){
-		
-		gamePausedPopupObject.SendMessage("Hide");
 
 		boardHolder.gameObject.SetActive(true);
 
@@ -295,18 +288,6 @@ public class BoardManager : MonoBehaviour {
 
 		levelPassedSound.Play();
 		canChooseNextHouse = false;
-	}
-
-	public virtual void PauseGame() {
-		gamePausedPopupObject.SendMessage("Show", SendMessageOptions.RequireReceiver);
-		boardHolder.gameObject.SetActive(false);
-		playing = false;
-	}
-
-	public virtual void ClosePausePopup() {
-		gamePausedPopupObject.SendMessage("Hide");
-		boardHolder.gameObject.SetActive(true);
-		StartCoroutine(CanPlay());
 	}
 
 	protected void SetAllHousesToState(List<GridHouse> gridHouses, int state) {

@@ -127,6 +127,48 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d6b2353082d2d4526b4ea782bf38ad0c, type: 2}
   m_IsPrefabParent: 0
+--- !u!1001 &131079406
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 402652, guid: 02adf08f25f2a488aba6fed08b64c0a1, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -18.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 402652, guid: 02adf08f25f2a488aba6fed08b64c0a1, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 402652, guid: 02adf08f25f2a488aba6fed08b64c0a1, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -4
+      objectReference: {fileID: 0}
+    - target: {fileID: 402652, guid: 02adf08f25f2a488aba6fed08b64c0a1, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 402652, guid: 02adf08f25f2a488aba6fed08b64c0a1, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 402652, guid: 02adf08f25f2a488aba6fed08b64c0a1, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 402652, guid: 02adf08f25f2a488aba6fed08b64c0a1, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 402652, guid: 02adf08f25f2a488aba6fed08b64c0a1, type: 2}
+      propertyPath: m_RootOrder
+      value: 13
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 02adf08f25f2a488aba6fed08b64c0a1, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1001 &155617242
 Prefab:
   m_ObjectHideFlags: 0
@@ -918,52 +960,10 @@ BoxCollider2D:
 GameObject:
   m_PrefabParentObject: {fileID: 155780, guid: e58861808405e4f20ba01670e8dc939f, type: 2}
   m_PrefabInternal: {fileID: 1251116602}
---- !u!1001 &1044011025
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 402652, guid: 02adf08f25f2a488aba6fed08b64c0a1, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: -18.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 402652, guid: 02adf08f25f2a488aba6fed08b64c0a1, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 402652, guid: 02adf08f25f2a488aba6fed08b64c0a1, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: -4
-      objectReference: {fileID: 0}
-    - target: {fileID: 402652, guid: 02adf08f25f2a488aba6fed08b64c0a1, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 402652, guid: 02adf08f25f2a488aba6fed08b64c0a1, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 402652, guid: 02adf08f25f2a488aba6fed08b64c0a1, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 402652, guid: 02adf08f25f2a488aba6fed08b64c0a1, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 402652, guid: 02adf08f25f2a488aba6fed08b64c0a1, type: 2}
-      propertyPath: m_RootOrder
-      value: 13
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 02adf08f25f2a488aba6fed08b64c0a1, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1 &1128557229 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 194784, guid: 02adf08f25f2a488aba6fed08b64c0a1, type: 2}
-  m_PrefabInternal: {fileID: 1044011025}
+  m_PrefabInternal: {fileID: 131079406}
 --- !u!82 &1136422416 stripped
 AudioSource:
   m_PrefabParentObject: {fileID: 8205250, guid: 80a80cf23a20e436fbcd5c9ef75ee273,
