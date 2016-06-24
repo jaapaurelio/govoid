@@ -5,8 +5,11 @@ public class Number : MonoBehaviour {
 
 	public void SetNumber(int newNumber){
 
-		GetComponent<TextMesh>().text = newNumber.ToString();
-
+		if(newNumber == 0) {
+			GetComponent<TextMesh>().text = "";
+		} else {
+			GetComponent<TextMesh>().text = newNumber.ToString();
+		}
 	}
 
 }

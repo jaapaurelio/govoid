@@ -31,6 +31,11 @@ public class GridHouse
 		number++;
 	}
 
+	public void ResetHouse(){
+		state = Constants.HOUSE_STATE_POSSIBLE;
+		gridHouseUIComponent.ResetHouse();
+	}
+
 	public void SetState(int newState) {
 		state = newState;
 		gridHouseUIComponent.SetState(newState);
@@ -41,11 +46,18 @@ public class GridHouse
 		state = Constants.HOUSE_STATE_ACTIVE;
 		gridHouseUIComponent.SetState(Constants.HOUSE_STATE_ACTIVE);
 		gridHouseUIComponent.SetNumber(number);
+
 	}
 
 	public void UnsetActive() {
 		state = Constants.HOUSE_STATE_NORMAL;
 		gridHouseUIComponent.SetState(Constants.HOUSE_STATE_NORMAL);
+
+		/*
+		if(number == 0){
+			gridHouseUIGameObject.SetActive(false);
+		}
+		*/
 	}
 
 	public void SetGameObject(GameObject newGridHouseUI) {
@@ -56,6 +68,10 @@ public class GridHouse
 	public void Restart() {
 		number = originalNumber;
 		gridHouseUIComponent.SetNumber(number);
+
+		if(number > 0) {
+			gridHouseUIGameObject.SetActive(true);
+		}
 	}
 
 	public void SetHouseMissing(){

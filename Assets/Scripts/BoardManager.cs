@@ -113,7 +113,7 @@ public class BoardManager : MonoBehaviour {
 			house.Restart();
 
 			if(house.Number > 0) {
-				house.SetState(Constants.HOUSE_STATE_POSSIBLE);
+				house.ResetHouse();
 			}
 		}
 
@@ -219,6 +219,7 @@ public class BoardManager : MonoBehaviour {
 							ShowFromArrow(clickedHouse, activeHouse);
 
 							activeHouse.UnsetActive();
+
 						}
 
 						// No more places to go
@@ -351,6 +352,7 @@ public class BoardManager : MonoBehaviour {
 
 	protected void ShowFromArrow(GridHouse fromP, GridHouse toP ) {
 		int direction = GetDirectionToSibling(fromP, toP);
+		return;
 
 		switch(direction) {
 		case Constants.TOP:
