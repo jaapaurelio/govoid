@@ -354,16 +354,16 @@ public class BoardManager : MonoBehaviour {
 
 		switch(direction) {
 		case Constants.TOP:
-			arrowToTop.transform.localPosition = new Vector3(fromPosition.column * 2.5f , fromPosition.row * 2.5f + 1.24f, 0);
+			arrowToTop.transform.localPosition = new Vector3(fromPosition.column * 2.5f , fromPosition.row * 2.5f, 0);
 			break;
 		case Constants.BOTTOM:
-			arrowToBottom.transform.localPosition = new Vector3(fromPosition.column * 2.5f , fromPosition.row * 2.5f - 1.24f, 0);
+			arrowToBottom.transform.localPosition = new Vector3(fromPosition.column * 2.5f , fromPosition.row * 2.5f, 0);
 			break;
 		case Constants.RIGHT:
-			arrowToRight.transform.localPosition = new Vector3(fromPosition.column * 2.5f + 1.24f, fromPosition.row * 2.5f, 0);
+			arrowToRight.transform.localPosition = new Vector3(fromPosition.column * 2.5f, fromPosition.row * 2.5f, 0);
 			break;
 		case Constants.LEFT:
-			arrowToLeft.transform.localPosition = new Vector3(fromPosition.column * 2.5f - 1.24f, fromPosition.row * 2.5f, 0);
+			arrowToLeft.transform.localPosition = new Vector3(fromPosition.column * 2.5f, fromPosition.row * 2.5f, 0);
 			break;
 		}
 	}
