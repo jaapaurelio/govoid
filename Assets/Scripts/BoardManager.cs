@@ -289,6 +289,24 @@ public class BoardManager : MonoBehaviour {
 
 		levelPassedSound.Play();
 		canChooseNextHouse = false;
+
+		StartCoroutine(AnimateWon());
+
+	}
+
+	protected IEnumerator AnimateWon() {
+
+		foreach(GridHouse house in currentLevelGrid.GetAllHouses()) {
+			house.gridHouseUIComponent.anim.Play("WonLevel");
+		}
+
+		yield return new WaitForSeconds(0.6f);
+		AfterWonAnimation();
+	}
+		
+
+	protected virtual void AfterWonAnimation() {
+		// This function will be defined in the game modes.
 	}
 
 	protected void SetAllHousesToState(List<GridHouse> gridHouses, int state) {
@@ -351,6 +369,8 @@ public class BoardManager : MonoBehaviour {
 	}
 
 	protected void ShowFromArrow(GridHouse fromP, GridHouse toP ) {
+
+		/*
 		int direction = GetDirectionToSibling(fromP, toP);
 		return;
 
@@ -372,6 +392,7 @@ public class BoardManager : MonoBehaviour {
 			arrowFrom.transform.rotation = Quaternion.Euler(0,0,0);
 			break;
 		}
+		*/
 	}
 
 

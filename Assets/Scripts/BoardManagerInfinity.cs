@@ -57,8 +57,7 @@ public class BoardManagerInfinity : BoardManager
 	protected override void WonLevel() {
 		base.WonLevel();
 
-		endLevelPopup.GetComponent<EndLevelPopup>().Show(GameManager.instance.currentLevelFromPackage);
-
+	
 		GameManager.instance.playerStatistics.SetLevelDone( GameManager.instance.currentPackageNum, GameManager.instance.currentLevelFromPackage);
 
 		GameManager.instance.googleAnalytics.LogEvent("InfinityMode", "WonLevel", "level" + GameManager.instance.currentLevelFromPackage, 0);
@@ -68,6 +67,11 @@ public class BoardManagerInfinity : BoardManager
 		});
 			
 	}
+
+	protected override void AfterWonAnimation() {
+		endLevelPopup.GetComponent<EndLevelPopup>().Show(GameManager.instance.currentLevelFromPackage);
+	}
+
 
 	// End level popup will call this
 	public void GoNextLevel() {

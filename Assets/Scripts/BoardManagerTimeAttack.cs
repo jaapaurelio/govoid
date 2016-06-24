@@ -163,9 +163,13 @@ public class BoardManagerTimeAttack : BoardManager
 
 		GameObject.Find("CurrentScore").GetComponent<TextMesh>().text = levelsCompleted.ToString();
 
-		NewLevel();
 
 	}
+
+	protected override void AfterWonAnimation(){
+		NewLevel();
+	}
+
 
 	public void ExtraTime(int time) {
 		currentTime += time;
