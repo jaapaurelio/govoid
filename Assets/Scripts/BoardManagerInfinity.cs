@@ -97,7 +97,6 @@ public class BoardManagerInfinity : BoardManager
 
 		int levelNumber = GameManager.instance.currentLevelFromPackage;
 		Pack package = GameManager.instance.currentPackage;
-		levelNumber= 155;
 
 		// First levels are static to show the tutorial
 		if( levelNumber <= 15 ) {
