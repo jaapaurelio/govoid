@@ -79,7 +79,7 @@ public class TutorialManager : BoardManager {
 		
 		} else if(levelNumber == 3) {
 			HandPosition(1, 1);
-			GameObject.Find("TutorialMessage").GetComponent<TextMesh>().text = "You can start anywhere.\nYou can go ahead or sides.";
+			GameObject.Find("TutorialMessage").GetComponent<TextMesh>().text = "You can start anywhere.\nThen you can go ahead or sides.";
 		}
 
 	}
@@ -180,7 +180,7 @@ public class TutorialManager : BoardManager {
 	private void WrongHouse(){
 		followingTutorial = false;
 		HideHand();
-		GameObject.Find("TutorialMessage").GetComponent<TextMesh>().text = "You're absolutely fabulous!\nFind your way.";
+		GameObject.Find("TutorialMessage").GetComponent<TextMesh>().text = "You're bold!\nCan you solve it alone?";
 	}
 
 	protected override void LostLevel(){
@@ -209,7 +209,9 @@ public class TutorialManager : BoardManager {
 
 		if(levelNumber <= package.levels.Length) {
 			NewLevel();
+
 		} else {
+			PlayerPrefs.SetInt(Constants.PS_HAVE_SEEN_TUTORIAL, 1);
 			SceneManager.LoadScene("MainMenuScene");
 		}
 	}

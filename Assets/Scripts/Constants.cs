@@ -32,6 +32,7 @@
 	public const string PS_AVAIABLE_LEVELS = "AvailableLevelsBETA";
 	public const string PS_DATE_TO_GENERATE_LEVELS = "DATE_TO_GENERATE_LEVELS";
 	public const string PS_SOUND_STATE_KEY = "PS_SOUND_STATE_KEY";
+	public const string PS_HAVE_SEEN_TUTORIAL = "PS_HAVE_SEEN_TUTORIAL";
 
 
 	// Ads ids

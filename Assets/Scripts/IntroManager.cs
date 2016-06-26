@@ -172,6 +172,15 @@ public class IntroManager : MonoBehaviour {
 
 		yield return new WaitForSeconds(0.5f);
 
-		SceneManager.LoadScene("TutorialScene");
+		int haveSeenTutorial =  PlayerPrefs.GetInt(Constants.PS_HAVE_SEEN_TUTORIAL);
+
+		Debug.Log("haveSeenTutorial " + haveSeenTutorial);
+		// Show tutorial if the user has never seen it.
+		if(haveSeenTutorial == 0) {
+			SceneManager.LoadScene("TutorialScene");
+		} else {
+			SceneManager.LoadScene("MainMenuScene");
+		}
+
 	}
 }
