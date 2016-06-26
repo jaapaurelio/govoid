@@ -172,6 +172,6 @@ public class IntroManager : MonoBehaviour {
 
 		yield return new WaitForSeconds(0.5f);
 
-		SceneManager.LoadScene("MainMenuScene");
+		SceneManager.LoadScene("TutorialScene");
 	}
 }

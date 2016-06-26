@@ -26,6 +26,7 @@ GameObject:
   - 4: {fileID: 430452}
   - 212: {fileID: 21220454}
   - 61: {fileID: 6100332}
+  - 114: {fileID: 11411902}
   m_Layer: 0
   m_Name: RestartBtnInfinity
   m_TagString: Untagged
@@ -72,6 +73,17 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Size: {x: 15, y: 2}
+--- !u!114 &11411902
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 176580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6013a8a56267b421db8f7b635db860ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &21220454
 SpriteRenderer:
   m_ObjectHideFlags: 1

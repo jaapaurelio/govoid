@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &166362
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 448202}
+  - 114: {fileID: 11476826}
+  m_Layer: 0
+  m_Name: TutorialManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &448202
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 166362}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+--- !u!114 &11476826
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 166362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c86741d9b48c448cc85d66740653a7c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  arrowToInstanciate: {fileID: 156372, guid: 80f4e2c3565c3424a827ba882d4d67ec, type: 2}
+  houseToInstantiate: {fileID: 195940, guid: 7354aa6812163479189408f6348aec52, type: 2}
+  houseClickedSound: {fileID: 8260268, guid: 27488302029254151bf80c7937c6a216, type: 2}
+  levelPassedSound: {fileID: 8201450, guid: 8e92f50bfafca45aead86621fbc9a509, type: 2}
+  noExitSound: {fileID: 8298286, guid: 33b12b9e39243499e89a68e10949bc59, type: 2}
+  noPossibleClick: {fileID: 8205250, guid: 80a80cf23a20e436fbcd5c9ef75ee273, type: 2}
+  hand: {fileID: 0}
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 166362}
+  m_IsPrefabParent: 1

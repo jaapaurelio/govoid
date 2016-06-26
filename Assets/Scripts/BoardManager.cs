@@ -179,6 +179,8 @@ public class BoardManager : MonoBehaviour {
 					// User can click in this house
 					if( clickedHouse.State == Constants.HOUSE_STATE_POSSIBLE ) {
 
+						PossibleHouseClicked(clickedHouse);
+
 						PlayHouseClickSound();
 
 						GridHouse activeHouse = GetActiveHouse(currentLevelGrid.GetAllHouses());
@@ -259,6 +261,10 @@ public class BoardManager : MonoBehaviour {
 				}
 			}
 		}
+	}
+
+	protected virtual void PossibleHouseClicked(GridHouse house) {
+	
 	}
 
 	private void PlayHouseClickSound(){

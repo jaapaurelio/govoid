@@ -23,6 +23,11 @@ public class LevelGenerator {
 		GridHouse previousHouse = currentHouse;
 		List<GridHouse> siblings;
 
+		Debug.Log("Gera nivel =========");
+
+		//Debug.Log(currentHouse.position.column + " + " + currentHouse.position.row);
+
+
 		while(_numberOfSteps > 0 ) {
 
 			siblings = levelGrid.GetSiblings(currentHouse);
@@ -32,6 +37,7 @@ public class LevelGenerator {
 			currentHouse = ChooseRandomHouse(siblings);
 			currentHouse.SetFinalNumber(currentHouse.Number + 1);
 
+			//Debug.Log("col" + currentHouse.position.column  + " + row " + currentHouse.position.row);
 			_numberOfSteps--;
 		}
 

@@ -56,7 +56,6 @@ public class BoardManagerInfinity : BoardManager
 		
 	protected override void WonLevel() {
 		base.WonLevel();
-
 	
 		GameManager.instance.playerStatistics.SetLevelDone( GameManager.instance.currentPackageNum, GameManager.instance.currentLevelFromPackage);
 
@@ -98,6 +97,7 @@ public class BoardManagerInfinity : BoardManager
 
 		int levelNumber = GameManager.instance.currentLevelFromPackage;
 		Pack package = GameManager.instance.currentPackage;
+		levelNumber= 155;
 
 		// First levels are static to show the tutorial
 		if( levelNumber <= 15 ) {
