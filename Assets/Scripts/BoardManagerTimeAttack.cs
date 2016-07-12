@@ -280,8 +280,8 @@ public class BoardManagerTimeAttack : BoardManager
 
 		} else {
 			
-			columns = Random.Range (3, 5 +1);
-			rows = Random.Range (3, 5 +1);
+			columns = Random.Range (4, 5 +1);
+			rows = Random.Range (4, 5 +1);
 
 			if ( levelsCompleted % 5 == 0 ) {
 				currentLevelDifilculty += 5;

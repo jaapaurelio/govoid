@@ -19,18 +19,66 @@ public class LevelGenerator {
 
 		LevelGrid levelGrid = new LevelGrid(_cols, _rows, rng); 
 
-		GridHouse currentHouse = levelGrid.ChooseRandomHouse();
+		GridHouse currentHouse = levelGrid.ChooseRandomPossibleHouse();
 		GridHouse previousHouse = currentHouse;
 		List<GridHouse> siblings;
+
+		// Find number of holes
+		int numberOfHoles = 0;
+		Debug.Log("_cols " + _cols + " rows " + _rows);
+
+		// 3 * 3 or 4 * 2
+		if(_cols * _rows <= 9 ) {
+			Debug.Log("if 1");
+			numberOfHoles = rng.Next (0, 2);
+
+		// 4 * 4
+		} else if (_cols * _rows <= 16) {
+			Debug.Log("if 2");
+			numberOfHoles = rng.Next (0, 3);
+		
+		// 5 * 5
+		} else if (_cols * _rows <= 25) {
+			Debug.Log("if 3");
+			numberOfHoles = rng.Next (0, 4);
+		
+		// bigger than 5 * 5 
+		} else {
+			Debug.Log("if 4");
+			numberOfHoles = rng.Next (2, 5);
+		}
+
+		Debug.Log("=== numberOfHoles " + numberOfHoles);
 
 		Debug.Log("Gera nivel =========");
 
 		//Debug.Log(currentHouse.position.column + " + " + currentHouse.position.row);
 
+		// Create holes
+		while(numberOfHoles > 0 ) {
+
+			do {
+				currentHouse = levelGrid.ChooseRandomPossibleHouse();
+				siblings = levelGrid.GetPossibleSiblings(currentHouse);
+
+				currentHouse.isHole = true;
+
+				// Not a valid hole, find a better house
+				if(!AllHousesHaveWayOut(levelGrid, siblings)){
+					currentHouse.isHole = false;
+				}
+
+			} while(!currentHouse.isHole);
+
+			Debug.Log("House hole " + currentHouse.position.column + " " +  currentHouse.position.row);
+			numberOfHoles--;
+		}
+
+		currentHouse = levelGrid.ChooseRandomPossibleHouse();
 
 		while(_numberOfSteps > 0 ) {
 
-			siblings = levelGrid.GetSiblings(currentHouse);
+			siblings = levelGrid.GetPossibleSiblings(currentHouse);
 			siblings = RemovePreviousHouse(siblings, previousHouse);
 
 			previousHouse = currentHouse;
@@ -42,6 +90,20 @@ public class LevelGenerator {
 		}
 
 		return levelGrid;
+	}
+
+	private bool AllHousesHaveWayOut(LevelGrid levelGrid, List<GridHouse> houses) {
+		List<GridHouse> siblings;
+
+		foreach(GridHouse house in houses) {
+			siblings = levelGrid.GetPossibleSiblings(house);
+
+			if (siblings.Count < 2) {
+				return false;
+			}
+		}
+
+		return true;
 	}
 
 	private List<GridHouse> RemovePreviousHouse(List<GridHouse> siblings, GridHouse previousHouse) {
@@ -57,8 +119,14 @@ public class LevelGenerator {
 
 	}
 
+	public GridHouse ChooseRandomPossibleHouse(List<GridHouse> houses){
+		int h = rng.Next (0, houses.Count);
+		return houses[h];
+	}
+
 	public GridHouse ChooseRandomHouse(List<GridHouse> houses){
 		int h = rng.Next (0, houses.Count);
 		return houses[h];
 	}
+		
 }

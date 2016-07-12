@@ -187,7 +187,7 @@ public class BoardManager : MonoBehaviour {
 
 						clickedHouse.gridHouseUIComponent.anim.Play("AnimateActive");
 
-						List<GridHouse> clickedHouseSiblings = currentLevelGrid.GetSiblings(clickedHouse);
+						List<GridHouse> clickedHouseSiblings = currentLevelGrid.GetPossibleSiblings(clickedHouse);
 
 						// Set all houses temporarily to normal state.
 						// TODO This can cause problems later with animations.

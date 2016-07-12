@@ -15,6 +15,7 @@ public class GridHouse
 	private int state = Constants.HOUSE_STATE_NORMAL;
 
 	public int State { get{return state;} }
+	public bool isHole = false;
 
 	private GameObject gridHouseUIGameObject;
 	public GridHouseUI gridHouseUIComponent;

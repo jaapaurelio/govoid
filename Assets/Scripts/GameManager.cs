@@ -64,6 +64,12 @@ public class GameManager : MonoBehaviour {
 			PlayerPrefs.SetInt(Constants.PS_SOUND_STATE_KEY, 1);
 		}
 
+
+		// Debug Settings
+
+		PlayerPrefs.SetInt(Constants.PS_AVAIABLE_LEVELS, 200);
+
+
 	}
 
 	public void GoBack() {

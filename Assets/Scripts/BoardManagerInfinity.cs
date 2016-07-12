@@ -107,8 +107,8 @@ public class BoardManagerInfinity : BoardManager
 			System.Random newRandom = new System.Random(levelNumber);
 
 			LevelGenerator levelGenerator = new LevelGenerator(newRandom);
-			int rows = newRandom.Next(3,6 +1);
-			int cols = newRandom.Next(3,6 +1);
+			int rows = newRandom.Next(4,6 +1);
+			int cols = newRandom.Next(4,6 +1);
 
 			if(rows > 5 || cols> 5) {
 				boardHolder.localScale = new Vector3(0.82f, 0.82f, 0.82f);

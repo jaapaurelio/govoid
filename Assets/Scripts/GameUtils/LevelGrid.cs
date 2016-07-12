@@ -50,6 +50,17 @@ public class LevelGrid
 		return gridHouses[rng.Next(0, gridHouses.Count)];
 	}
 
+	public GridHouse ChooseRandomPossibleHouse() {
+		GridHouse house;
+
+		do {
+			house = gridHouses[rng.Next(0, gridHouses.Count)];
+		
+		} while(house.isHole);
+
+		return house;
+	}
+
 	public List<GridHouse> GetSiblings(GridHouse currentHouse) {
 		
 		List<GridHouse> siblings =  new List<GridHouse>();
@@ -82,6 +93,22 @@ public class LevelGrid
 
 		return siblings;
 	}
+
+	public List<GridHouse> GetPossibleSiblings(GridHouse currentHouse) {
+
+		List<GridHouse> siblings = GetSiblings(currentHouse);
+		List<GridHouse> possibleSiblings = new List<GridHouse>();
+
+		foreach( GridHouse house in siblings ) {
+			if(!house.isHole){
+				possibleSiblings.Add(house);
+			}
+		}
+
+		return possibleSiblings;
+
+	}
+
 
 	public GridHouse GetHouseInPosition(GridPosition position) {
 

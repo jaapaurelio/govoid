@@ -22,7 +22,7 @@ public static class LevelJsonGenerator  {
 
 		for(int i = 0; i < level.grid.Length; i++) {
 
-			Debug.Log("col " + col + " " + " row " + row);
+			//Debug.Log("col " + col + " " + " row " + row);
 
 			// For an easy level definition in the json, row and col are switch
 			gridhouse = levelGrid.GetHouseInPosition(new GridPosition(col, row));
