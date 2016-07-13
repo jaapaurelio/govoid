@@ -116,17 +116,29 @@ public class BoardManagerInfinity : BoardManager
 				
 			// Calculate the number of steps base on the Menten Kinetics formula.
 			// https://en.wikipedia.org/wiki/Michaelis%E2%80%93Menten_kinetics
-			int maxNumberOfSteps = 150;
-			int middleOfDificulty = 150;
+			//int maxNumberOfSteps = 120;
+			//int middleOfDificulty = 100;
+
+			int maxNumberOfSteps = 100;
+			int middleOfDificulty = 100;
+
+			// from 3 to 3 levels we add a more dificul level.
+			if(levelNumber % 4 == 0) {
+				maxNumberOfSteps = 130;
+				middleOfDificulty = 100;
+				Debug.Log("Hard Level");
+			}
 
 			int numberOfSteps = (maxNumberOfSteps * levelNumber) / (middleOfDificulty+levelNumber);
 
 			Debug.Log("level:" + levelNumber + " " + rows + " " + cols + " nsteps " +  numberOfSteps);
-			currentLevelGrid = levelGenerator.CreateLevel(rows, cols, levelNumber);
+			currentLevelGrid = levelGenerator.CreateLevel(rows, cols, numberOfSteps);
 
 		}
 
-		GameObject.Find("Messages").GetComponent<TextMesh>().text = currentLevelGrid.message;
+		// No messages for now
+		//GameObject.Find("Messages").GetComponent<TextMesh>().text = currentLevelGrid.message;
+		GameObject.Find("Messages").GetComponent<TextMesh>().text = "";
 
 		base.NewLevel();
 
