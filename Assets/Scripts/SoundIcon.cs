@@ -22,7 +22,7 @@ public class SoundIcon : MonoBehaviour {
 			muteObject.SetActive(true);
 		}
 
-		AudioListener.volume = 1;
+		AudioListener.volume = soundState;
 
 	}
 
