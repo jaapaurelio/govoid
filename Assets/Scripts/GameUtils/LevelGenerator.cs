@@ -30,17 +30,17 @@ public class LevelGenerator {
 		// 3 * 3 or 4 * 2
 		if(_cols * _rows <= 9 ) {
 			Debug.Log("if 1");
-			numberOfHoles = rng.Next (0, 2);
+			numberOfHoles = 0;
 
 		// 4 * 4
 		} else if (_cols * _rows <= 16) {
 			Debug.Log("if 2");
-			numberOfHoles = rng.Next (0, 3);
+			numberOfHoles = 1;
 		
 		// 5 * 5
-		} else if (_cols * _rows <= 25) {
+		} else if (_cols * _rows <= 24) {
 			Debug.Log("if 3");
-			numberOfHoles = rng.Next (0, 4);
+			numberOfHoles = rng.Next (1, 3);
 		
 		// bigger than 5 * 5 
 		} else {

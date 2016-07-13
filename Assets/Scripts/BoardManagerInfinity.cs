@@ -113,8 +113,15 @@ public class BoardManagerInfinity : BoardManager
 			if(rows > 5 || cols> 5) {
 				boardHolder.localScale = new Vector3(0.82f, 0.82f, 0.82f);
 			}
+				
+			// Calculate the number of steps base on the Menten Kinetics formula.
+			// https://en.wikipedia.org/wiki/Michaelis%E2%80%93Menten_kinetics
+			int maxNumberOfSteps = 150;
+			int middleOfDificulty = 150;
 
-			Debug.Log("level:" + levelNumber + " " + rows + " " + cols );
+			int numberOfSteps = (maxNumberOfSteps * levelNumber) / (middleOfDificulty+levelNumber);
+
+			Debug.Log("level:" + levelNumber + " " + rows + " " + cols + " nsteps " +  numberOfSteps);
 			currentLevelGrid = levelGenerator.CreateLevel(rows, cols, levelNumber);
 
 		}

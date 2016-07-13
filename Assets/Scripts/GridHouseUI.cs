@@ -48,7 +48,7 @@ public class GridHouseUI : MonoBehaviour {
 		background.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
 
 		numberText.color = new Color32(38, 166, 154, 255);
-		transform.Find("ParticlesPossible").gameObject.SetActive(false);
+
 	}
 
 
@@ -62,21 +62,18 @@ public class GridHouseUI : MonoBehaviour {
 			//background.color = new Color(1.0f, 1.0f, 1.0f, 0.5f);
 
 			numberText.color = new Color32(38, 166, 154, 255);
-			transform.Find("ParticlesPossible").gameObject.SetActive(false);
 			break;
 		case Constants.HOUSE_STATE_NORMAL:
 			background.sprite = backgroundNormal;
 			//background.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
 
 			numberText.color = new Color32(127, 127, 127, 255);
-			transform.Find("ParticlesPossible").gameObject.SetActive(false);
 			break;
 		case Constants.HOUSE_STATE_POSSIBLE:
 			background.sprite = backgroundPossible;
 			//background.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
 
 			numberText.color = new Color32(38, 166, 154, 255);
-			transform.Find("ParticlesPossible").gameObject.SetActive(true);
 
 
 			break;
@@ -85,7 +82,6 @@ public class GridHouseUI : MonoBehaviour {
 			//background.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
 
 			numberText.color = new Color32(240, 98, 146, 255);
-			transform.Find("ParticlesPossible").gameObject.SetActive(false);
 			break;
 		}
 

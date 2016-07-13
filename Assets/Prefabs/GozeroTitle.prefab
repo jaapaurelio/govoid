@@ -10,6 +10,7 @@ GameObject:
   - 4: {fileID: 407810}
   - 23: {fileID: 2343108}
   - 102: {fileID: 10264118}
+  - 95: {fileID: 9561384}
   m_Layer: 0
   m_Name: GozeroTitle
   m_TagString: Untagged
@@ -55,6 +56,23 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
+--- !u!95 &9561384
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 186022}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 64378fd2479504683bba283d3cc94cdd, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!102 &10264118
 TextMesh:
   serializedVersion: 3
@@ -62,7 +80,7 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 186022}
-  m_Text: Gozero
+  m_Text: Govoid
   m_OffsetZ: 0
   m_CharacterSize: 1
   m_LineSpacing: 1

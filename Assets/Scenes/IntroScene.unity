@@ -284,23 +284,6 @@ Prefab:
 GameObject:
   m_PrefabParentObject: {fileID: 186022, guid: ec4ce10a910104cde9bf6f6b1810b102, type: 2}
   m_PrefabInternal: {fileID: 1295528579}
---- !u!95 &1563573782
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1563573781}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 64378fd2479504683bba283d3cc94cdd, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!82 &1782669809 stripped
 AudioSource:
   m_PrefabParentObject: {fileID: 8201450, guid: 8e92f50bfafca45aead86621fbc9a509,
