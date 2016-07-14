@@ -41,10 +41,27 @@ public class BoardManagerInfinity : BoardManager
 
 		GameManager.instance.googleAnalytics.LogEvent("InfinityMode", "StartNewGame", "", 0);
 
-		GameObject.Find("CurrentLevel").GetComponent<TextMesh>().text = GameManager.instance.currentLevelFromPackage.ToString();
+		SetLevelNumber();
 
 
 		NewLevel();
+	}
+
+	private void SetLevelNumber(){
+		TextMesh levelNumberTextObject = GameObject.Find("CurrentLevel").GetComponent<TextMesh>();
+
+		levelNumberTextObject.text = GameManager.instance.currentLevelFromPackage.ToString();
+
+		List<int> levelsDone =  GameManager.instance.playerStatistics.GetLevelsDoneFromPackage(GameManager.instance.currentPackageNum);
+
+		if(levelsDone.Contains(GameManager.instance.currentLevelFromPackage)){
+			GameObject.Find("CurrentLevelBackground").GetComponent<SpriteRenderer>().color = new Color32(1, 225, 137, 255);
+			levelNumberTextObject.color = new Color32(34, 122, 80, 255);
+		} else {
+			GameObject.Find("CurrentLevelBackground").GetComponent<SpriteRenderer>().color = new Color32(93, 93, 93, 255);
+			levelNumberTextObject.color = new Color32(255, 255, 255, 255);
+		}
+
 	}
 		
 	protected override void LostLevel() {
@@ -79,8 +96,6 @@ public class BoardManagerInfinity : BoardManager
 
 		GameManager.instance.currentLevelFromPackage++;
 
-		GameObject.Find("CurrentLevel").GetComponent<TextMesh>().text = GameManager.instance.currentLevelFromPackage.ToString();
-
 		int availableLevels = PlayerPrefs.GetInt(Constants.PS_AVAIABLE_LEVELS);
 		if(GameManager.instance.currentLevelFromPackage <= availableLevels ) {//GameManager.instance.currentPackage.levels.Length){
 			NewLevel();
@@ -88,6 +103,21 @@ public class BoardManagerInfinity : BoardManager
 			Debug.Log("NO MORE LEVELS IN THS PACK");
 			SceneManager.LoadScene(Constants.SELECT_LEVEL_SCENE);
 		}
+
+		SetLevelNumber();
+	}
+
+	public void GoPrevLevel() {
+		GameManager.instance.currentLevelFromPackage--;
+
+		if(GameManager.instance.currentLevelFromPackage > 0 ) {
+			NewLevel();
+		} else {
+			Debug.Log("NO MORE LEVELS IN THS PACK");
+			SceneManager.LoadScene(Constants.SELECT_LEVEL_SCENE);
+		}
+
+		SetLevelNumber();
 	}
 
 	protected override void NewLevel() {
