@@ -38,6 +38,9 @@ public class GameManager : MonoBehaviour {
 		// Sets this to not be destroyed when reloading scene
 		DontDestroyOnLoad(gameObject);
 
+		// For tests
+		//PlayerPrefs.DeleteAll();
+
 	}
 
 	// Use this for initialization
@@ -48,7 +51,8 @@ public class GameManager : MonoBehaviour {
 		//LoadLanguage();
 
 		// recommended for debugging:
-		PlayGamesPlatform.DebugLogEnabled = true;
+		//PlayGamesPlatform.DebugLogEnabled = true;
+
 		// Activate the Google Play Games platform
 		PlayGamesPlatform.Activate();
 
@@ -67,7 +71,7 @@ public class GameManager : MonoBehaviour {
 
 		// Debug Settings
 
-		//PlayerPrefs.SetInt(Constants.PS_AVAIABLE_LEVELS, 200);
+		//PlayerPrefs.SetInt(Constants.PS_AVAIABLE_LEVELS, 20);
 
 
 	}

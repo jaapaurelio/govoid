@@ -43,7 +43,6 @@ public class BoardManagerInfinity : BoardManager
 
 		SetLevelNumber();
 
-
 		NewLevel();
 	}
 

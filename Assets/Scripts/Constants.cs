@@ -41,5 +41,10 @@
 	// TIME ATTACK
 	public const int TIME_TO_SHOW_RED = 10;
 
+	// Infinity
+	public const int NUMBER_OF_LEVELS_TO_GENERATE_FIRST_TIME = 15;
+	public const int NUMBER_OF_LEVELS_TO_GENERATE = 5;
+
+
 
 }
