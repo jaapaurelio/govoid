@@ -14,8 +14,6 @@ public class BoardManagerInfinity : BoardManager
 
 		GameManager.instance.googleAnalytics.LogScreen("InfinityMode");
 
-
-
 		NewGame();
 	}
 
@@ -91,8 +89,6 @@ public class BoardManagerInfinity : BoardManager
 	// End level popup will call this
 	public void GoNextLevel() {
 
-		endLevelPopup.GetComponent<EndLevelPopup>().Hide();
-
 		GameManager.instance.currentLevelFromPackage++;
 
 		int availableLevels = PlayerPrefs.GetInt(Constants.PS_AVAIABLE_LEVELS);
@@ -101,7 +97,11 @@ public class BoardManagerInfinity : BoardManager
 		} else {
 			Debug.Log("NO MORE LEVELS IN THS PACK");
 			SceneManager.LoadScene(Constants.SELECT_LEVEL_SCENE);
+
+			return;
 		}
+
+		endLevelPopup.GetComponent<EndLevelPopup>().Hide();
 
 		SetLevelNumber();
 	}
