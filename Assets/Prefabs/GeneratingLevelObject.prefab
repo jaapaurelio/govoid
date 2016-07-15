@@ -26,6 +26,7 @@ GameObject:
   - 212: {fileID: 21295896}
   - 114: {fileID: 11420296}
   - 61: {fileID: 6135864}
+  - 114: {fileID: 11449164}
   m_Layer: 0
   m_Name: adGenerateLevel
   m_TagString: Untagged
@@ -136,7 +137,7 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 199496}
-  m_Text: Watch ad to generate levels
+  m_Text: Get more levels!
   m_OffsetZ: 0
   m_CharacterSize: 1
   m_LineSpacing: 1
@@ -144,7 +145,7 @@ TextMesh:
   m_Alignment: 1
   m_TabSize: 4
   m_FontSize: 44
-  m_FontStyle: 0
+  m_FontStyle: 1
   m_RichText: 1
   m_Font: {fileID: 12800000, guid: 2081a87c07e59460781421f072a843e7, type: 3}
   m_Color:
@@ -162,6 +163,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectLevelManagerObject: {fileID: 0}
+--- !u!114 &11449164
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 125560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a394149a049bc43478d5a394babb93fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11469108
 MonoBehaviour:
   m_ObjectHideFlags: 1
