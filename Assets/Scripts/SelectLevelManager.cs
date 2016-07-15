@@ -47,7 +47,7 @@ public class SelectLevelManager : MonoBehaviour {
 		Debug.Log("availableLevels" + availableLevels);
 
 		// All levels are done, must generate news
-		if(levelsDone.Count == availableLevels) {
+		if(levelsDone.Count == availableLevels && availableLevels < Constants.MAX_NUMBER_OF_LEVELS) {
 			AddMoreLevels();
 		}
 
@@ -72,9 +72,18 @@ public class SelectLevelManager : MonoBehaviour {
 
 		// scroll to the right place
 		float per = 1.0f - (levelsDone.Count * 1.0f) / (availableLevels * 1.0f);
-		GameObject.Find ("LevelList").GetComponent<ScrollRect>().verticalNormalizedPosition = per;
+		GameObject.Find("LevelList").GetComponent<ScrollRect>().verticalNormalizedPosition = per;
 
-		StartCoroutine(CheckAdButton());
+		GameObject.Find("NumberOfLevels").GetComponent<TextMesh>().text =  levelsDone.Count + "/" + Constants.MAX_NUMBER_OF_LEVELS;
+
+		// Show button to generate more levels
+		if(availableLevels < Constants.MAX_NUMBER_OF_LEVELS){
+			StartCoroutine(CheckAdButton());
+		} else {
+			generatingLevelObject.SetActive(false);
+			GameObject.Find("BottomMessage").SetActive(false);
+		}
+
 	}
 
 	public IEnumerator CheckAdButton() {
@@ -96,14 +105,17 @@ public class SelectLevelManager : MonoBehaviour {
 		int availableLevels = PlayerPrefs.GetInt(Constants.PS_AVAIABLE_LEVELS);
 
 		// At the begining we generate more because levels are shorter.
-		if(availableLevels < 30){
+		if (availableLevels < 30) {
 			availableLevels += Constants.NUMBER_OF_LEVELS_TO_GENERATE_FIRST_TIME;
 		} else {
 			availableLevels += Constants.NUMBER_OF_LEVELS_TO_GENERATE;
 		}
 
+		if(availableLevels > Constants.MAX_NUMBER_OF_LEVELS) {
+			availableLevels = Constants.MAX_NUMBER_OF_LEVELS;
+		}
+
 		PlayerPrefs.SetInt(Constants.PS_AVAIABLE_LEVELS, availableLevels);
-		PlayerPrefs.SetString(Constants.PS_DATE_TO_GENERATE_LEVELS, "");
 
 		// TODO: for now just restart to load all new levels
 		SceneManager.LoadScene(Constants.SELECT_LEVEL_SCENE);
