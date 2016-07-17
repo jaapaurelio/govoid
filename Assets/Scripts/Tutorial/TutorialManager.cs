@@ -71,18 +71,32 @@ public class TutorialManager : BoardManager {
 
 		if( levelNumber == 1) {
 			HandPosition(1, 1);
-			GameObject.Find("TutorialMessage").GetComponent<TextMesh>().text = "Tap the house to decrease the number.\nYou win when the board is clear.";
+			GameObject.Find("TutorialMessage").GetComponent<TextMesh>().text = "Tap the number to decrease it.\nYou win when the board is clear.";
 
 		} else if(levelNumber == 2) {
-			HandPosition(2, 2);
-			GameObject.Find("TutorialMessage").GetComponent<TextMesh>().text = "You have to pass twice in the number 2.";
+			HandPosition(1, 1);
+			GameObject.Find("TutorialMessage").GetComponent<TextMesh>().text = "You can start anywhere.\nChoose your path using the green circles.";
 		
 		} else if(levelNumber == 3) {
 			HandPosition(1, 1);
-			GameObject.Find("TutorialMessage").GetComponent<TextMesh>().text = "You can start anywhere.\nThen you can go ahead or sides.";
+			StartCoroutine(MoveHandLevel3());
+			GameObject.Find("TutorialMessage").GetComponent<TextMesh>().text = "Numbers indicate how many times\nyou will have to pass through them.";
 		}
 
 	}
+
+	private IEnumerator MoveHandLevel3() {
+		float time = 1000f;
+		float i = 0.0f;
+		float rate = 1.0f/time;
+		while (i < 1.0f) {
+			i += Time.deltaTime * rate;
+			hand.transform.position = Vector3.Lerp(2.5f - 5f,  2.5f - 5 - 1.3f, i);
+			yield return true;
+		}
+	}
+		
+
 
 	protected override void PossibleHouseClicked(GridHouse clickedHouse){
 		
@@ -110,31 +124,40 @@ public class TutorialManager : BoardManager {
 
 			case 2:
 
-			if(levelStep == 2 && clickedHouse.position.column == 2 && clickedHouse.position.row == 2) {
-				HandPosition(3, 2);
+			if(levelStep == 2 && clickedHouse.position.column == 1 && clickedHouse.position.row == 1) {
+				HandPosition(2, 1);
 
-			} else if(levelStep == 3 && clickedHouse.position.column == 3 && clickedHouse.position.row == 2) {
-				HandPosition(3, 1);
-
-			} else if(levelStep == 4 && clickedHouse.position.column == 3 && clickedHouse.position.row == 1) {
-				HandPosition(3, 0);
-
-			} else if(levelStep == 5 && clickedHouse.position.column == 3 && clickedHouse.position.row == 0) {
-				HandPosition(2, 0);
-
-			} else if(levelStep == 6 && clickedHouse.position.column == 2 && clickedHouse.position.row == 0) {
-				HandPosition(1, 0);
-			
-			} else if(levelStep == 7 && clickedHouse.position.column == 1 && clickedHouse.position.row == 0) {
-				HandPosition(1, 1);
-
-			} else if(levelStep == 8 && clickedHouse.position.column == 1 && clickedHouse.position.row == 1) {
-				HandPosition(1, 2);
-
-			} else if(levelStep == 9 && clickedHouse.position.column == 1 && clickedHouse.position.row == 2) {
+			} else if(levelStep == 3 && clickedHouse.position.column == 2 && clickedHouse.position.row == 1) {
 				HandPosition(2, 2);
 
-			} else if (levelStep <= 9) {
+			} else if(levelStep == 4 && clickedHouse.position.column == 2 && clickedHouse.position.row == 2) {
+				HandPosition(3, 2);
+
+			} else if(levelStep == 5 && clickedHouse.position.column == 3 && clickedHouse.position.row == 2) {
+				HandPosition(3, 1);
+
+			} else if(levelStep == 6 && clickedHouse.position.column == 3 && clickedHouse.position.row == 1) {
+				HandPosition(3, 0);
+			
+			} else if(levelStep == 7 && clickedHouse.position.column == 3 && clickedHouse.position.row == 0) {
+				HandPosition(2, 0);
+
+			} else if(levelStep == 8 && clickedHouse.position.column == 2 && clickedHouse.position.row == 0) {
+				HandPosition(1, 0);
+
+			} else if(levelStep == 9 && clickedHouse.position.column == 1 && clickedHouse.position.row == 0) {
+				HandPosition(0, 0);
+
+			} else if(levelStep == 10 && clickedHouse.position.column == 0 && clickedHouse.position.row == 0) {
+				HandPosition(0, 1);
+
+			} else if(levelStep == 11 && clickedHouse.position.column == 0 && clickedHouse.position.row == 1) {
+				HandPosition(0, 2);
+
+			} else if(levelStep == 12 && clickedHouse.position.column == 0 && clickedHouse.position.row == 2) {
+				HandPosition(1, 2);
+
+			} else if (levelStep <= 12) {
 				WrongHouse();
 			}
 

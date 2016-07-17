@@ -23,7 +23,7 @@ public class SelectLevelManager : MonoBehaviour {
 		}
 
 
-		TextAsset bindata= Resources.Load<TextAsset>("Levels/Pack" + GameManager.instance.currentPackageNum);
+		TextAsset bindata = Resources.Load<TextAsset>("Levels/Pack" + GameManager.instance.currentPackageNum);
 
 		Pack p = JsonUtility.FromJson<Pack>(bindata.text);
 		GameManager.instance.currentPackage = p;
