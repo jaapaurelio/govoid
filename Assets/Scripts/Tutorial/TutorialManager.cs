@@ -22,7 +22,6 @@ public class TutorialManager : BoardManager {
 
 		package = JsonUtility.FromJson<Pack>(bindata.text);
 
-
 		boardHolder.position = new Vector3(-5, -5, 0);
 		NewGame();
 
@@ -71,7 +70,7 @@ public class TutorialManager : BoardManager {
 
 		if( levelNumber == 1) {
 			HandPosition(1, 1);
-			GameObject.Find("TutorialMessage").GetComponent<TextMesh>().text = "Tap the number to decrease it.\nYou win when the board is clear.";
+			GameObject.Find("TutorialMessage").GetComponent<TextMesh>().text = "Tap or slide the numbers to decrease it.\nYou win when the board is clear.";
 
 		} else if(levelNumber == 2) {
 			HandPosition(1, 1);
@@ -79,24 +78,10 @@ public class TutorialManager : BoardManager {
 		
 		} else if(levelNumber == 3) {
 			HandPosition(1, 1);
-			StartCoroutine(MoveHandLevel3());
-			GameObject.Find("TutorialMessage").GetComponent<TextMesh>().text = "Numbers indicate how many times\nyou will have to pass through them.";
+			GameObject.Find("TutorialMessage").GetComponent<TextMesh>().text = "Numbers indicate how many times\nyou have to pass through them.";
 		}
 
 	}
-
-	private IEnumerator MoveHandLevel3() {
-		float time = 1000f;
-		float i = 0.0f;
-		float rate = 1.0f/time;
-		while (i < 1.0f) {
-			i += Time.deltaTime * rate;
-			hand.transform.position = Vector3.Lerp(2.5f - 5f,  2.5f - 5 - 1.3f, i);
-			yield return true;
-		}
-	}
-		
-
 
 	protected override void PossibleHouseClicked(GridHouse clickedHouse){
 		
@@ -211,7 +196,7 @@ public class TutorialManager : BoardManager {
 	
 		// click the restart button
 		GameObject.Find("TutorialMessage").GetComponent<TextMesh>().text = "No possible way out.\nTap the button to restart level.";
-		hand.transform.position = new Vector3(0.25f, 4f, 0f);
+		hand.transform.position = new Vector3(0.25f, 3f, 0f);
 	}
 
 	protected override void WonLevel() {
