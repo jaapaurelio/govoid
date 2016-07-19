@@ -22,21 +22,10 @@ public class SelectLevelManager : MonoBehaviour {
 			return;
 		}
 
-
-		TextAsset bindata = Resources.Load<TextAsset>("Levels/Pack" + GameManager.instance.currentPackageNum);
-
-		Pack p = JsonUtility.FromJson<Pack>(bindata.text);
-		GameManager.instance.currentPackage = p;
-
+		Debug.Log("1 " + Time.realtimeSinceStartup);
 		List<int> levelsDone =  GameManager.instance.playerStatistics.GetLevelsDoneFromPackage(GameManager.instance.currentPackageNum);
 
 		int availableLevels = PlayerPrefs.GetInt(Constants.PS_AVAIABLE_LEVELS);
-
-		// First time we enter game
-		if (availableLevels == 0) {
-			availableLevels = 20;
-			PlayerPrefs.SetInt(Constants.PS_AVAIABLE_LEVELS, 20);
-		}
 
 		// Some people can have more levels done in updates
 		if(levelsDone.Count > availableLevels) {
@@ -50,6 +39,8 @@ public class SelectLevelManager : MonoBehaviour {
 		if(levelsDone.Count == availableLevels && availableLevels < Constants.MAX_NUMBER_OF_LEVELS) {
 			AddMoreLevels();
 		}
+
+		Debug.Log("2 - " + Time.realtimeSinceStartup);
 
 		Debug.Log("availableLevels AFTER" + availableLevels);
 
@@ -84,6 +75,7 @@ public class SelectLevelManager : MonoBehaviour {
 			GameObject.Find("BottomMessage").SetActive(false);
 		}
 
+		Debug.Log("3 - " + Time.realtimeSinceStartup);
 	}
 
 	public IEnumerator CheckAdButton() {

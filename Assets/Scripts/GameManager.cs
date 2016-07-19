@@ -68,10 +68,21 @@ public class GameManager : MonoBehaviour {
 			PlayerPrefs.SetInt(Constants.PS_SOUND_STATE_KEY, 1);
 		}
 
+		TextAsset bindata = Resources.Load<TextAsset>("Levels/Pack" + GameManager.instance.currentPackageNum);
+
+		Pack p = JsonUtility.FromJson<Pack>(bindata.text);
+		GameManager.instance.currentPackage = p;
+
+		int availableLevels = PlayerPrefs.GetInt(Constants.PS_AVAIABLE_LEVELS);
+
+		// First time we enter game
+		if (availableLevels == 0) {
+			availableLevels = 20;
+			PlayerPrefs.SetInt(Constants.PS_AVAIABLE_LEVELS, 20);
+		}
 
 		// Debug Settings
-
-		//PlayerPrefs.SetInt(Constants.PS_AVAIABLE_LEVELS, 20);
+		//PlayerPrefs.SetInt(Constants.PS_AVAIABLE_LEVELS, 500);
 
 
 	}

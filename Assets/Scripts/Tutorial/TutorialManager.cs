@@ -83,7 +83,7 @@ public class TutorialManager : BoardManager {
 
 	}
 
-	protected override void PossibleHouseClicked(GridHouse clickedHouse){
+	protected override void PossibleHouseClicked(GridHouse clickedHouse) {
 		
 		if(!followingTutorial){
 			return;

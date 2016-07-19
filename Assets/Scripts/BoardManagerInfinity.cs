@@ -148,20 +148,20 @@ public class BoardManagerInfinity : BoardManager
 			//int maxNumberOfSteps = 120;
 			//int middleOfDificulty = 100;
 
-			int maxNumberOfSteps = 100;
-			int middleOfDificulty = 100;
+			int maxNumberOfSteps = 80;
+			int middleOfDificulty = 80;
 
 			// Create a harder level from time to time.
 			if(levelNumber % 4 == 0) {
-				maxNumberOfSteps = 130;
-				middleOfDificulty = 100;
+				maxNumberOfSteps = 90;
+				middleOfDificulty = 80;
 				Debug.Log("Hard Level");
 			}
 
 			// Create a easy leavel after a hard one so that user win confidence again
 			if((levelNumber -1) % 4 == 0) {
-				maxNumberOfSteps = 90;
-				middleOfDificulty = 100;
+				maxNumberOfSteps = 70;
+				middleOfDificulty = 80;
 				Debug.Log("Easy Level");
 			}
 
