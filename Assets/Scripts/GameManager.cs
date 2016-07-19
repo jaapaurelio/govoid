@@ -82,8 +82,7 @@ public class GameManager : MonoBehaviour {
 		}
 
 		// Debug Settings
-		//PlayerPrefs.SetInt(Constants.PS_AVAIABLE_LEVELS, 500);
-
+		//PlayerPrefs.SetInt(Constants.PS_AVAIABLE_LEVELS, 200);
 
 	}
 
