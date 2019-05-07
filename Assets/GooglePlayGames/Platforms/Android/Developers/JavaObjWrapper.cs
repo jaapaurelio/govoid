@@ -33,6 +33,8 @@ namespace Google.Developers
         /// </summary>
         IntPtr raw;
 
+        IntPtr cachedRawClass = IntPtr.Zero;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="Google.Developers.JavaObjWrapper"/> class.
         /// Does not create an instance of the java class.
@@ -57,7 +59,7 @@ namespace Google.Developers
         /// <param name="rawObject">Raw object.</param>
         public JavaObjWrapper(IntPtr rawObject)
         {
-            this.raw = rawObject;
+            raw = rawObject;
         }
 
         /// <summary>
@@ -69,6 +71,18 @@ namespace Google.Developers
             get
             {
                 return raw;
+            }
+        }
+
+        public virtual IntPtr RawClass
+        {
+            get
+            {
+                if (cachedRawClass == IntPtr.Zero && raw != IntPtr.Zero)
+                {
+                    cachedRawClass = AndroidJNI.GetObjectClass(raw);
+                }
+                return cachedRawClass;
             }
         }
 
@@ -86,15 +100,20 @@ namespace Google.Developers
                 throw new Exception("Java object already set");
             }
 
-            IntPtr rawClass = AndroidJNI.FindClass(clazzName);
-
             // TODO: use a specific signature. This could be problematic when
             // using arguments that are subclasses of the declared parameter types.
-            IntPtr method = AndroidJNIHelper.GetConstructorID(rawClass, args);
+            IntPtr method = AndroidJNIHelper.GetConstructorID(RawClass, args);
             jvalue[] jArgs = ConstructArgArray(args);
 
-            // assign the raw object.
-            raw = AndroidJNI.NewObject(rawClass, method, jArgs);
+            try 
+            {
+                // assign the raw object.
+                raw = AndroidJNI.NewObject(RawClass, method, jArgs);
+            }
+            finally 
+            {
+                AndroidJNIHelper.DeleteJNIArgArray(args, jArgs);
+            }
         }
 
         /// <summary>
@@ -104,7 +123,7 @@ namespace Google.Developers
         /// found and use the raw pointer.
         /// </summary>
         /// <returns>The argument array.</returns>
-        /// <param name="args">Arguments.</param>
+        /// <param name="theArgs">Arguments.</param>
         protected static jvalue[] ConstructArgArray(object[] theArgs)
         {
 
@@ -162,22 +181,29 @@ namespace Google.Developers
             IntPtr rawClass = AndroidJNI.FindClass(type);
             IntPtr method = AndroidJNI.GetStaticMethodID(rawClass, name, sig);
             jvalue[] jArgs = ConstructArgArray(args);
-            IntPtr val = AndroidJNI.CallStaticObjectMethod(rawClass, method, jArgs);
-
-            ConstructorInfo c = typeof(T).GetConstructor(new Type[] { val.GetType() });
-            if (c != null)
+            
+            try 
             {
-                return (T)c.Invoke(new object[] { val });
+                IntPtr val = AndroidJNI.CallStaticObjectMethod(rawClass, method, jArgs);
+                ConstructorInfo c = typeof(T).GetConstructor(new Type[] { val.GetType() });
+                if (c != null)
+                {
+                    return (T)c.Invoke(new object[] { val });
+                }
+                if (typeof(T).IsArray)
+                {
+                    // make an array
+                    //TODO: handle arrays of objects
+                    return AndroidJNIHelper.ConvertFromJNIArray<T>(val);
+                }
+                Debug.Log("Trying cast....");
+                Type t = typeof(T);
+                return (T)Marshal.PtrToStructure(val, t);
             }
-            if (typeof(T).IsArray)
+            finally 
             {
-                // make an array
-                //TODO: handle arrays of objects
-                return AndroidJNIHelper.ConvertFromJNIArray<T>(val);
+                AndroidJNIHelper.DeleteJNIArgArray(args, jArgs);
             }
-            Debug.Log("Trying cast....");
-            Type t = typeof(T);
-            return (T)Marshal.PtrToStructure(val, t);
         }
 
         /// <summary>
@@ -193,7 +219,14 @@ namespace Google.Developers
             IntPtr rawClass = AndroidJNI.FindClass(type);
             IntPtr method = AndroidJNI.GetStaticMethodID(rawClass, name, sig);
             jvalue[] jArgs = ConstructArgArray(args);
-            AndroidJNI.CallStaticVoidMethod(rawClass, method, jArgs);
+            try 
+            {
+                AndroidJNI.CallStaticVoidMethod(rawClass, method, jArgs);
+            }
+            finally 
+            {
+                AndroidJNIHelper.DeleteJNIArgArray(args, jArgs);
+            }
         }
 
         /// <summary>
@@ -267,72 +300,82 @@ namespace Google.Developers
         /// <param name="args">Arguments.</param>
         public void InvokeCallVoid(string name, string sig, params object[] args)
         {
-            IntPtr rawClass = AndroidJNI.GetObjectClass(raw);
-            IntPtr method = AndroidJNI.GetMethodID(rawClass, name, sig);
+            IntPtr method = AndroidJNI.GetMethodID(RawClass, name, sig);
 
             jvalue[] jArgs = ConstructArgArray(args);
-            AndroidJNI.CallVoidMethod(raw, method, jArgs);
+            try 
+            {
+                AndroidJNI.CallVoidMethod(raw, method, jArgs);
+            }
+            finally 
+            {
+                AndroidJNIHelper.DeleteJNIArgArray(args, jArgs);
+            }
         }
 
         public T InvokeCall<T>(string name, string sig, params object[] args)
         {
             Type t = typeof(T);
-            IntPtr rawClass = AndroidJNI.GetObjectClass(raw);
-            IntPtr method = AndroidJNI.GetMethodID(rawClass, name, sig);
-            jvalue[] jArgs = ConstructArgArray(args);
+            IntPtr method = AndroidJNI.GetMethodID(RawClass, name, sig);
 
-            if (rawClass == IntPtr.Zero)
-            {
-                Debug.LogError("Cannot get rawClass object!");
-                throw new Exception("Cannot get rawClass object");
-            }
-
-            if (method == IntPtr.Zero)
-            {
+            if (method == IntPtr.Zero) {
                 Debug.LogError("Cannot get method for " + name);
                 throw new Exception("Cannot get method for " + name);
             }
 
-            if (t == typeof(bool))
+            jvalue[] jArgs = ConstructArgArray(args);
+
+            try 
             {
-                return (T)(object)AndroidJNI.CallBooleanMethod(raw, method, jArgs);
+                if (t == typeof(bool))
+                {
+                    return (T)(object)AndroidJNI.CallBooleanMethod(raw, method, jArgs);
+                }
+                else if (t == typeof(string))
+                {
+                    return (T)(object)AndroidJNI.CallStringMethod(raw, method, jArgs);
+                }
+                else if (t == typeof(int))
+                {
+                    return (T)(object)AndroidJNI.CallIntMethod(raw, method, jArgs);
+                }
+                else if (t == typeof(float))
+                {
+                    return (T)(object)AndroidJNI.CallFloatMethod(raw, method, jArgs);
+                }
+                else if (t == typeof(double))
+                {
+                    return (T)(object)AndroidJNI.CallDoubleMethod(raw, method, jArgs);
+                }
+                else if (t == typeof(byte))
+                {
+                    return (T)(object)AndroidJNI.CallByteMethod(raw, method, jArgs);
+                }
+                else if (t == typeof(char))
+                {
+                    return (T)(object)AndroidJNI.CallCharMethod(raw, method, jArgs);
+                }
+                else if (t == typeof(long))
+                {
+                    return (T)(object)AndroidJNI.CallLongMethod(raw, method, jArgs);
+                }
+                else if (t == typeof(short))
+                {
+                    return (T)(object)AndroidJNI.CallShortMethod(raw, method, jArgs);
+                }
+                else if (t == typeof(IntPtr))
+                {
+                    return (T)(object)AndroidJNI.CallObjectMethod(raw, method, jArgs);
+                }
+                else
+                {
+                    return InvokeObjectCall<T>(name, sig, args);
+                }
             }
-            else if (t == typeof(string))
+            finally 
             {
-                return (T)(object)AndroidJNI.CallStringMethod(raw, method, jArgs);
-            }
-            else if (t == typeof(int))
-            {
-                return (T)(object)AndroidJNI.CallIntMethod(raw, method, jArgs);
-            }
-            else if (t == typeof(float))
-            {
-                return (T)(object)AndroidJNI.CallFloatMethod(raw, method, jArgs);
-            }
-            else if (t == typeof(double))
-            {
-                return (T)(object)AndroidJNI.CallDoubleMethod(raw, method, jArgs);
-            }
-            else if (t == typeof(byte))
-            {
-                return (T)(object)AndroidJNI.CallByteMethod(raw, method, jArgs);
-            }
-            else if (t == typeof(char))
-            {
-                return (T)(object)AndroidJNI.CallCharMethod(raw, method, jArgs);
-            }
-            else if (t == typeof(long))
-            {
-                return (T)(object)AndroidJNI.CallLongMethod(raw, method, jArgs);
-            }
-            else if (t == typeof(short))
-            {
-                return (T)(object)AndroidJNI.CallShortMethod(raw, method, jArgs);
-            }
-            else
-            {
-                return InvokeObjectCall<T>(name, sig, args);
-            }
+                AndroidJNIHelper.DeleteJNIArgArray(args, jArgs);
+            } 
         }
 
         public static T StaticInvokeCall<T>(string type, string name, string sig, params object[] args)
@@ -342,55 +385,67 @@ namespace Google.Developers
             IntPtr method = AndroidJNI.GetStaticMethodID(rawClass, name, sig);
             jvalue[] jArgs = ConstructArgArray(args);
 
-            if (t == typeof(bool))
+            try 
             {
-                return (T)(object)AndroidJNI.CallStaticBooleanMethod(
-                    rawClass, method, jArgs);
+                if (t == typeof(bool))
+                {
+                    return (T)(object)AndroidJNI.CallStaticBooleanMethod(
+                        rawClass, method, jArgs);
+                }
+                else if (t == typeof(string))
+                {
+                    return (T)(object)AndroidJNI.CallStaticStringMethod(
+                        rawClass, method, jArgs);
+                }
+                else if (t == typeof(int))
+                {
+                    return (T)(object)AndroidJNI.CallStaticIntMethod(
+                        rawClass, method, jArgs);
+                }
+                else if (t == typeof(float))
+                {
+                    return (T)(object)AndroidJNI.CallStaticFloatMethod(
+                        rawClass, method, jArgs);
+                }
+                else if (t == typeof(double))
+                {
+                    return (T)(object)AndroidJNI.CallStaticDoubleMethod(
+                        rawClass, method, jArgs);
+                }
+                else if (t == typeof(byte))
+                {
+                    return (T)(object)AndroidJNI.CallStaticByteMethod(
+                        rawClass, method, jArgs);
+                }
+                else if (t == typeof(char))
+                {
+                    return (T)(object)AndroidJNI.CallStaticCharMethod(
+                        rawClass, method, jArgs);
+                }
+                else if (t == typeof(long))
+                {
+                    return (T)(object)AndroidJNI.CallStaticLongMethod(
+                        rawClass, method, jArgs);
+                }
+                else if (t == typeof(short))
+                {
+                    return (T)(object)AndroidJNI.CallStaticShortMethod(
+                        rawClass, method, jArgs);
+                }
+                else if (t == typeof(IntPtr))
+                {
+                    return (T)(object)AndroidJNI.CallStaticObjectMethod(
+                        rawClass, method, jArgs);
+                }
+                else
+                {
+                    return StaticInvokeObjectCall<T>(type, name, sig, args);
+                }
             }
-            else if (t == typeof(string))
+            finally 
             {
-                return (T)(object)AndroidJNI.CallStaticStringMethod(
-                    rawClass, method, jArgs);
-            }
-            else if (t == typeof(int))
-            {
-                return (T)(object)AndroidJNI.CallStaticIntMethod(
-                    rawClass, method, jArgs);
-            }
-            else if (t == typeof(float))
-            {
-                return (T)(object)AndroidJNI.CallStaticFloatMethod(
-                    rawClass, method, jArgs);
-            }
-            else if (t == typeof(double))
-            {
-                return (T)(object)AndroidJNI.CallStaticDoubleMethod(
-                    rawClass, method, jArgs);
-            }
-            else if (t == typeof(byte))
-            {
-                return (T)(object)AndroidJNI.CallStaticByteMethod(
-                    rawClass, method, jArgs);
-            }
-            else if (t == typeof(char))
-            {
-                return (T)(object)AndroidJNI.CallStaticCharMethod(
-                    rawClass, method, jArgs);
-            }
-            else if (t == typeof(long))
-            {
-                return (T)(object)AndroidJNI.CallStaticLongMethod(
-                    rawClass, method, jArgs);
-            }
-            else if (t == typeof(short))
-            {
-                return (T)(object)AndroidJNI.CallStaticShortMethod(
-                    rawClass, method, jArgs);
-            }
-            else
-            {
-                return StaticInvokeObjectCall<T>(type, name, sig, args);
-            }
+                AndroidJNIHelper.DeleteJNIArgArray(args, jArgs);
+            }           
         }
 
         /// <summary>
@@ -404,26 +459,32 @@ namespace Google.Developers
         public T InvokeObjectCall<T>(string name, string sig,
             params object[] theArgs)
         {
-            IntPtr rawClass = AndroidJNI.GetObjectClass(raw);
-            IntPtr methodId = AndroidJNI.GetMethodID(rawClass, name, sig);
+            IntPtr methodId = AndroidJNI.GetMethodID(RawClass, name, sig);
 
             jvalue[] jArgs = ConstructArgArray(theArgs);
 
-            IntPtr val = AndroidJNI.CallObjectMethod(raw, methodId, jArgs);
+            try
+            { 
+                IntPtr val = AndroidJNI.CallObjectMethod(raw, methodId, jArgs);
 
-            if (val.Equals(IntPtr.Zero))
-            {
-                return default(T);
+                if (val.Equals(IntPtr.Zero))
+                {
+                    return default(T);
+                }
+
+                ConstructorInfo ctor = typeof(T).GetConstructor(new Type[] { val.GetType() });
+                if (ctor != null)
+                {
+                    return (T)ctor.Invoke(new object[] { val });
+                }
+
+                Type t = typeof(T);
+                return (T)Marshal.PtrToStructure(val, t);
             }
-
-            ConstructorInfo ctor = typeof(T).GetConstructor(new Type[] { val.GetType() });
-            if (ctor != null)
+            finally 
             {
-                return (T)ctor.Invoke(new object[] { val });
+                AndroidJNIHelper.DeleteJNIArgArray(theArgs, jArgs);
             }
-
-            Type t = typeof(T);
-            return (T)Marshal.PtrToStructure(val, t);
         }
     }
 }

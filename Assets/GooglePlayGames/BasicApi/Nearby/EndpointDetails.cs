@@ -13,7 +13,6 @@
 //  See the License for the specific language governing permissions and
 //    limitations under the License.
 // </copyright>
-#if (UNITY_ANDROID || (UNITY_IPHONE && !NO_GPGS))
 
 namespace GooglePlayGames.BasicApi.Nearby
 {
@@ -22,14 +21,12 @@ namespace GooglePlayGames.BasicApi.Nearby
     public struct EndpointDetails
     {
         private readonly string mEndpointId;
-        private readonly string mDeviceId;
         private readonly string mName;
         private readonly string mServiceId;
 
-        public EndpointDetails(string endpointId, string deviceId, string name, string serviceId)
+        public EndpointDetails(string endpointId, string name, string serviceId)
         {
             this.mEndpointId = Misc.CheckNotNull(endpointId);
-            this.mDeviceId = Misc.CheckNotNull(deviceId);
             this.mName = Misc.CheckNotNull(name);
             this.mServiceId = Misc.CheckNotNull(serviceId);
         }
@@ -39,14 +36,6 @@ namespace GooglePlayGames.BasicApi.Nearby
             get
             {
                 return mEndpointId;
-            }
-        }
-
-        public string DeviceId
-        {
-            get
-            {
-                return mDeviceId;
             }
         }
 
@@ -67,4 +56,3 @@ namespace GooglePlayGames.BasicApi.Nearby
         }
     }
 }
-#endif

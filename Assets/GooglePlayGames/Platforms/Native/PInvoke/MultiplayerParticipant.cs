@@ -14,7 +14,7 @@
 //    limitations under the License.
 // </copyright>
 
-#if (UNITY_ANDROID || (UNITY_IPHONE && !NO_GPGS))
+#if UNITY_ANDROID
 
 namespace GooglePlayGames.Native.PInvoke
 {
@@ -55,9 +55,9 @@ namespace GooglePlayGames.Native.PInvoke
 
         internal bool IsConnectedToRoom()
         {
-            // This is a bug - it always returns false!
-            //return C.MultiplayerParticipant_IsConnectedToRoom(SelfPtr());
-            return Status() == Types.ParticipantStatus.JOINED;
+            // Check the method, and the status to work around a bug found in Feb 2016
+            return C.MultiplayerParticipant_IsConnectedToRoom(SelfPtr()) ||
+                    Status() == Types.ParticipantStatus.JOINED;
         }
 
         internal string DisplayName()

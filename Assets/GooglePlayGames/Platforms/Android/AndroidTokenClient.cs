@@ -18,33 +18,37 @@
 namespace GooglePlayGames.Android
 {
     using System;
-    using GooglePlayGames.BasicApi;
-    using GooglePlayGames.OurUtils;
+    using BasicApi;
+    using OurUtils;
     using Com.Google.Android.Gms.Common.Api;
     using UnityEngine;
+    using System.Collections.Generic;
 
-    internal class AndroidTokenClient: TokenClient
+    internal class AndroidTokenClient : TokenClient
     {
         private const string TokenFragmentClass = "com.google.games.bridge.TokenFragment";
-        private const string FetchTokenSignature =
-            "(Landroid/app/Activity;Ljava/lang/String;ZZZLjava/lang/String;)Lcom/google/android/gms/common/api/PendingResult;";
-        private const string FetchTokenMethod = "fetchToken";
 
-        private bool fetchingEmail = false;
-        private bool fetchingAccessToken = false;
-        private bool fetchingIdToken = false;
+        // These are the configuration values.
+        private bool requestEmail;
+        private bool requestAuthCode;
+        private bool requestIdToken;
+        private List<string> oauthScopes;
+        private string webClientId;
+        private bool forceRefresh;
+        private bool hidePopups;
         private string accountName;
-        private string accessToken;
-        private string idToken;
-        private string idTokenScope;
-        private Action<string> idTokenCb;
-        private string rationale;
 
-        private bool apiAccessDenied = false;
-        private int apiWarningFreq = 100000;
-        private int apiWarningCount = 0;
-        private int webClientWarningFreq = 100000;
-        private int webClientWarningCount = 0;
+        // These are the results
+        private string email;
+        private string authCode;
+        private string idToken;
+
+        public static AndroidJavaObject CreateInvisibleView() {
+            using (var jc = new AndroidJavaClass(TokenFragmentClass))
+            {
+                return jc.CallStatic<AndroidJavaObject>("createInvisibleView", GetActivity());
+            }
+        }
 
         public static AndroidJavaObject GetActivity()
         {
@@ -54,154 +58,75 @@ namespace GooglePlayGames.Android
             }
         }
 
-        public void SetRationale(string rationale)
+        public void SetRequestAuthCode(bool flag, bool forceRefresh)
         {
-            this.rationale = rationale;
+            requestAuthCode = flag;
+            this.forceRefresh = forceRefresh;
         }
 
-        internal void Fetch(string scope,
-                            bool fetchEmail,
-                            bool fetchAccessToken,
-                            bool fetchIdToken,
-                            Action<bool> doneCallback)
+        public void SetRequestEmail(bool flag)
         {
-            if (apiAccessDenied)
+            requestEmail = flag;
+        }
+
+        public void SetRequestIdToken(bool flag)
+        {
+            requestIdToken = flag;
+        }
+
+        public void SetWebClientId(string webClientId)
+        {
+            this.webClientId = webClientId;
+        }
+
+        public void SetHidePopups(bool flag)
+        {
+            this.hidePopups = flag;
+        }
+
+        public void SetAccountName(string accountName)
+        {
+            this.accountName = accountName;
+        }
+
+        public void AddOauthScopes(params string[] scopes)
+        {
+            if (scopes != null)
             {
-                //don't spam the log, only do this every so often
-                if (apiWarningCount++ % apiWarningFreq == 0)
+                if (oauthScopes == null)
                 {
-                    GooglePlayGames.OurUtils.Logger.w("Access to API denied");
-                    // avoid int overflow
-                    apiWarningCount = (apiWarningCount/ apiWarningFreq) + 1;
+                    oauthScopes = new List<string>();
                 }
-
-                doneCallback(false);
-                return;
+                oauthScopes.AddRange(scopes);
             }
-            PlayGamesHelperObject.RunOnGameThread(() =>
-            FetchToken(scope, rationale, fetchEmail, fetchAccessToken, fetchIdToken, (rc, access, id, email) =>
-                    {
-                        if (rc != (int)CommonStatusCodes.Success)
-                        {
-                            apiAccessDenied = rc == (int)CommonStatusCodes.AuthApiAccessForbidden;
-                            GooglePlayGames.OurUtils.Logger.w("Non-success returned from fetch: " + rc);
-                            doneCallback(false);
-                            return;
-                        }
-
-                        if (fetchAccessToken)
-                        {
-                            GooglePlayGames.OurUtils.Logger.d("a = " + access);
-                        }
-                        if (fetchEmail)
-                        {
-                            GooglePlayGames.OurUtils.Logger.d("email = " + email);
-                        }
-
-                        if (fetchIdToken)
-                        {
-                            GooglePlayGames.OurUtils.Logger.d("idt = " + id);
-                        }
-
-                        if (fetchAccessToken && !string.IsNullOrEmpty(access))
-                        {
-                            accessToken = access;
-                        }
-                        if (fetchIdToken && !string.IsNullOrEmpty(id))
-                        {
-                            idToken = id;
-                            idTokenCb(idToken);
-                        }
-                        if (fetchEmail && !string.IsNullOrEmpty(email))
-                        {
-                            this.accountName = email;
-                        }
-                        doneCallback(true);
-                    }));
         }
 
-
-        internal static void FetchToken(string scope, string rationale, bool fetchEmail,
-                                        bool fetchAccessToken, bool fetchIdToken, Action<int, string, string, string> callback)
+        public void Signout()
         {
-            object[] objectArray = new object[6];
-            jvalue[] jArgs = AndroidJNIHelper.CreateJNIArgArray(objectArray);
-            try
-            {
-                using (var bridgeClass = new AndroidJavaClass(TokenFragmentClass))
-                {
-                    using (var currentActivity = AndroidTokenClient.GetActivity())
-                    {
-                        // Unity no longer supports constructing an AndroidJavaObject using an IntPtr,
-                        // so I have to manually munge with JNI here.
-                        IntPtr methodId = AndroidJNI.GetStaticMethodID(bridgeClass.GetRawClass(),
-                                              FetchTokenMethod,
-                                              FetchTokenSignature);
-                        jArgs[0].l = currentActivity.GetRawObject();
-                        jArgs[1].l = AndroidJNI.NewStringUTF(rationale);
-                        jArgs[2].z = fetchEmail;
-                        jArgs[3].z = fetchAccessToken;
-                        jArgs[4].z = fetchIdToken;
-                        jArgs[5].l = AndroidJNI.NewStringUTF(scope);
-
-                        IntPtr ptr =
-                            AndroidJNI.CallStaticObjectMethod(bridgeClass.GetRawClass(), methodId, jArgs);
-
-                        PendingResult<TokenResult> pr = new PendingResult<TokenResult>(ptr);
-                        pr.setResultCallback(new TokenResultCallback(callback));
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                GooglePlayGames.OurUtils.Logger.e("Exception launching token request: " + e.Message);
-                GooglePlayGames.OurUtils.Logger.e(e.ToString());
-            }
-            finally
-            {
-                AndroidJNIHelper.DeleteJNIArgArray(objectArray, jArgs);
-            }
+            authCode = null;
+            email = null;
+            idToken = null;
+            PlayGamesHelperObject.RunOnGameThread(() => {
+                Debug.Log("Calling Signout in token client");
+                AndroidJavaClass cls = new AndroidJavaClass(TokenFragmentClass);
+                cls.CallStatic("signOut", GetActivity());
+            });
         }
 
-        /// <summary>
-        /// Gets the account name of the currently signed-in user to later use for token retrieval.
-        /// </summary>
-        /// <remarks>Currently only used internally to encourage using the unique player ID instead.</remarks>
-        /// <returns>The current user's Google account name.</returns>
-        private string GetAccountName()
-        {
-            if (string.IsNullOrEmpty(accountName))
-            {
-                if (!fetchingEmail)
-                {
-                    fetchingEmail = true;
-                    Fetch(idTokenScope, true, false, false, (ok) => fetchingEmail = false);
-                }
-            }
-
-            return accountName;
-        }
-
-        /// <summary>Gets the current user's email.</summary>
+        /// <summary>Gets the email selected by the current player.</summary>
+        /// <remarks>This is not necessarily the email address of the player.  It
+        /// is just the account selected by the player from a list of accounts
+        /// present on the device.
+        /// </remarks>
         /// <returns>A string representing the email.</returns>
         public string GetEmail()
         {
-            return GetAccountName();
+            return email;
         }
 
-        /// <summary>Gets the access token currently associated with the Unity activity.</summary>
-        /// <returns>The OAuth 2.0 access token.</returns>
-        public string GetAccessToken()
+        public string GetAuthCode()
         {
-            if (string.IsNullOrEmpty(accessToken))
-            {
-                if (!fetchingAccessToken)
-                {
-                    fetchingAccessToken = true;
-                    Fetch(idTokenScope, false, true, false, (rc) => fetchingAccessToken = false);
-                }
-            }
-            return accessToken;
+            return authCode;
         }
 
         /// <summary>Gets the OpenID Connect ID token for authentication with a server backend.</summary>
@@ -209,96 +134,123 @@ namespace GooglePlayGames.Android
         /// services console.</param>
         /// <param name="idTokenCallback"> A callback to be invoked after token is retrieved. Will be passed null value
         /// on failure. </param>
-        [Obsolete("Use PlayGamesPlatform.GetServerAuthCode()")]
-        public void GetIdToken(string serverClientId, Action<string> idTokenCallback)
+        public string GetIdToken()
         {
-            if (string.IsNullOrEmpty(serverClientId))
+            return idToken;
+        }
+
+        public void FetchTokens(bool silent, Action<int> callback)
+        {
+            PlayGamesHelperObject.RunOnGameThread(() => DoFetchToken(silent, callback));
+        }
+
+        private void DoFetchToken(bool silent, Action<int> callback)
+        {
+            try
             {
-                if (webClientWarningCount++ % webClientWarningFreq == 0)
+                using (var bridgeClass = new AndroidJavaClass(TokenFragmentClass))
                 {
-                    GooglePlayGames.OurUtils.Logger.w("serverClientId is empty, cannot get Id Token");
-                    webClientWarningCount = webClientWarningCount / webClientWarningFreq + 1;
+                    using (var currentActivity = GetActivity())
+                    {
+                        using (var pendingResult = bridgeClass.CallStatic<AndroidJavaObject>(
+                            "fetchToken",
+                            currentActivity,
+                            silent,
+                            requestAuthCode,
+                            requestEmail,
+                            requestIdToken, 
+                            webClientId,
+                            forceRefresh,
+                            oauthScopes.ToArray(),
+                            hidePopups,
+                            accountName))
+                        {
+                            pendingResult.Call("setResultCallback", new ResultCallbackProxy(
+                                tokenResult => {
+                                    authCode = tokenResult.Call<string>("getAuthCode");
+                                    email = tokenResult.Call<string>("getEmail");
+                                    idToken = tokenResult.Call<string>("getIdToken");
+                                    callback(tokenResult.Call<int>("getStatusCode"));
+                                }));
+                        }
+                    }
                 }
-                idTokenCallback(null);
-                return;
             }
-            string newScope = "audience:server:client_id:" + serverClientId;
-            if (string.IsNullOrEmpty(idToken) || (newScope != idTokenScope))
+            catch (Exception e)
             {
-                if (!fetchingIdToken)
+                OurUtils.Logger.e("Exception launching token request: " + e.Message);
+                OurUtils.Logger.e(e.ToString());
+            }
+        }
+        
+        /// <summary>
+        /// Gets another server auth code.
+        /// </summary>
+        /// <remarks>This method should be called after authenticating, and exchanging
+        /// the initial server auth code for a token.  This is implemented by signing in
+        /// silently, which if successful returns almost immediately and with a new
+        /// server auth code.
+        /// </remarks>
+        /// <param name="reAuthenticateIfNeeded">Calls Authenticate if needed when
+        /// retrieving another auth code. </param>
+        /// <param name="callback">Callback.</param>
+        public void GetAnotherServerAuthCode(bool reAuthenticateIfNeeded, Action<string> callback)
+        {
+            PlayGamesHelperObject.RunOnGameThread(() => DoGetAnotherServerAuthCode(reAuthenticateIfNeeded, callback));
+        }
+
+        private void DoGetAnotherServerAuthCode(bool reAuthenticateIfNeeded, Action<string> callback)
+        {
+            try
+            {
+                using (var bridgeClass = new AndroidJavaClass(TokenFragmentClass))
                 {
-                    fetchingIdToken = true;
-                    idTokenScope = newScope;
-                    idTokenCb = idTokenCallback;
-                    Fetch(idTokenScope, false, false, true, (ok) => {
-                        fetchingIdToken = false;
-
-                        if(!ok)
+                    using (var currentActivity = GetActivity())
+                    {
+                        using (var pendingResult = bridgeClass.CallStatic<AndroidJavaObject>(
+                            "fetchToken",
+                            currentActivity,
+                            /* silent= */!reAuthenticateIfNeeded,
+                            /* requestAuthCode= */true,
+                            requestEmail,
+                            requestIdToken, 
+                            webClientId,
+                            /* forceRefresh= */false,
+                            oauthScopes.ToArray(),
+                            /* hidePopups= */true,
+                            accountName))
                         {
-                            idTokenCb(null);
+                            pendingResult.Call("setResultCallback", new ResultCallbackProxy(
+                                tokenResult => {
+                                    callback(tokenResult.Call<string>("getAuthCode"));
+                                }));
                         }
-                        else
-                        {
-                            idTokenCb(idToken);
-                        }
-                    });
+                    }
                 }
             }
-            else
+            catch (Exception e)
             {
-                idTokenCallback(idToken);
+                OurUtils.Logger.e("Exception launching token request: " + e.Message);
+                OurUtils.Logger.e(e.ToString());
+            }              
+        }
+
+        private class ResultCallbackProxy : AndroidJavaProxy
+        {
+            private Action<AndroidJavaObject> mCallback;
+
+            public ResultCallbackProxy(Action<AndroidJavaObject> callback) 
+            : base("com/google/android/gms/common/api/ResultCallback")
+            {
+                mCallback = callback;
+            }
+
+            public void onResult(AndroidJavaObject tokenResult)
+            {
+                mCallback(tokenResult);
             }
         }
-    }
 
-    class TokenResult : Google.Developers.JavaObjWrapper , Result
-    {
-        #region Result implementation
-
-        public TokenResult(IntPtr ptr)
-            : base(ptr)
-        {
-        }
-
-        public Status getStatus()
-        {
-            IntPtr obj = InvokeCall<IntPtr>("getStatus", "()Lcom/google/android/gms/common/api/Status;");
-            return new Status(obj);
-        }
-
-        #endregion
-
-        public String getAccessToken()
-        {
-            return InvokeCall<string>("getAccessToken", "()Ljava/lang/String;");
-        }
-
-        public String getEmail()
-        {
-            return InvokeCall<string>("getEmail", "()Ljava/lang/String;");
-        }
-
-        public String getIdToken()
-        {
-            return InvokeCall<string>("getIdToken", "()Ljava/lang/String;");
-        }
-
-    }
-
-    class TokenResultCallback : ResultCallbackProxy<TokenResult>
-    {
-        private Action<int, string, string, string> callback;
-
-        public TokenResultCallback(Action<int, string, string, string> callback)
-        {
-            this.callback = callback;
-        }
-
-        public override void OnResult(TokenResult arg_Result_1)
-        {
-            callback(arg_Result_1.getStatus().getStatusCode(), arg_Result_1.getAccessToken(), arg_Result_1.getIdToken(),
-                arg_Result_1.getEmail());
-        }
     }
 }
 #endif

@@ -1,4 +1,4 @@
-lastUpgrade=00931
+lastUpgrade=00964
 proj.AppId=910990119769
 and.BundleId=com.creativebackyard.gozero
 proj.classDir=Assets
@@ -7,3 +7,4 @@ and.ResourceData=%3c%3fxml+version%3d%221.0%22+encoding%3d%22utf-8%22%3f%3e%0a%3
 and.ClientId=
 proj.requireGPlus=false
 android.SetupDone=true
+proj.pluginVersion=0.9.64

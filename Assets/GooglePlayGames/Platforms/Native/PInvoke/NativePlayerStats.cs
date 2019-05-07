@@ -14,8 +14,7 @@
 //    limitations under the License.
 // </copyright>
 
-#if (UNITY_ANDROID || (UNITY_IPHONE && !NO_GPGS))
-
+#if UNITY_ANDROID
 namespace GooglePlayGames.Native.PInvoke
 {
     using System;
@@ -125,10 +124,12 @@ namespace GooglePlayGames.Native.PInvoke
                 playerStats.NumberOfSessions = NumberOfSessions();
                 playerStats.SessPercentile = SessionPercentile();
                 playerStats.SpendPercentile = SpendPercentile();
+                playerStats.SpendProbability = -1.0f;
             }
 
             return playerStats;
         }
     }
 }
-#endif // (UNITY_ANDROID || UNITY_IPHONE)
+#endif //UNITY_ANDROID
+

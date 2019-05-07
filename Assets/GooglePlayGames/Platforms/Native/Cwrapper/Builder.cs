@@ -14,8 +14,7 @@
 //    limitations under the License.
 // </copyright>
 
-#if (UNITY_ANDROID || (UNITY_IPHONE && !NO_GPGS))
-
+#if UNITY_ANDROID
 namespace GooglePlayGames.Native.Cwrapper
 {
     using System;
@@ -79,10 +78,6 @@ namespace GooglePlayGames.Native.Cwrapper
             HandleRef self);
 
         [DllImport(SymbolLocation.NativeSymbolLocation)]
-        internal static extern void GameServices_Builder_RequireGooglePlus(
-            HandleRef self);
-
-        [DllImport(SymbolLocation.NativeSymbolLocation)]
         internal static extern void GameServices_Builder_SetOnLog(
             HandleRef self,
          /* from(GameServices_Builder_OnLogCallback_t) */OnLogCallback callback,
@@ -119,6 +114,11 @@ namespace GooglePlayGames.Native.Cwrapper
          /* from(void *) */IntPtr callback_arg);
 
         [DllImport(SymbolLocation.NativeSymbolLocation)]
+        internal static extern void GameServices_Builder_SetShowConnectingPopup(
+            HandleRef self,
+            /* from(bool) */ bool flag);
+
+        [DllImport(SymbolLocation.NativeSymbolLocation)]
         internal static extern /* from(GameServices_t) */ IntPtr GameServices_Builder_Create(
             HandleRef self,
          /* from(PlatformConfiguration_t) */IntPtr platform);
@@ -128,4 +128,5 @@ namespace GooglePlayGames.Native.Cwrapper
             HandleRef self);
     }
 }
-#endif // (UNITY_ANDROID || UNITY_IPHONE)
+#endif //UNITY_ANDROID
+

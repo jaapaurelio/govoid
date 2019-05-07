@@ -13,7 +13,6 @@
 //  See the License for the specific language governing permissions and
 //    limitations under the License.
 // </copyright>
-#if (UNITY_ANDROID || (UNITY_IPHONE && !NO_GPGS))
 
 namespace GooglePlayGames
 {
@@ -27,15 +26,22 @@ namespace GooglePlayGames
 
     public const string VersionKeyJarResolver = "00928";
     public const string VersionKeyNativeCRM = "00930";
-    public const int VersionInt = 0x0931;
-    public const string VersionString = "0.9.31a";
-    public const string VersionKey = "00931";
 
-    // used to check for the correct min version or play services.
-    public const int MinGmsCoreVersionCode = 8487000;
+    // Using JNI to get spendprobability - so don't delete the Games.cs files.
+    public const string VersionKeyJNIStats = "00934";
+
+    // New and improved jar resolver
+    public const string VersionKeyJarResolverDLL = "00935";
+
+    // Current Version.
+    public const int VersionInt = 0x0964;
+    public const string VersionString = "0.9.64";
+    public const string VersionKey = "00964";
+
+    // used to check for the correct min version or play services: 10.2
+    public const int MinGmsCoreVersionCode = 10200000;
 
     // used to get the right version of dependencies.
-    public const string PlayServicesVersionConstraint = "8.4+";
+    public const string PlayServicesVersionConstraint = "10+";
   }
 }
-#endif

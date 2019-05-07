@@ -13,10 +13,11 @@
 //  See the License for the specific language governing permissions and
 //    limitations under the License.
 // </copyright>
-#if (UNITY_ANDROID || (UNITY_IPHONE && !NO_GPGS))
 
 namespace GooglePlayGames.BasicApi.Multiplayer
 {
+// move inside the namespace so the namespace is declared if not using GPGS
+#if UNITY_ANDROID
   using System;
   using System.Collections.Generic;
   using GooglePlayGames.BasicApi.Multiplayer;
@@ -197,7 +198,7 @@ namespace GooglePlayGames.BasicApi.Multiplayer
     /// </summary>
     /// <remarks>Call this method to leave the room after you have
     /// started room setup. Leaving the room is not an immediate operation -- you
-    /// must wait for <see cref="RealTimeMultplayerListener.OnLeftRoom"/>
+    /// must wait for <see cref="RealTimeMultiplayerListener.OnLeftRoom"/>
     /// to be called. If you leave a room before setup is complete, you will get
     /// a call to
     /// <see cref="RealTimeMultiplayerListener.OnRoomConnected"/> with <b>false</b>
@@ -217,5 +218,5 @@ namespace GooglePlayGames.BasicApi.Multiplayer
     /// <param name="invitationId">Invitation id to decline.</param>
     void DeclineInvitation(string invitationId);
   }
+    #endif
 }
-#endif

@@ -24,8 +24,8 @@ public class TimeRed : MonoBehaviour {
 
 	private void ResizeSpriteToScreen() {
 		float worldScreenHeight = GetWorldScreenHeight();
-		transform.FindChild("TimeRedBottom").transform.localPosition = new Vector3(0, -worldScreenHeight, 0);
-		transform.FindChild("TimeRedTop").transform.localPosition = new Vector3(0, worldScreenHeight, 0);
+		transform.Find("TimeRedBottom").transform.localPosition = new Vector3(0, -worldScreenHeight, 0);
+		transform.Find("TimeRedTop").transform.localPosition = new Vector3(0, worldScreenHeight, 0);
 	}
 
 	private float GetWorldScreenHeight() {

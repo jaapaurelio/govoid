@@ -13,13 +13,18 @@
 //  See the License for the specific language governing permissions and
 //    limitations under the License.
 // </copyright>
-#if (UNITY_ANDROID || (UNITY_IPHONE && !NO_GPGS))
+
+#if UNITY_ANDROID
 
 namespace GooglePlayGames
 {
+    using System;
     using System.Collections;
     using GooglePlayGames.OurUtils;
     using UnityEngine;
+#if UNITY_2017_1_OR_NEWER
+    using UnityEngine.Networking;
+#endif
     using UnityEngine.SocialPlatforms;
 
     /// <summary>
@@ -50,7 +55,11 @@ namespace GooglePlayGames
         {
             mDisplayName = displayName;
             mPlayerId = playerId;
-            mAvatarUrl = avatarUrl;
+            if (mAvatarUrl != avatarUrl)
+            {
+                mImage = null;
+                mAvatarUrl = avatarUrl;
+            }
             mImageLoading = false;
         }
 
@@ -125,7 +134,12 @@ namespace GooglePlayGames
             // avatar configured.
             if (!string.IsNullOrEmpty(AvatarURL))
             {
+#if UNITY_2017_1_OR_NEWER
+                UnityWebRequest www = UnityWebRequestTexture.GetTexture(AvatarURL);
+                www.SendWebRequest();
+#else
                 WWW www = new WWW(AvatarURL);
+#endif
                 while (!www.isDone)
                 {
                     yield return null;
@@ -133,7 +147,11 @@ namespace GooglePlayGames
 
                 if (www.error == null)
                 {
+#if UNITY_2017_1_OR_NEWER
+                    this.mImage = DownloadHandlerTexture.GetContent(www);
+#else
                     this.mImage = www.texture;
+#endif
                 }
                 else
                 {
@@ -163,12 +181,13 @@ namespace GooglePlayGames
                 return true;
             }
 
-            if (!typeof(object).IsSubclassOf(typeof(PlayGamesUserProfile)))
+            PlayGamesUserProfile other = obj as PlayGamesUserProfile;
+            if (other == null)
             {
                 return false;
             }
 
-            return mPlayerId.Equals(((PlayGamesUserProfile)obj).mPlayerId);
+            return StringComparer.Ordinal.Equals(mPlayerId, other.mPlayerId);
         }
 
         public override int GetHashCode()

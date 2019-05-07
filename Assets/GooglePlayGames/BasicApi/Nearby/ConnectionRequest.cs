@@ -13,7 +13,6 @@
 //  See the License for the specific language governing permissions and
 //    limitations under the License.
 // </copyright>
-#if (UNITY_ANDROID || (UNITY_IPHONE && !NO_GPGS))
 
 namespace GooglePlayGames.BasicApi.Nearby
 {
@@ -24,12 +23,11 @@ namespace GooglePlayGames.BasicApi.Nearby
         private readonly EndpointDetails mRemoteEndpoint;
         private readonly byte[] mPayload;
 
-        public ConnectionRequest(string remoteEndpointId, string remoteDeviceId,
+        public ConnectionRequest(string remoteEndpointId,
                              string remoteEndpointName, string serviceId, byte[] payload)
         {
             Logger.d("Constructing ConnectionRequest");
-            mRemoteEndpoint = new EndpointDetails(remoteEndpointId, remoteDeviceId,
-                remoteEndpointName, serviceId);
+            mRemoteEndpoint = new EndpointDetails(remoteEndpointId, remoteEndpointName, serviceId);
             this.mPayload = Misc.CheckNotNull(payload);
         }
 
@@ -50,4 +48,3 @@ namespace GooglePlayGames.BasicApi.Nearby
         }
     }
 }
-#endif

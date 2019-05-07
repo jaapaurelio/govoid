@@ -13,11 +13,9 @@
 //  See the License for the specific language governing permissions and
 //    limitations under the License.
 // </copyright>
-#if (UNITY_ANDROID || (UNITY_IPHONE && !NO_GPGS))
 
 namespace GooglePlayGames.BasicApi.Events
 {
-
     public enum EventVisibility
     {
         Hidden = 1,
@@ -25,7 +23,7 @@ namespace GooglePlayGames.BasicApi.Events
     }
 
     /// <summary>
-    /// Data object representing an Event. <see cref="EventManager"/> for more.
+    /// Data object representing an Event. <see cref="Native.PInvoke.EventManager"/> for more.
     /// </summary>
     public interface IEvent
     {
@@ -79,4 +77,3 @@ namespace GooglePlayGames.BasicApi.Events
         }
     }
 }
-#endif
