@@ -5,15 +5,20 @@ using System.Collections.Generic;       //Allows us to use Lists.
 
 public class GridHouseUI : MonoBehaviour {
 
-	private GridPosition houseGridPosition;
-	public Sprite backgroundPossible;
-	public Sprite backgroundActive;
+    private int numCircles = 9;
+	private GameObject[] circles;
 	public Sprite backgroundNormal;
-	public Sprite backgroundMissing;
-	public Sprite backgroundTwoStepsBack;
 	public Animator anim;
+    public GameObject background;
+    private GridPosition houseGridPosition;
 
-	public GridPosition HouseGridPosition {
+
+    private float colorPossibleR = 0.75f;
+    private float colorPossibleG = 0.17f;
+    private float colorPossibleB = 0.6f;
+    private float colorRange = 0.1f;
+
+    public GridPosition HouseGridPosition {
 		get{
 			return houseGridPosition;
 		}
@@ -24,67 +29,123 @@ public class GridHouseUI : MonoBehaviour {
 
 	void Awake(){
 		anim = GetComponent<Animator>();
-	}
+
+        Vector2[] positions = new Vector2[10];
+
+        positions[0] = new Vector2(0f, 0f);
+        positions[1] = new Vector2(-0.5f, 0.5f);
+        positions[2] = new Vector2(0.5f, -0.5f);
+        positions[3] = new Vector2(0f, 0.5f);
+        positions[4] = new Vector2(0f, -0.5f);
+        positions[5] = new Vector2(0.5f, 0.5f);
+        positions[6] = new Vector2(-0.5f, -0.5f);
+        positions[7] = new Vector2(-0.5f, 0f);
+        positions[8] = new Vector2(0.5f, 0f);
+
+        circles = new GameObject[numCircles];
+
+        for (int i = 0; i < numCircles; i++)
+        {
+            GameObject b = Instantiate(background, new Vector3(0, 0, 0), Quaternion.identity);
+            b.transform.parent = gameObject.transform;
+            b.transform.localPosition = new Vector3(positions[i].x, positions[i].y, 0f);
+
+            b.GetComponent<SpriteRenderer>().sortingLayerName = "Board";
+            b.SetActive(false); // false to hide, true to show
+
+            circles[i] = b;
+        }
+    }
 
 	void Start() {
-		transform.Find("SquareBackground").GetComponent<SpriteRenderer>().sortingLayerName = "Board";
+    }
 
-	}
+    public void SetNumber(int newNumber) {
+        float scale = 1.0f;
 
-	public void SetNumber(int newNumber) {
-		transform.Find("Number").GetComponent<Number>().SetNumber(newNumber);
+        if(newNumber > 0) {
+            scale = 1.0f / newNumber;
+        }
 
-		if(newNumber==0){
-			SpriteRenderer background = transform.Find("SquareBackground").GetComponent<SpriteRenderer>();
-			background.color = new Color(1.0f, 1.0f, 1.0f, 0.3f);
-		}
+        for (int i = newNumber; i < numCircles; i++) {
+            circles[i].SetActive(false);
+        }
+
+        for (int i = 0; i < newNumber; i++)
+        {
+            SpriteRenderer background = circles[i].GetComponent<SpriteRenderer>();
+            circles[i].SetActive(true);
+            float scaleP = 0.2f;
+            circles[i].transform.localScale = new Vector3(scaleP, scaleP, scaleP);
+        }
+
+        if (newNumber==0) {
+            SpriteRenderer background = circles[0].GetComponent<SpriteRenderer>();
+            background.color = new Color(0.0f, 0.0f, 1.0f, 1.0f);
+        }
 	}
 
 	public void ResetHouse() {
-		TextMesh numberText = transform.Find("Number").GetComponent<TextMesh>();
-		SpriteRenderer background = transform.Find("SquareBackground").GetComponent<SpriteRenderer>();
 
-		background.sprite = backgroundPossible;
-		background.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+        for (int i = 0; i < numCircles; i++)
+        {
+            SpriteRenderer background2 = circles[i].GetComponent<SpriteRenderer>();
+            background2.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
 
-		numberText.color = new Color32(38, 166, 154, 255);
+            background2.color = new Color(
+    Random.Range(colorPossibleR - colorRange, colorPossibleR + colorRange),
+    Random.Range(colorPossibleG - colorRange, colorPossibleG + colorRange),
+    Random.Range(colorPossibleB - colorRange, colorPossibleB + colorRange));
 
+        }
 	}
 
 
 	public void SetState(int newState ) {
-		TextMesh numberText = transform.Find("Number").GetComponent<TextMesh>();
-		SpriteRenderer background = transform.Find("SquareBackground").GetComponent<SpriteRenderer>();
-
-		switch(newState) {
-		case Constants.HOUSE_STATE_ACTIVE:
-			background.sprite = backgroundActive;
-			//background.color = new Color(1.0f, 1.0f, 1.0f, 0.5f);
-
-			numberText.color = new Color32(38, 166, 154, 255);
-			break;
-		case Constants.HOUSE_STATE_NORMAL:
-			background.sprite = backgroundNormal;
-			//background.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
-
-			numberText.color = new Color32(127, 127, 127, 255);
-			break;
-		case Constants.HOUSE_STATE_POSSIBLE:
-			background.sprite = backgroundPossible;
-			//background.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
-
-			numberText.color = new Color32(38, 166, 154, 255);
+        float colorR = 1f;
+        float colorG = 1f;
+        float colorB = 1f;
+        float colorA = 1f;
 
 
-			break;
-		case Constants.HOUSE_STATE_MISSING:
-			background.sprite = backgroundMissing;
-			//background.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+        switch (newState) {
+    		case Constants.HOUSE_STATE_ACTIVE:
+                colorR = 1f;
+                colorG = 1f; 
+                colorB = 1f;
+                break;
+    		case Constants.HOUSE_STATE_NORMAL:
+                colorR = 1f;
+                colorG = 1f;
+                colorB = 1f;
+                colorA = 0.3f;
 
-			numberText.color = new Color32(240, 98, 146, 255);
-			break;
+                break;
+    		case Constants.HOUSE_STATE_POSSIBLE:
+                colorR = colorPossibleR;
+                colorG = colorPossibleG;
+                colorB = colorPossibleB;
+
+                break;
+    		case Constants.HOUSE_STATE_MISSING:
+                colorR = 0.8f;
+                colorG = 0.2f;
+                colorB = 0.1f;
+
+    			break;
 		}
 
-	}
+        for (int i = 0; i < numCircles; i++)
+        {
+            SpriteRenderer backgroundSquare = circles[i].GetComponent<SpriteRenderer>();
+
+            backgroundSquare.color = new Color(
+                Random.Range(colorR - colorRange, colorR + colorRange),
+                Random.Range(colorG - colorRange, colorG + colorRange),
+                Random.Range(colorB - colorRange, colorB + colorRange),
+                colorA);
+        }
+
+    }
 		
 }
