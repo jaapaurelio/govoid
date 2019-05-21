@@ -6,8 +6,10 @@ public class TouchManager : MonoBehaviour {
 	private Collider2D colliderBegan;
 
 	public void Update() {
-		if(Input.touchCount > 0){
-			var touch = Input.GetTouch(0);
+
+
+        if (BoardInputHelper.GetTouches().Count > 0){
+			var touch = BoardInputHelper.GetTouches()[0];
 
 			if (touch.phase == TouchPhase.Began) {
 				Collider2D hitCollider = GetHitCollider(Input.mousePosition);
