@@ -11,7 +11,7 @@ public class SquareParticle : MonoBehaviour
     private float speed = 1.0f;
 
     // The point we are going around in circles
-    private Vector2 basestartpoint;
+    public Vector2 basestartpoint;
 
     // Destination of our current move
     private Vector2 destination;
@@ -26,7 +26,6 @@ public class SquareParticle : MonoBehaviour
     void Start()
     {
         start = transform.localPosition;
-        basestartpoint = transform.localPosition;
         progress = 0.0f;
 
         PickNewRandomDestination();
@@ -64,6 +63,9 @@ public class SquareParticle : MonoBehaviour
         // We add basestartpoint to the mix so that is doesn't go around a circle in the middle of the scene.
         destination = Random.insideUnitCircle * radius + basestartpoint;
         speed = Random.Range(minSpeed, maxSpeed);
-        transform.gameObject.GetComponent<SpriteRenderer>().sortingOrder = Random.Range(1, 20);
+    }
+
+    public void SetPositionPP(Vector2 p) {
+        basestartpoint = p;
     }
 }

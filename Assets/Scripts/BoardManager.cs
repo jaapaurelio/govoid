@@ -119,7 +119,7 @@ public class BoardManager : MonoBehaviour {
 
 		AnimateRestart();
 
-	}
+    }
 		
 	protected virtual void NewLevel() {
 
@@ -158,9 +158,12 @@ public class BoardManager : MonoBehaviour {
 	}
 
 	protected void BoardInteraction(){
-		
-		if(Input.touchCount > 0 ){
-			var touch = Input.GetTouch(0);
+
+
+        if (BoardInputHelper.GetTouches().Count > 0)
+        {
+
+            var touch = BoardInputHelper.GetTouches()[0];
 			if( touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled ) {
 				canChooseNextHouse = true;
 			}

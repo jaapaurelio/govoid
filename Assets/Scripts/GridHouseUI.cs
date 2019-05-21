@@ -9,7 +9,8 @@ public class GridHouseUI : MonoBehaviour {
 	private GameObject[] circles;
 	public Sprite backgroundNormal;
 	public Animator anim;
-    public GameObject background;
+    public GameObject ParticleNumber;
+    public GameObject SquareBackground;
     private GridPosition houseGridPosition;
 
 
@@ -28,27 +29,17 @@ public class GridHouseUI : MonoBehaviour {
 	}
 
 	void Awake(){
-		anim = GetComponent<Animator>();
 
-        Vector2[] positions = new Vector2[10];
 
-        positions[0] = new Vector2(0f, 0f);
-        positions[1] = new Vector2(-0.5f, 0.5f);
-        positions[2] = new Vector2(0.5f, -0.5f);
-        positions[3] = new Vector2(0f, 0.5f);
-        positions[4] = new Vector2(0f, -0.5f);
-        positions[5] = new Vector2(0.5f, 0.5f);
-        positions[6] = new Vector2(-0.5f, -0.5f);
-        positions[7] = new Vector2(-0.5f, 0f);
-        positions[8] = new Vector2(0.5f, 0f);
+        anim = GetComponent<Animator>();
+
 
         circles = new GameObject[numCircles];
 
         for (int i = 0; i < numCircles; i++)
         {
-            GameObject b = Instantiate(background, new Vector3(0, 0, 0), Quaternion.identity);
+            GameObject b = Instantiate(ParticleNumber, new Vector3(0, 0, 0), Quaternion.identity);
             b.transform.parent = gameObject.transform;
-            b.transform.localPosition = new Vector3(positions[i].x, positions[i].y, 0f);
 
             b.GetComponent<SpriteRenderer>().sortingLayerName = "Board";
             b.SetActive(false); // false to hide, true to show
@@ -57,47 +48,15 @@ public class GridHouseUI : MonoBehaviour {
         }
     }
 
-	void Start() {
+    private Vector2 pToPosition(int x, int y) {
+        return new Vector2(x * 0.60f, y * 0.60f);
     }
 
-    public void SetNumber(int newNumber) {
-        float scale = 1.0f;
 
-        if(newNumber > 0) {
-            scale = 1.0f / newNumber;
-        }
-
-        for (int i = newNumber; i < numCircles; i++) {
-            circles[i].SetActive(false);
-        }
-
-        for (int i = 0; i < newNumber; i++)
-        {
-            SpriteRenderer background = circles[i].GetComponent<SpriteRenderer>();
-            circles[i].SetActive(true);
-            float scaleP = 0.2f;
-            circles[i].transform.localScale = new Vector3(scaleP, scaleP, scaleP);
-        }
-
-        if (newNumber==0) {
-            SpriteRenderer background = circles[0].GetComponent<SpriteRenderer>();
-            background.color = new Color(0.0f, 0.0f, 1.0f, 1.0f);
-        }
-	}
 
 	public void ResetHouse() {
+        SetState(Constants.HOUSE_STATE_POSSIBLE);
 
-        for (int i = 0; i < numCircles; i++)
-        {
-            SpriteRenderer background2 = circles[i].GetComponent<SpriteRenderer>();
-            background2.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
-
-            background2.color = new Color(
-    Random.Range(colorPossibleR - colorRange, colorPossibleR + colorRange),
-    Random.Range(colorPossibleG - colorRange, colorPossibleG + colorRange),
-    Random.Range(colorPossibleB - colorRange, colorPossibleB + colorRange));
-
-        }
 	}
 
 
@@ -107,12 +66,12 @@ public class GridHouseUI : MonoBehaviour {
         float colorB = 1f;
         float colorA = 1f;
 
-
         switch (newState) {
     		case Constants.HOUSE_STATE_ACTIVE:
                 colorR = 1f;
                 colorG = 1f; 
                 colorB = 1f;
+               
                 break;
     		case Constants.HOUSE_STATE_NORMAL:
                 colorR = 1f;
@@ -135,17 +94,194 @@ public class GridHouseUI : MonoBehaviour {
     			break;
 		}
 
+
         for (int i = 0; i < numCircles; i++)
         {
             SpriteRenderer backgroundSquare = circles[i].GetComponent<SpriteRenderer>();
 
-            backgroundSquare.color = new Color(
-                Random.Range(colorR - colorRange, colorR + colorRange),
-                Random.Range(colorG - colorRange, colorG + colorRange),
-                Random.Range(colorB - colorRange, colorB + colorRange),
-                colorA);
+            backgroundSquare.color = new Color(colorR, colorG, colorB, colorA);
+
         }
 
     }
-		
+
+    public void SetNumber(int newNumber)
+    {
+        float scale = 1.0f;
+
+        if (newNumber > 0)
+        {
+            scale = 1.0f / newNumber;
+        }
+
+        for (int i = newNumber; i < numCircles; i++)
+        {
+            circles[i].SetActive(false);
+        }
+
+
+        if (newNumber == 1)
+        {
+            circles[0].SetActive(true);
+            circles[0].GetComponent<SquareParticle>().SetPositionPP(pToPosition(0, 0));
+        }
+
+        if (newNumber == 2)
+        {
+            circles[0].SetActive(true);
+            circles[0].GetComponent<SquareParticle>().SetPositionPP(new Vector2(-0.2f, 0.2f));
+
+            circles[1].SetActive(true);
+            circles[1].GetComponent<SquareParticle>().SetPositionPP(new Vector2(0.2f, -0.2f));
+        }
+
+        if (newNumber == 3)
+        {
+            circles[0].SetActive(true);
+            circles[0].GetComponent<SquareParticle>().SetPositionPP(new Vector2(-0.4f, 0.4f));
+
+            circles[1].SetActive(true);
+            circles[1].GetComponent<SquareParticle>().SetPositionPP(new Vector2(0.4f, -0.4f));
+
+            circles[2].SetActive(true);
+            circles[2].GetComponent<SquareParticle>().SetPositionPP(new Vector2(0, 0));
+        }
+
+        if (newNumber == 4)
+        {
+            circles[0].SetActive(true);
+            circles[0].GetComponent<SquareParticle>().SetPositionPP(new Vector2(-0.3f, 0.3f));
+
+            circles[1].SetActive(true);
+            circles[1].GetComponent<SquareParticle>().SetPositionPP(new Vector2(0.3f, -0.3f));
+
+            circles[2].SetActive(true);
+            circles[2].GetComponent<SquareParticle>().SetPositionPP(new Vector2(0.3f, 0.3f));
+
+            circles[3].SetActive(true);
+            circles[3].GetComponent<SquareParticle>().SetPositionPP(new Vector2(-0.3f, -0.3f));
+        }
+
+        if (newNumber == 5)
+        {
+            circles[0].SetActive(true);
+            circles[0].GetComponent<SquareParticle>().SetPositionPP(new Vector2(-0.4f, 0.4f));
+
+            circles[1].SetActive(true);
+            circles[1].GetComponent<SquareParticle>().SetPositionPP(new Vector2(0.4f, -0.4f));
+
+            circles[2].SetActive(true);
+            circles[2].GetComponent<SquareParticle>().SetPositionPP(new Vector2(0.4f, 0.4f));
+
+            circles[3].SetActive(true);
+            circles[3].GetComponent<SquareParticle>().SetPositionPP(new Vector2(-0.4f, -0.4f));
+
+            circles[4].SetActive(true);
+            circles[4].GetComponent<SquareParticle>().SetPositionPP(new Vector2(0, 0));
+        }
+
+        if (newNumber == 6)
+        {
+            circles[0].SetActive(true);
+            circles[0].GetComponent<SquareParticle>().SetPositionPP(new Vector2(-0.5f, 0.3f));
+
+            circles[1].SetActive(true);
+            circles[1].GetComponent<SquareParticle>().SetPositionPP(new Vector2(0.5f, -0.3f));
+
+            circles[2].SetActive(true);
+            circles[2].GetComponent<SquareParticle>().SetPositionPP(new Vector2(0.5f, 0.3f));
+
+            circles[3].SetActive(true);
+            circles[3].GetComponent<SquareParticle>().SetPositionPP(new Vector2(-0.5f, -0.3f));
+
+            circles[4].SetActive(true);
+            circles[4].GetComponent<SquareParticle>().SetPositionPP(new Vector2(0, -0.3f));
+
+            circles[5].SetActive(true);
+            circles[5].GetComponent<SquareParticle>().SetPositionPP(new Vector2(0, 0.3f));
+        }
+
+        if (newNumber == 7)
+        {
+            circles[0].SetActive(true);
+            circles[0].GetComponent<SquareParticle>().SetPositionPP(new Vector2(-0.5f, 0.5f));
+
+            circles[1].SetActive(true);
+            circles[1].GetComponent<SquareParticle>().SetPositionPP(new Vector2(0.5f, -0.5f));
+
+            circles[2].SetActive(true);
+            circles[2].GetComponent<SquareParticle>().SetPositionPP(new Vector2(0.5f, 0.5f));
+
+            circles[3].SetActive(true);
+            circles[3].GetComponent<SquareParticle>().SetPositionPP(new Vector2(-0.5f, -0.5f));
+
+            circles[4].SetActive(true);
+            circles[4].GetComponent<SquareParticle>().SetPositionPP(new Vector2(0, -0.5f));
+
+            circles[5].SetActive(true);
+            circles[5].GetComponent<SquareParticle>().SetPositionPP(new Vector2(0, 0.5f));
+
+            circles[6].SetActive(true);
+            circles[6].GetComponent<SquareParticle>().SetPositionPP(new Vector2(0, 0));
+        }
+
+        if (newNumber == 8)
+        {
+            circles[0].SetActive(true);
+            circles[0].GetComponent<SquareParticle>().SetPositionPP(new Vector2(-0.5f, 0.5f));
+
+            circles[1].SetActive(true);
+            circles[1].GetComponent<SquareParticle>().SetPositionPP(new Vector2(0.5f, -0.5f));
+
+            circles[2].SetActive(true);
+            circles[2].GetComponent<SquareParticle>().SetPositionPP(new Vector2(0.5f, 0.5f));
+
+            circles[3].SetActive(true);
+            circles[3].GetComponent<SquareParticle>().SetPositionPP(new Vector2(-0.5f, -0.5f));
+
+            circles[4].SetActive(true);
+            circles[4].GetComponent<SquareParticle>().SetPositionPP(new Vector2(0, -0.5f));
+
+            circles[5].SetActive(true);
+            circles[5].GetComponent<SquareParticle>().SetPositionPP(new Vector2(0, 0.5f));
+
+            circles[6].SetActive(true);
+            circles[6].GetComponent<SquareParticle>().SetPositionPP(new Vector2(-0.5F, 0));
+
+            circles[7].SetActive(true);
+            circles[7].GetComponent<SquareParticle>().SetPositionPP(new Vector2(0.5F, 0));
+        }
+
+        if (newNumber == 9)
+        {
+            circles[0].SetActive(true);
+            circles[0].GetComponent<SquareParticle>().SetPositionPP(new Vector2(-0.5f, 0.5f));
+
+            circles[1].SetActive(true);
+            circles[1].GetComponent<SquareParticle>().SetPositionPP(new Vector2(0.5f, -0.5f));
+
+            circles[2].SetActive(true);
+            circles[2].GetComponent<SquareParticle>().SetPositionPP(new Vector2(0.5f, 0.5f));
+
+            circles[3].SetActive(true);
+            circles[3].GetComponent<SquareParticle>().SetPositionPP(new Vector2(-0.5f, -0.5f));
+
+            circles[4].SetActive(true);
+            circles[4].GetComponent<SquareParticle>().SetPositionPP(new Vector2(0, -0.5f));
+
+            circles[5].SetActive(true);
+            circles[5].GetComponent<SquareParticle>().SetPositionPP(new Vector2(0, 0.5f));
+
+            circles[6].SetActive(true);
+            circles[6].GetComponent<SquareParticle>().SetPositionPP(new Vector2(-0.5F, 0));
+
+            circles[7].SetActive(true);
+            circles[7].GetComponent<SquareParticle>().SetPositionPP(new Vector2(0.5F, 0));
+
+            circles[8].SetActive(true);
+            circles[8].GetComponent<SquareParticle>().SetPositionPP(new Vector2(0, 0));
+        }
+
+    }
+
 }
