@@ -16,29 +16,30 @@ public static class LevelJsonGenerator  {
 		}
 
 		Debug.Log("level " + level.columns + " " + level.rows);
-		int row = level.rows - 1;
-		int col = 0;
+        int row = level.rows - 1;
+        int col = 0;
 		GridHouse gridhouse;
+        Debug.Log(level.grid);
 
 		for(int i = 0; i < level.grid.Length; i++) {
 
-			//Debug.Log("col " + col + " " + " row " + row);
+            gridhouse = levelGrid.GetHouseInPosition(new GridPosition(col, row));
 
-			// For an easy level definition in the json, row and col are switch
-			gridhouse = levelGrid.GetHouseInPosition(new GridPosition(col, row));
+            gridhouse.SetFinalNumber(level.grid[i].number);
+            gridhouse.SetActions(level.grid[i].actions);
 
-			gridhouse.SetFinalNumber(level.grid[i]);
+            if (col == level.columns - 1)
+            {
+                Debug.Log("reset cols");
+                col = -1;
+                row--;
+            }
 
-			if(col == level.columns - 1) {
-				Debug.Log("reset cols");
-				col = -1;
-				row--;
-			}
+            col++;
 
-			col++;
-		}
+        }
 
-		Debug.Log("level grid");
+        Debug.Log("level grid");
 		Debug.Log(level.grid);
 
 		return levelGrid;

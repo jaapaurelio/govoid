@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class SquareParticle : MonoBehaviour
+public class HouseDot : MonoBehaviour
 {
 
     private float radius = 0.05f;
@@ -9,6 +9,7 @@ public class SquareParticle : MonoBehaviour
     private float maxSpeed = 4f;
 
     private float speed = 1.0f;
+    private bool isActiveDot = false;
 
     // The point we are going around in circles
     public Vector2 basestartpoint;
@@ -60,12 +61,23 @@ public class SquareParticle : MonoBehaviour
 
     void PickNewRandomDestination()
     {
-        // We add basestartpoint to the mix so that is doesn't go around a circle in the middle of the scene.
-        destination = Random.insideUnitCircle * radius + basestartpoint;
+        if(!isActiveDot) {
+            destination = basestartpoint;
+
+        } else {
+            // We add basestartpoint to the mix so that is doesn't go around a circle in the middle of the scene.
+            destination = Random.insideUnitCircle * radius + basestartpoint;
+        }
         speed = Random.Range(minSpeed, maxSpeed);
     }
 
     public void SetPositionPP(Vector2 p) {
         basestartpoint = p;
     }
+
+    public void SetActiveDot(bool _isActiveDot)
+    {
+        isActiveDot = _isActiveDot;
+    }
+
 }

@@ -9,6 +9,7 @@ public class GridHouse
 
 	public GridPosition position;   
 	private int number;
+    private string[] actions;
 
 	public int Number { get{return number;} }
 
@@ -37,7 +38,7 @@ public class GridHouse
 		gridHouseUIComponent.ResetHouse();
 	}
 
-	public void SetState(int newState) {
+	public void SetHouseState(int newState) {
 		state = newState;
 		gridHouseUIComponent.SetState(newState);
 	}
@@ -50,23 +51,26 @@ public class GridHouse
 
 	}
 
-	public void UnsetActive() {
+
+    public void SetAsPrevious()
+    {
+        state = Constants.HOUSE_STATE_PREVIOUS;
+        gridHouseUIComponent.SetState(Constants.HOUSE_STATE_PREVIOUS);
+    }
+
+    public void UnsetActive() {
 		state = Constants.HOUSE_STATE_NORMAL;
 		gridHouseUIComponent.SetState(Constants.HOUSE_STATE_NORMAL);
-
-		/*
-		if(number == 0){
-			gridHouseUIGameObject.SetActive(false);
-		}
-		*/
 	}
 
 	public void SetGameObject(GameObject newGridHouseUI) {
 		gridHouseUIGameObject = newGridHouseUI;
 		gridHouseUIComponent = gridHouseUIGameObject.GetComponent<GridHouseUI>();
-	}
 
-	public void Restart() {
+        gridHouseUIComponent.SetActions(actions);
+    }
+
+    public void Restart() {
 		number = originalNumber;
 		gridHouseUIComponent.SetNumber(number);
 
@@ -85,8 +89,17 @@ public class GridHouse
 		originalNumber = newNumber;
 	}
 
-	public void Destroy() {
+    public void SetActions(string[] _actions) {
+        if(_actions != null)
+        {
+            actions = _actions;
+
+        } else {
+            actions = new string[0];
+        }
+    }
+
+    public void Destroy() {
 		Object.Destroy(gridHouseUIGameObject);
 	}
-
 }

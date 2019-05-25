@@ -18,7 +18,7 @@ public class TutorialManager : BoardManager {
 		GameManager.instance.googleAnalytics.LogScreen("Tutorial");
 
 		// Get json with level layout
-		TextAsset bindata= Resources.Load<TextAsset>("Levels/Tutorial");
+		TextAsset bindata = Resources.Load<TextAsset>("Levels/Tutorial");
 
 		package = JsonUtility.FromJson<Pack>(bindata.text);
 

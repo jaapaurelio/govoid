@@ -1,38 +1,65 @@
 {
-	"name":"Tutorial",
-	"levels": [
-		{
-			"columns": 5,
-			"rows": 3,
-			"messageen": "",
-			"message": "",
-			"grid": [
-				1,2,3,4,5,
-				0,2,3,4,6,
-				1,1,9,8,7
-			]
-		},
-		{
-			"columns": 4,
-			"rows": 3,
-			"messageen": "",
-			"message": "",
-			"grid": [
-				1,1,1,1,
-				1,1,1,1,
-				1,1,1,1
-			]
-		},{
-			"columns": 5,
-			"rows": 3,
-			"messageen": "",
-			"message": "",
-			"grid": [
-				0,0,1,1,0,
-				0,1,2,1,0,
-				0,0,1,0,0
-			]
-		}
-	]
+  "name": "Tutorial",
+  "levels": [
+    {
+      "columns": 5,
+      "rows": 3,
+      "message": "",
+      "grid": [
+        { "number": 1, "actions": ["TELEPORT_1"] },
+        { "number": 2 },
+        { "number": 3 },
+        { "number": 4 },
+        { "number": 5 },
+        { "number": 0 },
+        { "number": 2 },
+        { "number": 3 },
+        { "number": 4, "actions": ["TELEPORT_1"] },
+        { "number": 4 },
+        { "number": 1 },
+        { "number": 1 },
+        { "number": 9 },
+        { "number": 8 },
+        { "number": 4 }
+      ]
+    },
+    {
+      "columns": 4,
+      "rows": 3,
+      "message": "",
+      "grid": [
+        { "number": 1 },
+        { "number": 1 },
+        { "number": 1 },
+        { "number": 1 },
+        { "number": 1 },
+        { "number": 1 },
+        { "number": 1 },
+        { "number": 1 },
+        { "number": 1 },
+        { "number": 1 },
+        { "number": 1 },
+        { "number": 1 }
+      ]
+    },
+    {
+      "columns": 5,
+      "rows": 3,
+      "message": "",
+      "grid": [
+        { "number": 0 },
+        { "number": 0 },
+        { "number": 1 },
+        { "number": 1 },
+        { "number": 0 },
+        { "number": 1 },
+        { "number": 2 },
+        { "number": 1 },
+        { "number": 0 },
+        { "number": 0 },
+        { "number": 1 },
+        { "number": 0 }
+      ]
+    }
+  ]
 }
-	

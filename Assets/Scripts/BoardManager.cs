@@ -208,7 +208,7 @@ public class BoardManager : MonoBehaviour {
 							if( !sibling.Equals(activeHouse)) {
 								if(sibling.Number > 0) {
 
-									sibling.SetState(Constants.HOUSE_STATE_POSSIBLE);
+									sibling.SetHouseState(Constants.HOUSE_STATE_POSSIBLE);
 									possibleDirections.Add(GetDirectionToSibling(clickedHouse, sibling));
 									possibleHouses.Add(sibling);
 									sibling.gridHouseUIComponent.anim.Play("AnimatePossible");
@@ -223,7 +223,7 @@ public class BoardManager : MonoBehaviour {
 						if( activeHouse != null ) {
 							ShowFromArrow(clickedHouse, activeHouse);
 
-							activeHouse.UnsetActive();
+							activeHouse.SetAsPrevious();
 
 						}
 
@@ -320,7 +320,7 @@ public class BoardManager : MonoBehaviour {
 
 	protected void SetAllHousesToState(List<GridHouse> gridHouses, int state) {
 		foreach(GridHouse house in gridHouses) {
-			house.SetState(state);
+			house.SetHouseState(state);
 		}
 	}
 
@@ -360,7 +360,7 @@ public class BoardManager : MonoBehaviour {
 	}
 
 	protected void ShowArrows(GridPosition fromPosition, int direction) {
-
+        return;
 		switch(direction) {
 		case Constants.TOP:
 			arrowToTop.transform.localPosition = new Vector3(fromPosition.column * 2.5f , fromPosition.row * 2.5f, 0);

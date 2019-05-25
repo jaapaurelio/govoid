@@ -6,5 +6,4 @@ public struct Pack
 {
 	public Level[] levels;
 	public string name;
-
 }
