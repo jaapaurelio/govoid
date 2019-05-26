@@ -38,7 +38,6 @@ public static class LevelJsonGenerator  {
             }
 
             col++;
-
         }
 
         Debug.Log("level grid");

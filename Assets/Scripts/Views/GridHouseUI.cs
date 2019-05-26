@@ -12,6 +12,7 @@ public class GridHouseUI : MonoBehaviour {
     private float colorPossibleR = 0.75f;
     private float colorPossibleG = 0.17f;
     private float colorPossibleB = 0.6f;
+    public GridHouse model;
 
     public GridPosition HouseGridPosition { get; set; }
 
@@ -81,20 +82,24 @@ public class GridHouseUI : MonoBehaviour {
                 break;
 		}
 
+        if(!model.isTeleport) {
+            for (int i = 0; i < numCircles; i++)
+            {
+                SpriteRenderer circleBackground = circles[i].GetComponent<SpriteRenderer>();
 
-        for (int i = 0; i < numCircles; i++)
-        {
-            SpriteRenderer circleBackground = circles[i].GetComponent<SpriteRenderer>();
+                circleBackground.color = new Color(colorR, colorG, colorB, colorA);
 
-            circleBackground.color = new Color(colorR, colorG, colorB, colorA);
-
-            circles[i].GetComponent<HouseDot>().SetActiveDot(possible);
+                circles[i].GetComponent<HouseDot>().SetActiveDot(possible);
+            }
         }
-
     }
 
     public void SetNumber(int newNumber)
     {
+
+        if(model.isTeleport) {
+            return;
+        }
 
         for (int i = newNumber; i < numCircles; i++)
         {
@@ -263,6 +268,11 @@ public class GridHouseUI : MonoBehaviour {
             circles[8].GetComponent<HouseDot>().SetPositionPP(new Vector2(0, 0));
         }
 
+    }
+
+    internal void ShowTeleport()
+    {
+        Teleport.SetActive(true);
     }
 
     internal void DestroyHouse()

@@ -2,25 +2,19 @@
   "name": "Tutorial",
   "levels": [
     {
-      "columns": 5,
+      "columns": 3,
       "rows": 3,
       "message": "",
       "grid": [
         { "number": 1, "actions": ["TELEPORT_1"] },
-        { "number": 2 },
-        { "number": 3 },
-        { "number": 4 },
-        { "number": 5 },
-        { "number": 0 },
-        { "number": 2 },
-        { "number": 3 },
-        { "number": 4, "actions": ["TELEPORT_1"] },
-        { "number": 4 },
         { "number": 1 },
         { "number": 1 },
-        { "number": 9 },
-        { "number": 8 },
-        { "number": 4 }
+        { "number": 1 },
+        { "number": 1 },
+        { "number": 1 },
+        { "number": 1, "actions": ["TELEPORT_1"] },
+        { "number": 1 },
+        { "number": 1 }
       ]
     },
     {

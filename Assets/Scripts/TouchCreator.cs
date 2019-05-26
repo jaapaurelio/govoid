@@ -33,7 +33,6 @@ public class TouchCreator
         foreach (var f in typeof(Touch).GetFields(BindingFlags.Instance | BindingFlags.NonPublic))
         {
             fields.Add(f.Name, f);
-            Debug.Log("name: " + f.Name);
         }
     }
 }

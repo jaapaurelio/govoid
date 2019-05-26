@@ -48,12 +48,13 @@ public class IntroManager : MonoBehaviour {
 		// TODO Find a way to set the sprite position given the grid position
 		gridHouseObject1.transform.localPosition = new Vector3 (-1 * 2.5f, 0 * 2.5f, 0f);
 
-		gridHouseObject1.GetComponent<GridHouseUI>().SetNumber(1);
+        gridHouseObject1.GetComponent<GridHouseUI>().model = new GridHouse(new GridPosition(1, 1), 1);
+        gridHouseObject1.GetComponent<GridHouseUI>().SetNumber(1);
 		gridHouseObject1.GetComponent<GridHouseUI>().HouseGridPosition = new GridPosition(1,1);
 
 
-		//Instantiate the GameObject instance using the prefab chosen for toInstantiate at the Vector3 corresponding to current grid position in loop, cast it to GameObject.
-		gridHouseObject2 =
+        //Instantiate the GameObject instance using the prefab chosen for toInstantiate at the Vector3 corresponding to current grid position in loop, cast it to GameObject.
+        gridHouseObject2 =
 			Instantiate (houseToInstantiate, new Vector3 (0, 0, 0f), Quaternion.identity) as GameObject;
 
 		//Set the parent of our newly instantiated object instance to boardHolder, this is just organizational to avoid cluttering hierarchy.
@@ -62,12 +63,13 @@ public class IntroManager : MonoBehaviour {
 		// TODO Find a way to set the sprite position given the grid position
 		gridHouseObject2.transform.localPosition = new Vector3 (0 * 2.5f, 0 * 2.5f, 0f);
 
-		gridHouseObject2.GetComponent<GridHouseUI>().SetNumber(1);
+        gridHouseObject2.GetComponent<GridHouseUI>().model = new GridHouse(new GridPosition(1, 1), 1);
+        gridHouseObject2.GetComponent<GridHouseUI>().SetNumber(1);
 		gridHouseObject2.GetComponent<GridHouseUI>().HouseGridPosition = new GridPosition(1,1);
 
 
-		//Instantiate the GameObject instance using the prefab chosen for toInstantiate at the Vector3 corresponding to current grid position in loop, cast it to GameObject.
-		gridHouseObject3 =
+        //Instantiate the GameObject instance using the prefab chosen for toInstantiate at the Vector3 corresponding to current grid position in loop, cast it to GameObject.
+        gridHouseObject3 =
 			Instantiate (houseToInstantiate, new Vector3 (0, 0, 0f), Quaternion.identity) as GameObject;
 
 		//Set the parent of our newly instantiated object instance to boardHolder, this is just organizational to avoid cluttering hierarchy.
@@ -76,12 +78,13 @@ public class IntroManager : MonoBehaviour {
 		// TODO Find a way to set the sprite position given the grid position
 		gridHouseObject3.transform.localPosition = new Vector3 (1 * 2.5f, 0 * 2.5f, 0f);
 
-		gridHouseObject3.GetComponent<GridHouseUI>().SetNumber(1);
+        gridHouseObject3.GetComponent<GridHouseUI>().model = new GridHouse(new GridPosition(1, 1), 1);
+        gridHouseObject3.GetComponent<GridHouseUI>().SetNumber(1);
 		gridHouseObject3.GetComponent<GridHouseUI>().HouseGridPosition = new GridPosition(1,1);
-	
-	}
 
-	void CreateArrows() {
+    }
+
+    void CreateArrows() {
 
 		//Instantiate the GameObject instance using the prefab chosen for toInstantiate at the Vector3 corresponding to current grid position in loop, cast it to GameObject.
 		arrowObject1 =

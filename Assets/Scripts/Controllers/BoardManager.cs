@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;       //Allows us to use Lists.
 using UnityEngine.SceneManagement;
+using System;
 
 public class BoardManager : MonoBehaviour {
 
@@ -135,22 +136,28 @@ public class BoardManager : MonoBehaviour {
 			GameObject gridHouseObject =
 				Instantiate (houseToInstantiate, new Vector3 (0, 0, 0f), Quaternion.identity) as GameObject;
 
-			//Set the parent of our newly instantiated object instance to boardHolder, this is just organizational to avoid cluttering hierarchy.
-			gridHouseObject.transform.SetParent(boardHolder);
+            house.ui = gridHouseObject.GetComponent<GridHouseUI>();
+            house.ui.model = house;
+
+            //Set the parent of our newly instantiated object instance to boardHolder, this is just organizational to avoid cluttering hierarchy.
+            gridHouseObject.transform.SetParent(boardHolder);
 
 			// TODO Find a way to set the sprite position given the grid position
 			gridHouseObject.transform.localPosition = new Vector3 (house.position.column * 2.5f, house.position.row * 2.5f, 0f);
 
-			gridHouseObject.GetComponent<GridHouseUI>().SetNumber(house.number);
-			gridHouseObject.GetComponent<GridHouseUI>().HouseGridPosition = house.position;
+            if(house.actions != null && Array.IndexOf( house.actions, "TELEPORT_1") != -1)
+            {
+                house.isTeleport = true;
+                house.ui.ShowTeleport();
+            }
+
+            gridHouseObject.GetComponent<GridHouseUI>().SetNumber(house.number);
+            gridHouseObject.GetComponent<GridHouseUI>().HouseGridPosition = house.position;
 
 			// Do not display houses that start as zero
 			if(house.number == 0) {
 				gridHouseObject.SetActive(false);
 			}
-
-            house.ui = gridHouseObject.GetComponent<GridHouseUI>();
-
         }
 
 		AnimateEntrance(currentLevelGrid.GetAllHouses());
@@ -178,9 +185,7 @@ public class BoardManager : MonoBehaviour {
 
 				if (hit.collider && hit.collider.tag == "GridHouse" ) {
 
-					GridHouseUI houseUI = hit.collider.gameObject.GetComponent<GridHouseUI>();
-
-					GridHouse clickedHouse = currentLevelGrid.GetHouseInPosition(houseUI.HouseGridPosition);
+                    GridHouse clickedHouse = hit.collider.gameObject.GetComponent<GridHouseUI>().model;
 
 					// User can click in this house
 					if( clickedHouse.state == Constants.HOUSE_STATE_POSSIBLE ) {
@@ -191,9 +196,13 @@ public class BoardManager : MonoBehaviour {
 
 						GridHouse activeHouse = GetActiveHouse(currentLevelGrid.GetAllHouses());
 
-						//clickedHouse.gridHouseUIComponent.anim.Play("AnimateActive");
+                        if(clickedHouse.isTeleport) {
+                            clickedHouse = FindHouseToTeleport(clickedHouse);
+                        }
 
-						List<GridHouse> clickedHouseSiblings = currentLevelGrid.GetPossibleSiblings(clickedHouse);
+                        //clickedHouse.gridHouseUIComponent.anim.Play("AnimateActive");
+
+                        List<GridHouse> clickedHouseSiblings = currentLevelGrid.GetPossibleSiblings(clickedHouse);
 
 						// Set all houses temporarily to normal state.
 						// TODO This can cause problems later with animations.
@@ -201,6 +210,7 @@ public class BoardManager : MonoBehaviour {
 
 						possibleDirections = new List<int>();
 						possibleHouses = new List<GridHouse>();
+                        int possibleHousesCount = 0;
 
 						HideAllArrows();
 
@@ -216,17 +226,24 @@ public class BoardManager : MonoBehaviour {
 
                                     possibleDirections.Add(GetDirectionToSibling(clickedHouse, sibling));
 									possibleHouses.Add(sibling);
-									//sibling.gridHouseUIComponent.anim.Play("AnimatePossible");
-									ShowArrows(clickedHouse.position, GetDirectionToSibling(clickedHouse, sibling));
+
+                                    if(!sibling.isTeleport) {
+                                        possibleHousesCount++;
+                                    }
+                                    //sibling.gridHouseUIComponent.anim.Play("AnimatePossible");
+                                    ShowArrows(clickedHouse.position, GetDirectionToSibling(clickedHouse, sibling));
 								}
 							}
 						}
 
 						// The clicked house is now the active house
-                        clickedHouse.number--;
                         clickedHouse.state = Constants.HOUSE_STATE_ACTIVE;
                         clickedHouse.ui.SetState(Constants.HOUSE_STATE_ACTIVE);
-                        clickedHouse.ui.SetNumber(clickedHouse.number);
+
+                        if(!clickedHouse.isTeleport) {
+                            clickedHouse.number--;
+                            clickedHouse.ui.SetNumber(clickedHouse.number);
+                        }
 
                         if ( activeHouse != null ) {
 							ShowFromArrow(clickedHouse, activeHouse);
@@ -236,14 +253,14 @@ public class BoardManager : MonoBehaviour {
                         }
 
 						// No more places to go
-						if(possibleDirections.Count == 0) {
+						if(possibleHousesCount == 0) {
 							bool won = true;
 							// check if we are some missing houses to pass
 							foreach (GridHouse house in currentLevelGrid.GetAllHouses()) {
-								if(house.number > 0) {
+								if(house.number > 0 && !house.isTeleport) {
 									won = false;
                                     house.state = Constants.HOUSE_STATE_MISSING;
-                                    clickedHouse.ui.SetState(Constants.HOUSE_STATE_ACTIVE);
+                                    clickedHouse.ui.SetState(Constants.HOUSE_STATE_MISSING);
                                     //house.gridHouseUIComponent.anim.Play("AnimateMissing");
                                 }
 							}
@@ -275,7 +292,21 @@ public class BoardManager : MonoBehaviour {
 		}
 	}
 
-	protected virtual void PossibleHouseClicked(GridHouse house) {
+    private GridHouse FindHouseToTeleport(GridHouse house)
+    {
+
+        foreach (GridHouse possibleHouse in currentLevelGrid.GetAllHouses())
+        {
+            if (possibleHouse.isTeleport && !possibleHouse.Equals(house))
+            {
+                return possibleHouse;
+            }
+        }
+
+        return null;
+    }
+
+    protected virtual void PossibleHouseClicked(GridHouse house) {
 	    // overrided by game board
 	}
 
