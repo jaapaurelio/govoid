@@ -10,5 +10,6 @@ public struct Level
     public int rows;
     public string message;
     public HouseDefinition[] grid;
+    public int numberOfTips;
 
 }

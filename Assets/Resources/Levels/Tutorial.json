@@ -2,57 +2,79 @@
   "name": "Tutorial",
   "levels": [
     {
-      "columns": 3,
-      "rows": 3,
-      "message": "",
-      "grid": [
-        { "number": 1, "actions": ["TELEPORT_1"] },
-        { "number": 1 },
-        { "number": 1 },
-        { "number": 1 },
-        { "number": 1 },
-        { "number": 1 },
-        { "number": 1, "actions": ["TELEPORT_1"] },
-        { "number": 1 },
-        { "number": 1 }
-      ]
-    },
-    {
+      "numberOfTips": 3,
       "columns": 4,
-      "rows": 3,
-      "message": "",
+      "rows": 2,
+      "message": "Tap the house to decrease it.\nYou win when the board is clear.",
       "grid": [
+        { "number": 0 },
         { "number": 1 },
         { "number": 1 },
         { "number": 1 },
-        { "number": 1 },
-        { "number": 1 },
-        { "number": 1 },
+        { "number": 0 },
+        { "number": 0 },
+        { "number": 0 },
+        { "number": 0 }
+      ],
+      "steps": [
+        { "row": 0, "line": 1 },
+        { "row": 0, "line": 2 },
+        { "row": 0, "line": 3 }
+      ]
+    },
+    {
+      "columns": 3,
+      "rows": 2,
+      "message": "You can start anywhere.\nChoose your path using the green circles.",
+      "grid": [
         { "number": 1 },
         { "number": 1 },
         { "number": 1 },
         { "number": 1 },
         { "number": 1 },
         { "number": 1 }
+      ],
+      "steps": [
+        { "row": 0, "line": 0 },
+        { "row": 0, "line": 1 },
+        { "row": 0, "line": 2 },
+        { "row": 1, "line": 2 },
+        { "row": 1, "line": 1 },
+        { "row": 1, "line": 0 }
       ]
     },
     {
-      "columns": 5,
-      "rows": 3,
-      "message": "",
+      "columns": "4",
+      "rows": "4",
+      "message": "Numbers indicate how many times\nyou have to pass through them.",
       "grid": [
         { "number": 0 },
         { "number": 0 },
-        { "number": 1 },
-        { "number": 1 },
         { "number": 0 },
-        { "number": 1 },
+        { "number": 0 },
+        { "number": 0 },
         { "number": 2 },
         { "number": 1 },
-        { "number": 0 },
+        { "number": 1 },
         { "number": 0 },
         { "number": 1 },
-        { "number": 0 }
+        { "number": 0 },
+        { "number": 1 },
+        { "number": 0 },
+        { "number": 1 },
+        { "number": 1 },
+        { "number": 1 }
+      ],
+      "steps": [
+        { "row": 1, "line": 1 },
+        { "row": 1, "line": 2 },
+        { "row": 1, "line": 3 },
+        { "row": 2, "line": 3 },
+        { "row": 3, "line": 3 },
+        { "row": 3, "line": 2 },
+        { "row": 3, "line": 1 },
+        { "row": 2, "line": 1 },
+        { "row": 1, "line": 1 }
       ]
     }
   ]

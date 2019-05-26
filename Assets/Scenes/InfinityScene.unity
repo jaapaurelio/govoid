@@ -792,6 +792,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 193736, guid: 2c928d16e5eea419e9adc8523feed80a, type: 3}
+      propertyPath: m_Name
+      value: EndLevelPopup
+      objectReference: {fileID: 0}
     - target: {fileID: 471940, guid: 2c928d16e5eea419e9adc8523feed80a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -823,6 +827,18 @@ PrefabInstance:
     - target: {fileID: 471940, guid: 2c928d16e5eea419e9adc8523feed80a, type: 3}
       propertyPath: m_RootOrder
       value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 471940, guid: 2c928d16e5eea419e9adc8523feed80a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 471940, guid: 2c928d16e5eea419e9adc8523feed80a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 471940, guid: 2c928d16e5eea419e9adc8523feed80a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 11482700, guid: 2c928d16e5eea419e9adc8523feed80a, type: 3}
       propertyPath: boardManagerInfinity

@@ -77,27 +77,26 @@ public class TutorialManager : BoardManager
 
         levelStep = 1;
 
+        GameObject.Find("TutorialMessage").GetComponent<TextMesh>().text = currentLevelGrid.message;
+
         if (levelNumber == 1)
         {
             HandPosition(1, 1);
-            GameObject.Find("TutorialMessage").GetComponent<TextMesh>().text = "Tap or slide the numbers to decrease it.\nYou win when the board is clear.";
 
         }
         else if (levelNumber == 2)
         {
             HandPosition(1, 1);
-            GameObject.Find("TutorialMessage").GetComponent<TextMesh>().text = "You can start anywhere.\nChoose your path using the green circles.";
 
         }
         else if (levelNumber == 3)
         {
             HandPosition(1, 1);
-            GameObject.Find("TutorialMessage").GetComponent<TextMesh>().text = "Numbers indicate how many times\nyou have to pass through them.";
         }
 
     }
 
-    protected override void PossibleHouseClicked(GridHouse clickedHouse)
+    protected override void PossibleHouseClicked(GridHouse house)
     {
 
         if (!followingTutorial)
@@ -112,12 +111,12 @@ public class TutorialManager : BoardManager
 
             case 1:
 
-                if (levelStep == 2 && clickedHouse.position.column == 1 && clickedHouse.position.row == 1)
+                if (levelStep == 2 && house.position.column == 1 && house.position.row == 1)
                 {
                     HandPosition(2, 1);
 
                 }
-                else if (levelStep == 3 && clickedHouse.position.column == 2 && clickedHouse.position.row == 1)
+                else if (levelStep == 3 && house.position.column == 2 && house.position.row == 1)
                 {
                     HandPosition(3, 1);
 
@@ -131,57 +130,57 @@ public class TutorialManager : BoardManager
 
             case 2:
 
-                if (levelStep == 2 && clickedHouse.position.column == 1 && clickedHouse.position.row == 1)
+                if (levelStep == 2 && house.position.column == 1 && house.position.row == 1)
                 {
                     HandPosition(2, 1);
 
                 }
-                else if (levelStep == 3 && clickedHouse.position.column == 2 && clickedHouse.position.row == 1)
+                else if (levelStep == 3 && house.position.column == 2 && house.position.row == 1)
                 {
                     HandPosition(2, 2);
 
                 }
-                else if (levelStep == 4 && clickedHouse.position.column == 2 && clickedHouse.position.row == 2)
+                else if (levelStep == 4 && house.position.column == 2 && house.position.row == 2)
                 {
                     HandPosition(3, 2);
 
                 }
-                else if (levelStep == 5 && clickedHouse.position.column == 3 && clickedHouse.position.row == 2)
+                else if (levelStep == 5 && house.position.column == 3 && house.position.row == 2)
                 {
                     HandPosition(3, 1);
 
                 }
-                else if (levelStep == 6 && clickedHouse.position.column == 3 && clickedHouse.position.row == 1)
+                else if (levelStep == 6 && house.position.column == 3 && house.position.row == 1)
                 {
                     HandPosition(3, 0);
 
                 }
-                else if (levelStep == 7 && clickedHouse.position.column == 3 && clickedHouse.position.row == 0)
+                else if (levelStep == 7 && house.position.column == 3 && house.position.row == 0)
                 {
                     HandPosition(2, 0);
 
                 }
-                else if (levelStep == 8 && clickedHouse.position.column == 2 && clickedHouse.position.row == 0)
+                else if (levelStep == 8 && house.position.column == 2 && house.position.row == 0)
                 {
                     HandPosition(1, 0);
 
                 }
-                else if (levelStep == 9 && clickedHouse.position.column == 1 && clickedHouse.position.row == 0)
+                else if (levelStep == 9 && house.position.column == 1 && house.position.row == 0)
                 {
                     HandPosition(0, 0);
 
                 }
-                else if (levelStep == 10 && clickedHouse.position.column == 0 && clickedHouse.position.row == 0)
+                else if (levelStep == 10 && house.position.column == 0 && house.position.row == 0)
                 {
                     HandPosition(0, 1);
 
                 }
-                else if (levelStep == 11 && clickedHouse.position.column == 0 && clickedHouse.position.row == 1)
+                else if (levelStep == 11 && house.position.column == 0 && house.position.row == 1)
                 {
                     HandPosition(0, 2);
 
                 }
-                else if (levelStep == 12 && clickedHouse.position.column == 0 && clickedHouse.position.row == 2)
+                else if (levelStep == 12 && house.position.column == 0 && house.position.row == 2)
                 {
                     HandPosition(1, 2);
 
@@ -195,32 +194,32 @@ public class TutorialManager : BoardManager
 
             case 3:
 
-                if (levelStep == 2 && clickedHouse.position.column == 1 && clickedHouse.position.row == 1)
+                if (levelStep == 2 && house.position.column == 1 && house.position.row == 1)
                 {
                     HandPosition(2, 1);
 
                 }
-                else if (levelStep == 3 && clickedHouse.position.column == 2 && clickedHouse.position.row == 1)
+                else if (levelStep == 3 && house.position.column == 2 && house.position.row == 1)
                 {
                     HandPosition(3, 1);
 
                 }
-                else if (levelStep == 4 && clickedHouse.position.column == 3 && clickedHouse.position.row == 1)
+                else if (levelStep == 4 && house.position.column == 3 && house.position.row == 1)
                 {
                     HandPosition(3, 2);
 
                 }
-                else if (levelStep == 5 && clickedHouse.position.column == 3 && clickedHouse.position.row == 2)
+                else if (levelStep == 5 && house.position.column == 3 && house.position.row == 2)
                 {
                     HandPosition(2, 2);
 
                 }
-                else if (levelStep == 6 && clickedHouse.position.column == 2 && clickedHouse.position.row == 2)
+                else if (levelStep == 6 && house.position.column == 2 && house.position.row == 2)
                 {
                     HandPosition(2, 1);
 
                 }
-                else if (levelStep == 7 && clickedHouse.position.column == 2 && clickedHouse.position.row == 1)
+                else if (levelStep == 7 && house.position.column == 2 && house.position.row == 1)
                 {
                     HandPosition(2, 0);
 
