@@ -5,8 +5,8 @@ using Random = System.Random;      //Tells Random to use the Unity Engine random
 
 public class LevelGrid
 {
-	private int columns;           
-	private int rows; 
+	public int columns;           
+	public int rows; 
 	private List <GridHouse> gridHouses = new List <GridHouse> ();
 	public string message = "";
 	private Random rng;

@@ -22,7 +22,7 @@ public class BoardManagerInfinity : BoardManager
 			base.BoardInteraction();
 		}
 	}
-		
+
 	public override void RestartGame() {
 		base.RestartGame();
 
@@ -60,17 +60,17 @@ public class BoardManagerInfinity : BoardManager
 		}
 
 	}
-		
+
 	protected override void LostLevel() {
 		base.LostLevel();
 
 		GameManager.instance.googleAnalytics.LogEvent("InfinityMode", "NoExitHouse", "level" + GameManager.instance.currentLevelFromPackage, 0);
 	}
 
-		
+
 	protected override void WonLevel() {
 		base.WonLevel();
-	
+
 		GameManager.instance.playerStatistics.SetLevelDone( GameManager.instance.currentPackageNum, GameManager.instance.currentLevelFromPackage);
 
 		GameManager.instance.googleAnalytics.LogEvent("InfinityMode", "WonLevel", "level" + GameManager.instance.currentLevelFromPackage, 0);
@@ -78,7 +78,7 @@ public class BoardManagerInfinity : BoardManager
 		Social.ReportScore(GameManager.instance.playerStatistics.GetNumberOfDoneLevelsFromPackage(1), "CgkI2ab42cEaEAIQBw", (bool success) => {
 			// handle success or failure
 		});
-			
+
 	}
 
 	protected override void AfterWonAnimation() {
@@ -126,23 +126,22 @@ public class BoardManagerInfinity : BoardManager
 
 		int levelNumber = GameManager.instance.currentLevelFromPackage;
 		Pack package = GameManager.instance.currentPackage;
+		Debug.Log("LEVELSSSSSS");
+		Debug.Log(package.levels.Length);
 
-		// First levels are static to show the tutorial
-		if( levelNumber <= 15 ) {
+        // First levels are static
+        if ( levelNumber <= package.levels.Length ) {
 			currentLevelGrid = LevelJsonGenerator.CreateLevel(package, levelNumber);
-		
-			// Next levels are automatically generated
-		} else {
+            // Next levels are automatically generated
+        } else {
 			System.Random newRandom = new System.Random(levelNumber);
 
 			LevelGenerator levelGenerator = new LevelGenerator(newRandom);
 			int rows = newRandom.Next(4,6 +1);
 			int cols = newRandom.Next(4,6 +1);
 
-			if(rows > 5 || cols> 5) {
-				boardHolder.localScale = new Vector3(0.82f, 0.82f, 0.82f);
-			}
-				
+
+
 			// Calculate the number of steps base on the Menten Kinetics formula.
 			// https://en.wikipedia.org/wiki/Michaelis%E2%80%93Menten_kinetics
 			//int maxNumberOfSteps = 120;
@@ -176,7 +175,12 @@ public class BoardManagerInfinity : BoardManager
 		//GameObject.Find("Messages").GetComponent<TextMesh>().text = currentLevelGrid.message;
 		GameObject.Find("Messages").GetComponent<TextMesh>().text = "";
 
-		base.NewLevel();
+        if (currentLevelGrid.rows > 5 || currentLevelGrid.columns > 5)
+        {
+            boardHolder.localScale = new Vector3(0.82f, 0.82f, 0.82f);
+        }
+
+        base.NewLevel();
 
 	}
 

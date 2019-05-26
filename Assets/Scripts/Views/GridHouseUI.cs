@@ -92,6 +92,10 @@ public class GridHouseUI : MonoBehaviour {
                 circles[i].GetComponent<HouseDot>().SetActiveDot(possible);
             }
         }
+
+        if(model.isTeleport) {
+            Teleport.GetComponent<SpriteRenderer>().color = new Color(colorR, colorG, colorB, colorA);
+        }
     }
 
     public void SetNumber(int newNumber)
