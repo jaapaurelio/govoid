@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class GridHouseUI : MonoBehaviour {
 
@@ -262,5 +263,10 @@ public class GridHouseUI : MonoBehaviour {
             circles[8].GetComponent<HouseDot>().SetPositionPP(new Vector2(0, 0));
         }
 
+    }
+
+    internal void DestroyHouse()
+    {
+        Destroy(gameObject);
     }
 }

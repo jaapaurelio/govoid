@@ -111,6 +111,7 @@ public class BoardManager : MonoBehaviour {
 
 		foreach (var house in currentLevelGrid.GetAllHouses() ) {
             house.number = house.originalNumber;
+            house.ui.SetNumber(house.number);
 
             if (house.number > 0) {
                 house.state = Constants.HOUSE_STATE_POSSIBLE;
@@ -225,6 +226,7 @@ public class BoardManager : MonoBehaviour {
                         clickedHouse.number--;
                         clickedHouse.state = Constants.HOUSE_STATE_ACTIVE;
                         clickedHouse.ui.SetState(Constants.HOUSE_STATE_ACTIVE);
+                        clickedHouse.ui.SetNumber(clickedHouse.number);
 
                         if ( activeHouse != null ) {
 							ShowFromArrow(clickedHouse, activeHouse);
@@ -451,7 +453,7 @@ public class BoardManager : MonoBehaviour {
 		// Clear previous level
 		if(currentLevelGrid != null ) {
 			foreach(GridHouse house in currentLevelGrid.GetAllHouses() ) {
-				//house.Destroy();
+				house.ui.DestroyHouse();
 			}
 		}
 
