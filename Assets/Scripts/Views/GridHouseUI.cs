@@ -1,34 +1,20 @@
 ﻿using UnityEngine;
-using System.Collections;
-using Random = UnityEngine.Random;
-using System.Collections.Generic;       //Allows us to use Lists.
 
 public class GridHouseUI : MonoBehaviour {
 
-    private int numCircles = 9;
+    private const int numCircles = 9;
 	private GameObject[] circles;
 	public Sprite backgroundNormal;
 	public Animator anim;
     public GameObject HouseDot;
-    public GameObject SquareBackground;
     public GameObject Teleport;
-    private GridPosition houseGridPosition;
-    private string[] actions;
-
     private float colorPossibleR = 0.75f;
     private float colorPossibleG = 0.17f;
     private float colorPossibleB = 0.6f;
 
-    public GridPosition HouseGridPosition {
-		get{
-			return houseGridPosition;
-		}
-		set {
-			houseGridPosition = value;
-		}
-	}
+    public GridPosition HouseGridPosition { get; set; }
 
-	void Awake(){
+    void Awake(){
 
         circles = new GameObject[numCircles];
 
@@ -108,18 +94,6 @@ public class GridHouseUI : MonoBehaviour {
 
     public void SetNumber(int newNumber)
     {
-
-        if (actions != null && System.Array.IndexOf(actions, "TELEPORT_1") >= 0)
-        {
-            Teleport.SetActive(true);
-
-            for (int i = 0; i < circles.Length; i++)
-            {
-                circles[i].SetActive(false);
-            }
-
-            return;
-        }
 
         for (int i = newNumber; i < numCircles; i++)
         {
@@ -287,12 +261,6 @@ public class GridHouseUI : MonoBehaviour {
             circles[8].SetActive(true);
             circles[8].GetComponent<HouseDot>().SetPositionPP(new Vector2(0, 0));
         }
-
-    }
-
-
-    public void SetActions(string[] _actions) {
-        actions = _actions;
 
     }
 }

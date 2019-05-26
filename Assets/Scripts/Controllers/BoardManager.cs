@@ -110,10 +110,11 @@ public class BoardManager : MonoBehaviour {
 		StartCoroutine(CanInteractWithBoardAgain());
 
 		foreach (var house in currentLevelGrid.GetAllHouses() ) {
-			house.Restart();
+            house.number = house.originalNumber;
 
-			if(house.Number > 0) {
-				house.ResetHouse();
+            if (house.number > 0) {
+                house.state = Constants.HOUSE_STATE_POSSIBLE;
+                house.ui.SetState(Constants.HOUSE_STATE_POSSIBLE);
 			}
 		}
 
@@ -139,16 +140,17 @@ public class BoardManager : MonoBehaviour {
 			// TODO Find a way to set the sprite position given the grid position
 			gridHouseObject.transform.localPosition = new Vector3 (house.position.column * 2.5f, house.position.row * 2.5f, 0f);
 
-			gridHouseObject.GetComponent<GridHouseUI>().SetNumber(house.Number);
+			gridHouseObject.GetComponent<GridHouseUI>().SetNumber(house.number);
 			gridHouseObject.GetComponent<GridHouseUI>().HouseGridPosition = house.position;
 
-			house.SetGameObject(gridHouseObject);
-
 			// Do not display houses that start as zero
-			if(house.Number == 0) {
+			if(house.number == 0) {
 				gridHouseObject.SetActive(false);
 			}
-		}
+
+            house.ui = gridHouseObject.GetComponent<GridHouseUI>();
+
+        }
 
 		AnimateEntrance(currentLevelGrid.GetAllHouses());
 
@@ -180,7 +182,7 @@ public class BoardManager : MonoBehaviour {
 					GridHouse clickedHouse = currentLevelGrid.GetHouseInPosition(houseUI.HouseGridPosition);
 
 					// User can click in this house
-					if( clickedHouse.State == Constants.HOUSE_STATE_POSSIBLE ) {
+					if( clickedHouse.state == Constants.HOUSE_STATE_POSSIBLE ) {
 
 						PossibleHouseClicked(clickedHouse);
 
@@ -188,7 +190,7 @@ public class BoardManager : MonoBehaviour {
 
 						GridHouse activeHouse = GetActiveHouse(currentLevelGrid.GetAllHouses());
 
-						clickedHouse.gridHouseUIComponent.anim.Play("AnimateActive");
+						//clickedHouse.gridHouseUIComponent.anim.Play("AnimateActive");
 
 						List<GridHouse> clickedHouseSiblings = currentLevelGrid.GetPossibleSiblings(clickedHouse);
 
@@ -206,37 +208,42 @@ public class BoardManager : MonoBehaviour {
 
 							// Except the current active house, player can not go back
 							if( !sibling.Equals(activeHouse)) {
-								if(sibling.Number > 0) {
+								if(sibling.number > 0) {
 
-									sibling.SetHouseState(Constants.HOUSE_STATE_POSSIBLE);
-									possibleDirections.Add(GetDirectionToSibling(clickedHouse, sibling));
+									sibling.state = Constants.HOUSE_STATE_POSSIBLE;
+                                    sibling.ui.SetState(Constants.HOUSE_STATE_POSSIBLE);
+
+                                    possibleDirections.Add(GetDirectionToSibling(clickedHouse, sibling));
 									possibleHouses.Add(sibling);
-									sibling.gridHouseUIComponent.anim.Play("AnimatePossible");
+									//sibling.gridHouseUIComponent.anim.Play("AnimatePossible");
 									ShowArrows(clickedHouse.position, GetDirectionToSibling(clickedHouse, sibling));
 								}
 							}
 						}
 
 						// The clicked house is now the active house
-						clickedHouse.SetActiveHouse();
+                        clickedHouse.number--;
+                        clickedHouse.state = Constants.HOUSE_STATE_ACTIVE;
+                        clickedHouse.ui.SetState(Constants.HOUSE_STATE_ACTIVE);
 
-						if( activeHouse != null ) {
+                        if ( activeHouse != null ) {
 							ShowFromArrow(clickedHouse, activeHouse);
 
-							activeHouse.SetAsPrevious();
-
-						}
+                            activeHouse.state = Constants.HOUSE_STATE_PREVIOUS;
+                            clickedHouse.ui.SetState(Constants.HOUSE_STATE_PREVIOUS);
+                        }
 
 						// No more places to go
 						if(possibleDirections.Count == 0) {
 							bool won = true;
 							// check if we are some missing houses to pass
 							foreach (GridHouse house in currentLevelGrid.GetAllHouses()) {
-								if(house.Number > 0) {
+								if(house.number > 0) {
 									won = false;
-									house.SetHouseMissing();
-									house.gridHouseUIComponent.anim.Play("AnimateMissing");
-								}
+                                    house.state = Constants.HOUSE_STATE_MISSING;
+                                    clickedHouse.ui.SetState(Constants.HOUSE_STATE_ACTIVE);
+                                    //house.gridHouseUIComponent.anim.Play("AnimateMissing");
+                                }
 							}
 
 							if(won) {
@@ -251,12 +258,12 @@ public class BoardManager : MonoBehaviour {
 						}
 
 						// no possible house. player must release is finger
-					} else if(clickedHouse.State == Constants.HOUSE_STATE_NORMAL){
+					} else if(clickedHouse.state == Constants.HOUSE_STATE_NORMAL){
 						canChooseNextHouse = false;
 						noPossibleClick.Play();
 						AnimatePossibleHouses();
 
-					} else if( clickedHouse.State == Constants.HOUSE_STATE_ACTIVE) {
+					} else if( clickedHouse.state == Constants.HOUSE_STATE_ACTIVE) {
 						if(touch.phase == TouchPhase.Began) {
 							AnimatePossibleHouses();
 						}
@@ -267,7 +274,7 @@ public class BoardManager : MonoBehaviour {
 	}
 
 	protected virtual void PossibleHouseClicked(GridHouse house) {
-	
+	    // overrided by game board
 	}
 
 	private void PlayHouseClickSound(){
@@ -283,7 +290,7 @@ public class BoardManager : MonoBehaviour {
 
 	private void AnimatePossibleHouses(){
 		foreach(GridHouse house in possibleHouses) {
-			house.gridHouseUIComponent.anim.Play("AnimatePossible");
+			//house.gridHouseUIComponent.anim.Play("AnimatePossible");
 		}
 	}
 
@@ -306,7 +313,7 @@ public class BoardManager : MonoBehaviour {
 	protected IEnumerator AnimateWon() {
 
 		foreach(GridHouse house in currentLevelGrid.GetAllHouses()) {
-			house.gridHouseUIComponent.anim.Play("WonLevel");
+			//house.gridHouseUIComponent.anim.Play("WonLevel");
 		}
 
 		yield return new WaitForSeconds(0.6f);
@@ -320,20 +327,21 @@ public class BoardManager : MonoBehaviour {
 
 	protected void SetAllHousesToState(List<GridHouse> gridHouses, int state) {
 		foreach(GridHouse house in gridHouses) {
-			house.SetHouseState(state);
-		}
+			house.state = state;
+            house.ui.SetState(state);
+        }
 	}
 
 	private void AnimateEntrance(List<GridHouse> gridHouses) {
 		foreach(GridHouse house in gridHouses) {
-			house.gridHouseUIComponent.anim.Play("Entrance");
+			//house.gridHouseUIComponent.anim.Play("Entrance");
 		}
 	}
 
 	protected void AnimateRestart() {
 		List<GridHouse> gridHouses = currentLevelGrid.GetAllHouses();
 		foreach(GridHouse house in gridHouses) {
-			house.gridHouseUIComponent.anim.Play("Restart");
+			//house.gridHouseUIComponent.anim.Play("Restart");
 		}
 	}
 
@@ -431,7 +439,7 @@ public class BoardManager : MonoBehaviour {
 
 	protected GridHouse GetActiveHouse(List<GridHouse> gridHouses) {
 		foreach(GridHouse house in gridHouses) {
-			if(house.State == Constants.HOUSE_STATE_ACTIVE) {
+			if(house.state == Constants.HOUSE_STATE_ACTIVE) {
 				return house;
 			}
 		}
@@ -443,7 +451,7 @@ public class BoardManager : MonoBehaviour {
 		// Clear previous level
 		if(currentLevelGrid != null ) {
 			foreach(GridHouse house in currentLevelGrid.GetAllHouses() ) {
-				house.Destroy();
+				//house.Destroy();
 			}
 		}
 

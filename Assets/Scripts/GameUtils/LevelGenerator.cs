@@ -83,9 +83,9 @@ public class LevelGenerator {
 
 			previousHouse = currentHouse;
 			currentHouse = ChooseRandomHouse(siblings);
-			currentHouse.SetFinalNumber(currentHouse.Number + 1);
+            currentHouse.number = currentHouse.number + 1;
+            currentHouse.originalNumber = currentHouse.number + 1;
 
-			//Debug.Log("col" + currentHouse.position.column  + " + row " + currentHouse.position.row);
 			_numberOfSteps--;
 		}
 

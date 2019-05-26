@@ -25,8 +25,10 @@ public static class LevelJsonGenerator  {
 
             gridhouse = levelGrid.GetHouseInPosition(new GridPosition(col, row));
 
-            gridhouse.SetFinalNumber(level.grid[i].number);
-            gridhouse.SetActions(level.grid[i].actions);
+            gridhouse.number = level.grid[i].number;
+            gridhouse.originalNumber = level.grid[i].number;
+
+            gridhouse.actions = level.grid[i].actions;
 
             if (col == level.columns - 1)
             {
