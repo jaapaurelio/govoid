@@ -1,27 +1,31 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public static class LevelJsonGenerator  {
+public static class LevelJsonGenerator
+{
 
-	public static LevelGrid CreateLevel(Pack pack, int levelNum) {
+    public static LevelGrid CreateLevel(Pack pack, int levelNum)
+    {
 
-		Level level = pack.levels[levelNum - 1];
+        Level level = pack.levels[levelNum - 1];
 
-		Debug.Log("message" + level.message);
+        Debug.Log("message" + level.message);
 
-		LevelGrid levelGrid = new LevelGrid(level.columns, level.rows); 
+        LevelGrid levelGrid = new LevelGrid(level.columns, level.rows);
 
-		if(level.message != null){
-			levelGrid.message = level.message;
-		}
+        if (level.message != null)
+        {
+            levelGrid.message = level.message;
+        }
 
-		Debug.Log("level " + level.columns + " " + level.rows);
+        Debug.Log("level " + level.columns + " " + level.rows);
         int row = level.rows - 1;
         int col = 0;
-		GridHouse gridhouse;
+        GridHouse gridhouse;
         Debug.Log(level.grid);
 
-		for(int i = 0; i < level.grid.Length; i++) {
+        for (int i = 0; i < level.grid.Length; i++)
+        {
 
             gridhouse = levelGrid.GetHouseInPosition(new GridPosition(col, row));
 
@@ -41,10 +45,10 @@ public static class LevelJsonGenerator  {
         }
 
         Debug.Log("level grid");
-		Debug.Log(level.grid);
+        Debug.Log(level.grid);
 
-		return levelGrid;
+        return levelGrid;
 
-	}
+    }
 
 }

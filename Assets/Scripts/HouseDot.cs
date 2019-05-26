@@ -61,17 +61,21 @@ public class HouseDot : MonoBehaviour
 
     void PickNewRandomDestination()
     {
-        if(!isActiveDot) {
+        if (!isActiveDot)
+        {
             destination = basestartpoint;
 
-        } else {
+        }
+        else
+        {
             // We add basestartpoint to the mix so that is doesn't go around a circle in the middle of the scene.
             destination = Random.insideUnitCircle * radius + basestartpoint;
         }
         speed = Random.Range(minSpeed, maxSpeed);
     }
 
-    public void SetPositionPP(Vector2 p) {
+    public void SetPositionPP(Vector2 p)
+    {
         basestartpoint = p;
     }
 

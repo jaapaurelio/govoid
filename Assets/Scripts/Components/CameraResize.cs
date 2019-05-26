@@ -1,34 +1,38 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class CameraResize : MonoBehaviour {
+public class CameraResize : MonoBehaviour
+{
 
-	private float targetAspect = 2.0f / 3.0f ;
-	private float originalOrthographicSize = 9.6f;
-	private float windowAspect = 0;
+    private float targetAspect = 2.0f / 3.0f;
+    private float originalOrthographicSize = 9.6f;
+    private float windowAspect = 0;
 
-	void Start () 
-	{
-		Resize();
-	}
-		
-	void Update() {
-		float currentWindowAspect = (float)Screen.width / (float)Screen.height;
+    void Start()
+    {
+        Resize();
+    }
 
-		// check if we have a new resolution
-		if(currentWindowAspect != windowAspect) {
-			Resize();
-		}
-	}
+    void Update()
+    {
+        float currentWindowAspect = (float)Screen.width / (float)Screen.height;
 
-	private void Resize() {
-		windowAspect = (float)Screen.width / (float)Screen.height;
-		float scaleHeight = windowAspect / targetAspect;
-		Camera camera = GetComponent<Camera>();
+        // check if we have a new resolution
+        if (currentWindowAspect != windowAspect)
+        {
+            Resize();
+        }
+    }
 
-		if (scaleHeight < 1.0f)
-		{  
-			camera.orthographicSize = originalOrthographicSize / scaleHeight;
-		}
-	}
+    private void Resize()
+    {
+        windowAspect = (float)Screen.width / (float)Screen.height;
+        float scaleHeight = windowAspect / targetAspect;
+        Camera camera = GetComponent<Camera>();
+
+        if (scaleHeight < 1.0f)
+        {
+            camera.orthographicSize = originalOrthographicSize / scaleHeight;
+        }
+    }
 }

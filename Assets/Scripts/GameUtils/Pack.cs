@@ -4,6 +4,6 @@ using System.Collections;
 [System.Serializable]
 public struct Pack
 {
-	public Level[] levels;
-	public string name;
+    public Level[] levels;
+    public string name;
 }

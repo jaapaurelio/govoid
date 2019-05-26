@@ -2,10 +2,12 @@
 using System.Collections;
 using UnityEngine.SceneManagement;
 
-public class OpenTutorial  : ButtonText {
+public class OpenTutorial : ButtonText
+{
 
-	override public void OnTouch() {
-		SceneManager.LoadScene("TutorialScene");
-	}
+    override public void OnTouch()
+    {
+        SceneManager.LoadScene("TutorialScene");
+    }
 
 }

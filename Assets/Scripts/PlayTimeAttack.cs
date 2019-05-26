@@ -2,10 +2,12 @@
 using System.Collections;
 using UnityEngine.SceneManagement;
 
-public class PlayTimeAttack : ButtonText {
+public class PlayTimeAttack : ButtonText
+{
 
-	override public void OnTouch() {
-		SceneManager.LoadScene("TimeAttackScene");
-	}
+    override public void OnTouch()
+    {
+        SceneManager.LoadScene("TimeAttackScene");
+    }
 
 }

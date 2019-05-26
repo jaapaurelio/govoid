@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PrevLevelBtn : MonoBehaviour {
+public class PrevLevelBtn : MonoBehaviour
+{
 
-	public GameObject boardManagerInfinity;
+    public GameObject boardManagerInfinity;
 
-	public void OnTouch_TM() {
-		boardManagerInfinity.GetComponent<BoardManagerInfinity>().GoPrevLevel();
-	}
+    public void OnTouch_TM()
+    {
+        boardManagerInfinity.GetComponent<BoardManagerInfinity>().GoPrevLevel();
+    }
 }

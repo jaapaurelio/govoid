@@ -5,137 +5,157 @@ using Random = System.Random;      //Tells Random to use the Unity Engine random
 
 public class LevelGrid
 {
-	public int columns;           
-	public int rows; 
-	private List <GridHouse> gridHouses = new List <GridHouse> ();
-	public string message = "";
-	private Random rng;
+    public int columns;
+    public int rows;
+    private List<GridHouse> gridHouses = new List<GridHouse>();
+    public string message = "";
+    private Random rng;
 
-	public LevelGrid (int _cols, int _rows, Random _rng ) {
-		rng = _rng;
+    public LevelGrid(int _cols, int _rows, Random _rng)
+    {
+        rng = _rng;
 
-		columns = _cols;
-		rows = _rows;
-		rng = _rng;
+        columns = _cols;
+        rows = _rows;
+        rng = _rng;
 
-		CreateGrid();
-	}
+        CreateGrid();
+    }
 
-	public LevelGrid (int _cols, int _rows ) {
-		
-		columns = _cols;
-		rows = _rows;
-		rng = new Random();
+    public LevelGrid(int _cols, int _rows)
+    {
 
-		CreateGrid();
-	}
+        columns = _cols;
+        rows = _rows;
+        rng = new Random();
 
-	//Assignment constructor.
-	public void CreateGrid ()
-	{
+        CreateGrid();
+    }
 
-		//Loop through x axis (columns).
-		for(int x = 0; x < columns; x++)
-		{
-			//Within each column, loop through y axis (rows).
-			for(int y = 0; y < rows; y++)
-			{
-				//At each index add a new Vector3 to our list with the x and y coordinates of that position.
-				gridHouses.Add (new GridHouse(new GridPosition(x, y), 0));
-			}
-		}
-	}
+    //Assignment constructor.
+    public void CreateGrid()
+    {
 
-	public GridHouse ChooseRandomHouse(){
-		return gridHouses[rng.Next(0, gridHouses.Count)];
-	}
+        //Loop through x axis (columns).
+        for (int x = 0; x < columns; x++)
+        {
+            //Within each column, loop through y axis (rows).
+            for (int y = 0; y < rows; y++)
+            {
+                //At each index add a new Vector3 to our list with the x and y coordinates of that position.
+                gridHouses.Add(new GridHouse(new GridPosition(x, y), 0));
+            }
+        }
+    }
 
-	public GridHouse ChooseRandomPossibleHouse() {
-		GridHouse house;
+    public GridHouse ChooseRandomHouse()
+    {
+        return gridHouses[rng.Next(0, gridHouses.Count)];
+    }
 
-		do {
-			house = gridHouses[rng.Next(0, gridHouses.Count)];
-		
-		} while(house.isHole);
+    public GridHouse ChooseRandomPossibleHouse()
+    {
+        GridHouse house;
 
-		return house;
-	}
+        do
+        {
+            house = gridHouses[rng.Next(0, gridHouses.Count)];
 
-	public List<GridHouse> GetSiblings(GridHouse currentHouse) {
-		
-		List<GridHouse> siblings =  new List<GridHouse>();
+        } while (house.isHole);
 
-		GridPosition currentPosition = currentHouse.position;
+        return house;
+    }
 
-		// Right
-		GridPosition testPosition = new GridPosition(currentPosition.column + 1, currentPosition.row);
-		if(IsValidPosition(testPosition)){
-			siblings.Add(GetHouseInPosition(testPosition));
-		}
+    public List<GridHouse> GetSiblings(GridHouse currentHouse)
+    {
 
-		// Left
-		testPosition = new GridPosition(currentPosition.column - 1, currentPosition.row);
-		if(IsValidPosition(testPosition)){
-			siblings.Add(GetHouseInPosition(testPosition));
-		}
+        List<GridHouse> siblings = new List<GridHouse>();
 
-		// Top
-		testPosition = new GridPosition(currentPosition.column, currentPosition.row + 1);
-		if(IsValidPosition(testPosition)){
-			siblings.Add(GetHouseInPosition(testPosition));
-		}
+        GridPosition currentPosition = currentHouse.position;
 
-		// Bottom
-		testPosition = new GridPosition(currentPosition.column, currentPosition.row - 1);
-		if(IsValidPosition(testPosition)){
-			siblings.Add(GetHouseInPosition(testPosition));
-		}
+        // Right
+        GridPosition testPosition = new GridPosition(currentPosition.column + 1, currentPosition.row);
+        if (IsValidPosition(testPosition))
+        {
+            siblings.Add(GetHouseInPosition(testPosition));
+        }
 
-		return siblings;
-	}
+        // Left
+        testPosition = new GridPosition(currentPosition.column - 1, currentPosition.row);
+        if (IsValidPosition(testPosition))
+        {
+            siblings.Add(GetHouseInPosition(testPosition));
+        }
 
-	public List<GridHouse> GetPossibleSiblings(GridHouse currentHouse) {
+        // Top
+        testPosition = new GridPosition(currentPosition.column, currentPosition.row + 1);
+        if (IsValidPosition(testPosition))
+        {
+            siblings.Add(GetHouseInPosition(testPosition));
+        }
 
-		List<GridHouse> siblings = GetSiblings(currentHouse);
-		List<GridHouse> possibleSiblings = new List<GridHouse>();
+        // Bottom
+        testPosition = new GridPosition(currentPosition.column, currentPosition.row - 1);
+        if (IsValidPosition(testPosition))
+        {
+            siblings.Add(GetHouseInPosition(testPosition));
+        }
 
-		foreach( GridHouse house in siblings ) {
-			if(!house.isHole){
-				possibleSiblings.Add(house);
-			}
-		}
+        return siblings;
+    }
 
-		return possibleSiblings;
+    public List<GridHouse> GetPossibleSiblings(GridHouse currentHouse)
+    {
 
-	}
+        List<GridHouse> siblings = GetSiblings(currentHouse);
+        List<GridHouse> possibleSiblings = new List<GridHouse>();
+
+        foreach (GridHouse house in siblings)
+        {
+            if (!house.isHole)
+            {
+                possibleSiblings.Add(house);
+            }
+        }
+
+        return possibleSiblings;
+
+    }
 
 
-	public GridHouse GetHouseInPosition(GridPosition position) {
+    public GridHouse GetHouseInPosition(GridPosition position)
+    {
 
-		foreach( GridHouse house in gridHouses )
-		{
-			if( house.position.column == position.column && house.position.row == position.row) {
-				return house;
-			}
-		}
+        foreach (GridHouse house in gridHouses)
+        {
+            if (house.position.column == position.column && house.position.row == position.row)
+            {
+                return house;
+            }
+        }
 
-		return null;
-	}
+        return null;
+    }
 
-	public bool IsValidPosition(GridPosition gridPosition) {
-		if( gridPosition.column >= 0 &&
-			gridPosition.column < columns &&
-			gridPosition.row >= 0 &&
-			gridPosition.row < rows) {
+    public bool IsValidPosition(GridPosition gridPosition)
+    {
+        if (gridPosition.column >= 0 &&
+            gridPosition.column < columns &&
+            gridPosition.row >= 0 &&
+            gridPosition.row < rows)
+        {
 
-			return true;
-		} else {
-			return false;
-		}
-	}
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 
-	public List <GridHouse> GetAllHouses() {
-		return gridHouses;
-	}
+    public List<GridHouse> GetAllHouses()
+    {
+        return gridHouses;
+    }
 
 }

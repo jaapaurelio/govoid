@@ -24,12 +24,12 @@
 
 public static class GPGSIds
 {
-        public const string achievement_play_500_levels = "CgkI2ab42cEaEAIQBg"; // <GPGSID>
-        public const string achievement_play_5_games = "CgkI2ab42cEaEAIQAg"; // <GPGSID>
-        public const string achievement_play_50_levels = "CgkI2ab42cEaEAIQBA"; // <GPGSID>
-        public const string achievement_play_10_levels = "CgkI2ab42cEaEAIQAw"; // <GPGSID>
-        public const string achievement_play_100_levels = "CgkI2ab42cEaEAIQBQ"; // <GPGSID>
-        public const string leaderboard_time_attack = "CgkI2ab42cEaEAIQAQ"; // <GPGSID>
+    public const string achievement_play_500_levels = "CgkI2ab42cEaEAIQBg"; // <GPGSID>
+    public const string achievement_play_5_games = "CgkI2ab42cEaEAIQAg"; // <GPGSID>
+    public const string achievement_play_50_levels = "CgkI2ab42cEaEAIQBA"; // <GPGSID>
+    public const string achievement_play_10_levels = "CgkI2ab42cEaEAIQAw"; // <GPGSID>
+    public const string achievement_play_100_levels = "CgkI2ab42cEaEAIQBQ"; // <GPGSID>
+    public const string leaderboard_time_attack = "CgkI2ab42cEaEAIQAQ"; // <GPGSID>
 
 }
 

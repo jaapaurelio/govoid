@@ -162,8 +162,8 @@ public class BoardManager : MonoBehaviour {
 
 		AnimateEntrance(currentLevelGrid.GetAllHouses());
 
-		// At the begginig any house can be selected
-		SetAllHousesToState(currentLevelGrid.GetAllHouses(), Constants.HOUSE_STATE_POSSIBLE);
+        // At the begginig any house can be selected
+        SetAllHousesToState(currentLevelGrid.GetAllHouses(), Constants.HOUSE_STATE_POSSIBLE);
 
 	}
 

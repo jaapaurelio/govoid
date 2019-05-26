@@ -2,18 +2,22 @@
 using System.Collections;
 using UnityEngine.SceneManagement;
 
-public class MainMenuController : MonoBehaviour {
+public class MainMenuController : MonoBehaviour
+{
 
-	public virtual void Awake(){
-		// To be possible open game in any scene
-		if(GameManager.instance == null) {
-			SceneManager.LoadScene("IntroScene");
-			return;
-		}
-	}
+    public virtual void Awake()
+    {
+        // To be possible open game in any scene
+        if (GameManager.instance == null)
+        {
+            SceneManager.LoadScene("IntroScene");
+            return;
+        }
+    }
 
-	void Start() {
+    void Start()
+    {
 
-		GameManager.instance.googleAnalytics.LogScreen("MainMenu");
-	}
+        GameManager.instance.googleAnalytics.LogScreen("MainMenu");
+    }
 }

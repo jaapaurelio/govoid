@@ -1,48 +1,57 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class SoundIcon : MonoBehaviour {
+public class SoundIcon : MonoBehaviour
+{
 
-	public GameObject muteObject;
-	public GameObject soundObject;
+    public GameObject muteObject;
+    public GameObject soundObject;
 
 
-	// Use this for initialization
-	void Start () {
-	
-		soundObject.SetActive(false);
-		muteObject.SetActive(false);
+    // Use this for initialization
+    void Start()
+    {
 
-		int soundState = PlayerPrefs.GetInt(Constants.PS_SOUND_STATE_KEY);
+        soundObject.SetActive(false);
+        muteObject.SetActive(false);
 
-		if(soundState == 1 ) {
-			soundObject.SetActive(true);
+        int soundState = PlayerPrefs.GetInt(Constants.PS_SOUND_STATE_KEY);
 
-		} else {
-			muteObject.SetActive(true);
-		}
+        if (soundState == 1)
+        {
+            soundObject.SetActive(true);
 
-		AudioListener.volume = soundState;
+        }
+        else
+        {
+            muteObject.SetActive(true);
+        }
 
-	}
+        AudioListener.volume = soundState;
 
-	void OnTouch_TM() {
+    }
 
-		int soundState = PlayerPrefs.GetInt(Constants.PS_SOUND_STATE_KEY);
+    void OnTouch_TM()
+    {
 
-		if(soundState == 1 ) {
-			soundObject.SetActive(false);
-			muteObject.SetActive(true);
-			AudioListener.volume = 0;
-			PlayerPrefs.SetInt(Constants.PS_SOUND_STATE_KEY, 0);
+        int soundState = PlayerPrefs.GetInt(Constants.PS_SOUND_STATE_KEY);
 
-		} else {
-			soundObject.SetActive(true);
-			muteObject.SetActive(false);
-			AudioListener.volume = 1;
-			PlayerPrefs.SetInt(Constants.PS_SOUND_STATE_KEY, 1);
-		}
-		
-	}
+        if (soundState == 1)
+        {
+            soundObject.SetActive(false);
+            muteObject.SetActive(true);
+            AudioListener.volume = 0;
+            PlayerPrefs.SetInt(Constants.PS_SOUND_STATE_KEY, 0);
+
+        }
+        else
+        {
+            soundObject.SetActive(true);
+            muteObject.SetActive(false);
+            AudioListener.volume = 1;
+            PlayerPrefs.SetInt(Constants.PS_SOUND_STATE_KEY, 1);
+        }
+
+    }
 
 }

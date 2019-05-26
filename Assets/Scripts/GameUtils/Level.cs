@@ -6,9 +6,9 @@ using System.Collections.Generic;       //Allows us to use Lists.
 public struct Level
 {
 
-	public int columns;
-	public int rows;
-	public string message;
-	public HouseDefinition[] grid;
+    public int columns;
+    public int rows;
+    public string message;
+    public HouseDefinition[] grid;
 
 }

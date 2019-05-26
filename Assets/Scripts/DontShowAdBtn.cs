@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class DontShowAdBtn : ButtonText {
+public class DontShowAdBtn : ButtonText
+{
 
-	public GameObject boostPopUp;
+    public GameObject boostPopUp;
 
-	override public void OnTouch() {
-		boostPopUp.GetComponent<BoostPopup>().DontShowAd();
-	}
+    override public void OnTouch()
+    {
+        boostPopUp.GetComponent<BoostPopup>().DontShowAd();
+    }
 }

@@ -24,6 +24,6 @@ public class PackageLister : MonoBehaviour {
 
 	public void OpenPackage(int num) {
 		GameManager.instance.currentPackageNum = num;
-		SceneManager.LoadScene("SelectLevelScene");
+        SceneManager.LoadScene("SelectLevelScene");
 	}
 }

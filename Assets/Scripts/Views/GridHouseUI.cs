@@ -1,12 +1,13 @@
 ﻿using System;
 using UnityEngine;
 
-public class GridHouseUI : MonoBehaviour {
+public class GridHouseUI : MonoBehaviour
+{
 
     private const int numCircles = 9;
-	private GameObject[] circles;
-	public Sprite backgroundNormal;
-	public Animator anim;
+    private GameObject[] circles;
+    public Sprite backgroundNormal;
+    public Animator anim;
     public GameObject HouseDot;
     public GameObject Teleport;
     private float colorPossibleR = 0.75f;
@@ -16,7 +17,8 @@ public class GridHouseUI : MonoBehaviour {
 
     public GridPosition HouseGridPosition { get; set; }
 
-    void Awake(){
+    void Awake()
+    {
 
         circles = new GameObject[numCircles];
 
@@ -32,16 +34,19 @@ public class GridHouseUI : MonoBehaviour {
         }
     }
 
-    private Vector2 pToPosition(int x, int y) {
+    private Vector2 pToPosition(int x, int y)
+    {
         return new Vector2(x * 0.60f, y * 0.60f);
     }
 
-	public void ResetHouse() {
+    public void ResetHouse()
+    {
         SetState(Constants.HOUSE_STATE_POSSIBLE);
-	}
+    }
 
 
-	public void SetState(int newState ) {
+    public void SetState(int newState)
+    {
 
         float colorR = 1f;
         float colorG = 1f;
@@ -49,8 +54,9 @@ public class GridHouseUI : MonoBehaviour {
         float colorA = 1f;
         bool possible = false;
 
-        switch (newState) {
-    		case Constants.HOUSE_STATE_ACTIVE:
+        switch (newState)
+        {
+            case Constants.HOUSE_STATE_ACTIVE:
             case Constants.HOUSE_STATE_PREVIOUS:
                 colorR = 1f;
                 colorG = 1f;
@@ -58,14 +64,14 @@ public class GridHouseUI : MonoBehaviour {
                 colorA = 0.3f;
 
                 break;
-    		case Constants.HOUSE_STATE_NORMAL:
+            case Constants.HOUSE_STATE_NORMAL:
                 colorR = 1f;
                 colorG = 1f;
                 colorB = 1f;
                 colorA = 0.3f;
 
                 break;
-    		case Constants.HOUSE_STATE_POSSIBLE:
+            case Constants.HOUSE_STATE_POSSIBLE:
                 colorR = colorPossibleR;
                 colorG = colorPossibleG;
                 colorB = colorPossibleB;
@@ -73,16 +79,17 @@ public class GridHouseUI : MonoBehaviour {
                 possible = true;
 
                 break;
-    		case Constants.HOUSE_STATE_MISSING:
+            case Constants.HOUSE_STATE_MISSING:
                 colorR = 1f;
                 colorG = 1f;
                 colorB = 1f;
                 colorA = 0.3f;
 
                 break;
-		}
+        }
 
-        if(!model.isTeleport) {
+        if (!model.isTeleport)
+        {
             for (int i = 0; i < numCircles; i++)
             {
                 SpriteRenderer circleBackground = circles[i].GetComponent<SpriteRenderer>();
@@ -93,7 +100,8 @@ public class GridHouseUI : MonoBehaviour {
             }
         }
 
-        if(model.isTeleport) {
+        if (model.isTeleport)
+        {
             Teleport.GetComponent<SpriteRenderer>().color = new Color(colorR, colorG, colorB, colorA);
         }
     }
@@ -101,7 +109,8 @@ public class GridHouseUI : MonoBehaviour {
     public void SetNumber(int newNumber)
     {
 
-        if(model.isTeleport) {
+        if (model.isTeleport)
+        {
             return;
         }
 
