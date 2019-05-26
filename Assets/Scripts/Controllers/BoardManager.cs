@@ -278,6 +278,8 @@ public class BoardManager : MonoBehaviour
 
                         if (missingHouses.Count == 0)
                         {
+                            clickedHouse.state = Constants.HOUSE_STATE_NORMAL;
+                            clickedHouse.ui.SetState(Constants.HOUSE_STATE_NORMAL);
                             WonLevel();
                             return;
                         }
@@ -285,6 +287,9 @@ public class BoardManager : MonoBehaviour
                         // No more places to go
                         if (possibleHouses.Count == 0)
                         {
+                            clickedHouse.state = Constants.HOUSE_STATE_NORMAL;
+                            clickedHouse.ui.SetState(Constants.HOUSE_STATE_NORMAL);
+
                             foreach (GridHouse house in missingHouses)
                             {
                                 house.state = Constants.HOUSE_STATE_MISSING;
@@ -299,17 +304,21 @@ public class BoardManager : MonoBehaviour
                         {
                             house.state = Constants.HOUSE_STATE_POSSIBLE;
                             house.ui.SetState(Constants.HOUSE_STATE_POSSIBLE);
-                            //sibling.gridHouseUIComponent.anim.Play("AnimatePossible");
+                            house.ui.anim.Play("AnimatePossible");
                             ShowArrows(clickedHouse.position, GetDirectionToSibling(clickedHouse, house));
                         }
-
 
                         // no possible house. player must release is finger
                     }
                     else if (clickedHouse.state == Constants.HOUSE_STATE_NORMAL)
                     {
                         canChooseNextHouse = false;
-                        noPossibleClick.Play();
+
+                        if (!clickedHouse.isTeleport)
+                        {
+                            noPossibleClick.Play();
+                        }
+
                         AnimatePossibleHouses();
 
                     }
@@ -362,7 +371,7 @@ public class BoardManager : MonoBehaviour
     {
         foreach (GridHouse house in possibleHouses)
         {
-            //house.gridHouseUIComponent.anim.Play("AnimatePossible");
+            house.ui.anim.Play("AnimatePossible");
         }
     }
 
@@ -389,7 +398,7 @@ public class BoardManager : MonoBehaviour
 
         foreach (GridHouse house in currentLevelGrid.GetAllHouses())
         {
-            //house.gridHouseUIComponent.anim.Play("WonLevel");
+            house.ui.anim.Play("WonLevel");
         }
 
         yield return new WaitForSeconds(0.6f);
@@ -415,7 +424,7 @@ public class BoardManager : MonoBehaviour
     {
         foreach (GridHouse house in gridHouses)
         {
-            //house.gridHouseUIComponent.anim.Play("Entrance");
+            house.ui.anim.Play("Entrance");
         }
     }
 
@@ -424,7 +433,7 @@ public class BoardManager : MonoBehaviour
         List<GridHouse> gridHouses = currentLevelGrid.GetAllHouses();
         foreach (GridHouse house in gridHouses)
         {
-            //house.gridHouseUIComponent.anim.Play("Restart");
+            house.ui.anim.Play("Restart");
         }
     }
 

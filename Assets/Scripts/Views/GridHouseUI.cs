@@ -6,13 +6,14 @@ public class GridHouseUI : MonoBehaviour
 
     private const int numCircles = 9;
     private GameObject[] circles;
-    public Sprite backgroundNormal;
+    public GameObject backgroundGameObject;
+    public GameObject borderGameObject;
     public Animator anim;
     public GameObject HouseDot;
     public GameObject Teleport;
-    private float colorPossibleR = 0.75f;
-    private float colorPossibleG = 0.17f;
-    private float colorPossibleB = 0.6f;
+    private float colorPossibleR = 0f;
+    private float colorPossibleG = 1f;
+    private float colorPossibleB = 0.72f;
     public GridHouse model;
 
     public GridPosition HouseGridPosition { get; set; }
@@ -48,11 +49,14 @@ public class GridHouseUI : MonoBehaviour
     public void SetState(int newState)
     {
 
-        float colorR = 1f;
-        float colorG = 1f;
-        float colorB = 1f;
+        float colorR = 0.7f;
+        float colorG = 0.7f;
+        float colorB = 0.7f;
         float colorA = 1f;
         bool possible = false;
+
+        borderGameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1);
+        backgroundGameObject.GetComponent<SpriteRenderer>().color = new Color(0.085f, 0.085f, 0.085f, 1);
 
         switch (newState)
         {
@@ -61,20 +65,27 @@ public class GridHouseUI : MonoBehaviour
                 colorR = 1f;
                 colorG = 1f;
                 colorB = 1f;
-                colorA = 0.3f;
+                colorA = 1f;
+
+                backgroundGameObject.GetComponent<SpriteRenderer>().color = new Color(0, 1, 0.72f, 1);
+                borderGameObject.GetComponent<SpriteRenderer>().color = new Color(0, 1, 0.72f, 1);
 
                 break;
             case Constants.HOUSE_STATE_NORMAL:
-                colorR = 1f;
-                colorG = 1f;
-                colorB = 1f;
-                colorA = 0.3f;
+                colorR = 0.7f;
+                colorG = 0.7f;
+                colorB = 0.7f;
+                colorA = 1f;
+
+                borderGameObject.GetComponent<SpriteRenderer>().color = new Color(0.7f, 0.7f, 0.7f, 0);
 
                 break;
             case Constants.HOUSE_STATE_POSSIBLE:
                 colorR = colorPossibleR;
                 colorG = colorPossibleG;
                 colorB = colorPossibleB;
+
+                borderGameObject.GetComponent<SpriteRenderer>().color = new Color(0, 1, 0.72f, 1);
 
                 possible = true;
 
@@ -83,7 +94,9 @@ public class GridHouseUI : MonoBehaviour
                 colorR = 1f;
                 colorG = 1f;
                 colorB = 1f;
-                colorA = 0.3f;
+                colorA = 1f;
+
+                borderGameObject.GetComponent<SpriteRenderer>().color = new Color(1, 0, 0f, 1);
 
                 break;
         }

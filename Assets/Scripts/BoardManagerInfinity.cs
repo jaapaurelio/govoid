@@ -200,8 +200,16 @@ public class BoardManagerInfinity : BoardManager
         }
 
         // No messages for now
-        //GameObject.Find("Messages").GetComponent<TextMesh>().text = currentLevelGrid.message;
-        GameObject.Find("Messages").GetComponent<TextMesh>().text = "";
+
+        if (!string.IsNullOrEmpty(currentLevelGrid.message))
+        {
+            GameObject.Find("Messages").GetComponent<TextMesh>().text = currentLevelGrid.message;
+        }
+        else
+        {
+            GameObject.Find("Messages").GetComponent<TextMesh>().text = "";
+        }
+
 
         if (currentLevelGrid.rows > 5 || currentLevelGrid.columns > 5)
         {
