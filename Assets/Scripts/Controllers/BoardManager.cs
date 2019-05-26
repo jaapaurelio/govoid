@@ -210,7 +210,6 @@ public class BoardManager : MonoBehaviour {
 
 						possibleDirections = new List<int>();
 						possibleHouses = new List<GridHouse>();
-                        int possibleHousesCount = 0;
 
 						HideAllArrows();
 
@@ -227,9 +226,6 @@ public class BoardManager : MonoBehaviour {
                                     possibleDirections.Add(GetDirectionToSibling(clickedHouse, sibling));
 									possibleHouses.Add(sibling);
 
-                                    if(!sibling.isTeleport) {
-                                        possibleHousesCount++;
-                                    }
                                     //sibling.gridHouseUIComponent.anim.Play("AnimatePossible");
                                     ShowArrows(clickedHouse.position, GetDirectionToSibling(clickedHouse, sibling));
 								}
@@ -253,7 +249,7 @@ public class BoardManager : MonoBehaviour {
                         }
 
 						// No more places to go
-						if(possibleHousesCount == 0) {
+						if(possibleHouses.Count == 0) {
 							bool won = true;
 							// check if we are some missing houses to pass
 							foreach (GridHouse house in currentLevelGrid.GetAllHouses()) {
