@@ -99,7 +99,7 @@ public class LevelGenerator
             previousHouse = currentHouse;
             currentHouse = ChooseRandomHouse(siblings);
             currentHouse.number = currentHouse.number + 1;
-            currentHouse.originalNumber = currentHouse.number + 1;
+            currentHouse.originalNumber = currentHouse.number;
 
             _numberOfSteps--;
         }
