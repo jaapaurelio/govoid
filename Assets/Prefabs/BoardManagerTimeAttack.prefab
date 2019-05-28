@@ -3,12 +3,13 @@
 --- !u!1 &174294
 GameObject:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
   m_Component:
-  - 4: {fileID: 464294}
-  - 114: {fileID: 11468986}
+  - component: {fileID: 464294}
+  - component: {fileID: 11468986}
   m_Layer: 0
   m_Name: BoardManagerTimeAttack
   m_TagString: Untagged
@@ -18,9 +19,10 @@ GameObject:
   m_IsActive: 1
 --- !u!4 &464294
 Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 174294}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -4}
@@ -28,21 +30,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &11468986
 MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 174294}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2fd3be1827bdb4f7c892aef5b0d0f685, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tapToRestartGameObject: {fileID: 0}
-  arrowToInstanciate: {fileID: 156372, guid: 80f4e2c3565c3424a827ba882d4d67ec, type: 2}
-  gamePausedPopupObject: {fileID: 0}
-  houseToInstantiate: {fileID: 195940, guid: 7354aa6812163479189408f6348aec52, type: 2}
+  arrowToInstanciate: {fileID: 156372, guid: 80f4e2c3565c3424a827ba882d4d67ec, type: 3}
+  houseToInstantiate: {fileID: 195940, guid: 7354aa6812163479189408f6348aec52, type: 3}
   houseClickedSound: {fileID: 0}
   levelPassedSound: {fileID: 0}
   noExitSound: {fileID: 0}
@@ -50,24 +52,6 @@ MonoBehaviour:
   backgroundTimerGameObject: {fileID: 0}
   gameOverPopupObject: {fileID: 0}
   tapToStartGameObject: {fileID: 0}
+  tapToRestartGameObject: {fileID: 0}
   timeRed: {fileID: 0}
-  restartBtnObject: {fileID: 0}
---- !u!1001 &100100000
-Prefab:
-  m_ObjectHideFlags: 1
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 0}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 174294}
-  m_IsPrefabParent: 1
+  gamePausedPopupObject: {fileID: 0}
