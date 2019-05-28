@@ -40,6 +40,8 @@ public class BoardManager : MonoBehaviour
 
     public virtual void Start()
     {
+        // Prevent sleep 
+        Screen.sleepTimeout = SleepTimeout.NeverSleep;
 
         BoardSetup();
 
@@ -539,6 +541,11 @@ public class BoardManager : MonoBehaviour
         }
 
         currentLevelGrid = null;
+    }
+
+    void OnDestroy()
+    {
+        Screen.sleepTimeout = SleepTimeout.SystemSetting;
     }
 
 }
