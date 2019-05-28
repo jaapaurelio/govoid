@@ -157,11 +157,23 @@ public class BoardManager : MonoBehaviour
             // TODO Find a way to set the sprite position given the grid position
             gridHouseObject.transform.localPosition = new Vector3(house.position.column * 2.5f, house.position.row * 2.5f, 0f);
 
-            if (house.actions != null && Array.IndexOf(house.actions, "TELEPORT_1") != -1)
+            if (house.actions != null)
             {
-                house.isTeleport = true;
-                house.ui.ShowTeleport();
+
+                if (Array.IndexOf(house.actions, "TELEPORT_1") != -1)
+                {
+                    house.isTeleport = true;
+                    house.ui.ShowTeleport();
+
+                }
+
+                if (Array.IndexOf(house.actions, "END") != -1)
+                {
+                    house.isEndpoint = true;
+                    house.ui.ShowEndPoint();
+                }
             }
+
 
             gridHouseObject.GetComponent<GridHouseUI>().SetNumber(house.number);
             gridHouseObject.GetComponent<GridHouseUI>().HouseGridPosition = house.position;
@@ -280,7 +292,36 @@ public class BoardManager : MonoBehaviour
                         {
                             clickedHouse.state = Constants.HOUSE_STATE_NORMAL;
                             clickedHouse.ui.SetState(Constants.HOUSE_STATE_NORMAL);
-                            WonLevel();
+
+                            // check for end point house
+                            GridHouse endPointHouse = null;
+                            foreach (GridHouse house in currentLevelGrid.GetAllHouses())
+                            {
+                                if (house.isEndpoint)
+                                {
+                                    endPointHouse = house;
+                                }
+                            }
+
+                            if (endPointHouse == null)
+                            {
+                                WonLevel();
+                                return;
+                            }
+
+                            if (endPointHouse == clickedHouse)
+                            {
+                                WonLevel();
+                                return;
+
+                            }
+
+
+                            endPointHouse.state = Constants.HOUSE_STATE_MISSING;
+                            endPointHouse.ui.SetState(Constants.HOUSE_STATE_MISSING);
+
+                            LostLevel();
+
                             return;
                         }
 

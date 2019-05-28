@@ -11,6 +11,8 @@ public class GridHouse
     public int state = Constants.HOUSE_STATE_NORMAL;
     public bool isHole = false;
     public bool isTeleport = false;
+    public bool isEndpoint = false;
+
     public string[] actions;
     public GridHouseUI ui;
 

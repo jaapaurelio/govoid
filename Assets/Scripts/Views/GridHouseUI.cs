@@ -11,6 +11,7 @@ public class GridHouseUI : MonoBehaviour
     public Animator anim;
     public GameObject HouseDot;
     public GameObject Teleport;
+    public GameObject EndPoint;
     private Color32 activeColor = new Color32(0, 255, 184, 255);
     public GridHouse model;
 
@@ -282,6 +283,11 @@ public class GridHouseUI : MonoBehaviour
     internal void ShowTeleport()
     {
         Teleport.SetActive(true);
+    }
+
+    public void ShowEndPoint()
+    {
+        EndPoint.SetActive(true);
     }
 
     internal void DestroyHouse()
