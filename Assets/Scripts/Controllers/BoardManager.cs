@@ -7,7 +7,6 @@ using System;
 public class BoardManager : MonoBehaviour
 {
 
-    public GameObject arrowToInstanciate;
     public GameObject houseToInstantiate;
 
     // Sounds
@@ -18,11 +17,6 @@ public class BoardManager : MonoBehaviour
 
     protected bool playing = false;
 
-    protected GameObject arrowFrom;
-    protected GameObject arrowToTop;
-    protected GameObject arrowToBottom;
-    protected GameObject arrowToLeft;
-    protected GameObject arrowToRight;
     protected Transform boardHolder;
     protected bool canInteractWithBoard = true;
     protected bool hasRestarted = false;
@@ -48,22 +42,6 @@ public class BoardManager : MonoBehaviour
     {
 
         BoardSetup();
-
-        arrowFrom = Instantiate(arrowToInstanciate, new Vector3(-2, 0, 0f), Quaternion.identity) as GameObject;
-        arrowFrom.transform.SetParent(boardHolder);
-        arrowFrom.GetComponent<SpriteRenderer>().color = new Color32(76, 73, 88, 255);
-
-        arrowToTop = Instantiate(arrowToInstanciate, new Vector3(2, 0, 0f), new Quaternion(0, 0, 90, 90)) as GameObject;
-        arrowToTop.transform.SetParent(boardHolder);
-
-        arrowToBottom = Instantiate(arrowToInstanciate, new Vector3(3, 0, 0f), new Quaternion(0f, 0f, -90, 90)) as GameObject;
-        arrowToBottom.transform.SetParent(boardHolder);
-
-        arrowToLeft = Instantiate(arrowToInstanciate, new Vector3(4, 0, 0f), new Quaternion(0, 0, 180, 0)) as GameObject;
-        arrowToLeft.transform.SetParent(boardHolder);
-
-        arrowToRight = Instantiate(arrowToInstanciate, new Vector3(5, 0, 0f), Quaternion.identity) as GameObject;
-        arrowToRight.transform.SetParent(boardHolder);
 
         NewGameBtn.OnClicked += NewGame;
         RestartBtn.OnClicked += RestartGame;
@@ -115,7 +93,6 @@ public class BoardManager : MonoBehaviour
 
         hasRestarted = true;
 
-        HideAllArrows();
         StartCoroutine(CanInteractWithBoardAgain());
 
         foreach (var house in currentLevelGrid.GetAllHouses())
@@ -139,7 +116,6 @@ public class BoardManager : MonoBehaviour
 
         hasRestarted = false;
 
-        HideAllArrows();
 
         foreach (GridHouse house in currentLevelGrid.GetAllHouses())
         {
@@ -242,8 +218,6 @@ public class BoardManager : MonoBehaviour
                         possibleDirections = new List<int>();
                         possibleHouses = new List<GridHouse>();
 
-                        HideAllArrows();
-
                         // All siblings from the clicked house are now possible houses to click
                         foreach (GridHouse sibling in clickedHouseSiblings)
                         {
@@ -271,8 +245,6 @@ public class BoardManager : MonoBehaviour
 
                         if (activeHouse != null)
                         {
-                            ShowFromArrow(clickedHouse, activeHouse);
-
                             activeHouse.state = Constants.HOUSE_STATE_PREVIOUS;
                             clickedHouse.ui.SetState(Constants.HOUSE_STATE_PREVIOUS);
                         }
@@ -346,7 +318,6 @@ public class BoardManager : MonoBehaviour
                             house.state = Constants.HOUSE_STATE_POSSIBLE;
                             house.ui.SetState(Constants.HOUSE_STATE_POSSIBLE);
                             house.ui.anim.Play("AnimatePossible");
-                            ShowArrows(clickedHouse.position, GetDirectionToSibling(clickedHouse, house));
                         }
 
                         // no possible house. player must release is finger
@@ -478,17 +449,6 @@ public class BoardManager : MonoBehaviour
         }
     }
 
-    // just move arrow outside screen
-    // TODO find a better way without setActive
-    protected void HideAllArrows()
-    {
-        arrowFrom.transform.localPosition = new Vector3(50, 10, 0);
-        arrowToTop.transform.localPosition = new Vector3(50, 10, 0);
-        arrowToBottom.transform.localPosition = new Vector3(50, 10, 0);
-        arrowToRight.transform.localPosition = new Vector3(50, 10, 0);
-        arrowToLeft.transform.localPosition = new Vector3(50, 10, 0);
-    }
-
 
     protected IEnumerator CanPlay()
     {
@@ -501,54 +461,6 @@ public class BoardManager : MonoBehaviour
     {
         yield return new WaitForSeconds(0.1f);
         canInteractWithBoard = true;
-    }
-
-    protected void ShowArrows(GridPosition fromPosition, int direction)
-    {
-        return;
-        switch (direction)
-        {
-            case Constants.TOP:
-                arrowToTop.transform.localPosition = new Vector3(fromPosition.column * 2.5f, fromPosition.row * 2.5f, 0);
-                break;
-            case Constants.BOTTOM:
-                arrowToBottom.transform.localPosition = new Vector3(fromPosition.column * 2.5f, fromPosition.row * 2.5f, 0);
-                break;
-            case Constants.RIGHT:
-                arrowToRight.transform.localPosition = new Vector3(fromPosition.column * 2.5f, fromPosition.row * 2.5f, 0);
-                break;
-            case Constants.LEFT:
-                arrowToLeft.transform.localPosition = new Vector3(fromPosition.column * 2.5f, fromPosition.row * 2.5f, 0);
-                break;
-        }
-    }
-
-    protected void ShowFromArrow(GridHouse fromP, GridHouse toP)
-    {
-
-        /*
-		int direction = GetDirectionToSibling(fromP, toP);
-		return;
-
-		switch(direction) {
-		case Constants.TOP:
-			arrowFrom.transform.localPosition = new Vector3(fromP.position.column * 2.5f , fromP.position.row * 2.5f + 1.24f, 0);
-			arrowFrom.transform.rotation = Quaternion.Euler(0,0,-90);
-			break;
-		case Constants.BOTTOM:
-			arrowFrom.transform.localPosition = new Vector3(fromP.position.column * 2.5f , fromP.position.row * 2.5f - 1.24f, 0);
-			arrowFrom.transform.rotation = Quaternion.Euler(0,0,90);
-			break;
-		case Constants.RIGHT:
-			arrowFrom.transform.localPosition = new Vector3(fromP.position.column * 2.5f + 1.24f, fromP.position.row * 2.5f, 0);
-			arrowFrom.transform.rotation = Quaternion.Euler(0,0,180);
-			break;
-		case Constants.LEFT:
-			arrowFrom.transform.localPosition = new Vector3(fromP.position.column * 2.5f - 1.24f, fromP.position.row * 2.5f, 0);
-			arrowFrom.transform.rotation = Quaternion.Euler(0,0,0);
-			break;
-		}
-		*/
     }
 
 

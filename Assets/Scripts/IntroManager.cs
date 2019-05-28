@@ -4,7 +4,6 @@ using UnityEngine.SceneManagement;
 
 public class IntroManager : MonoBehaviour
 {
-    public GameObject arrowToInstanciate;
     public GameObject houseToInstantiate;
     public GameObject title;
 
@@ -13,9 +12,6 @@ public class IntroManager : MonoBehaviour
     private GameObject gridHouseObject1;
     private GameObject gridHouseObject2;
     private GameObject gridHouseObject3;
-
-    private GameObject arrowObject1;
-    private GameObject arrowObject2;
 
     public AudioSource houseClickedSound;
     public AudioSource levelPassedSound;
@@ -31,7 +27,6 @@ public class IntroManager : MonoBehaviour
 
         title.SetActive(false);
         CreateHouses();
-        CreateArrows();
 
         DontDestroyOnLoad(levelPassedSound);
 
@@ -87,26 +82,6 @@ public class IntroManager : MonoBehaviour
 
     }
 
-    void CreateArrows()
-    {
-
-        //Instantiate the GameObject instance using the prefab chosen for toInstantiate at the Vector3 corresponding to current grid position in loop, cast it to GameObject.
-        arrowObject1 =
-            Instantiate(arrowToInstanciate, new Vector3(-1.24f, 0f, 0f), Quaternion.identity) as GameObject;
-
-        arrowObject1.transform.SetParent(boardHolder);
-        //arrowObject1.GetComponent<SpriteRenderer>().color = new Color32(76, 73, 88, 255);
-        arrowObject1.SetActive(false);
-
-        //Instantiate the GameObject instance using the prefab chosen for toInstantiate at the Vector3 corresponding to current grid position in loop, cast it to GameObject.
-        arrowObject2 =
-            Instantiate(arrowToInstanciate, new Vector3(1.24f, 0f, 0f), Quaternion.identity) as GameObject;
-
-        arrowObject2.transform.SetParent(boardHolder);
-        //arrowObject2.GetComponent<SpriteRenderer>().color = new Color32(76, 73, 88, 255);
-        arrowObject2.SetActive(false);
-    }
-
     protected IEnumerator DoAnimation()
     {
 
@@ -135,8 +110,6 @@ public class IntroManager : MonoBehaviour
         gridHouseObject2.GetComponent<GridHouseUI>().SetState(Constants.HOUSE_STATE_POSSIBLE);
         gridHouseObject2.GetComponent<GridHouseUI>().anim.Play("AnimatePossible");
 
-        arrowObject1.SetActive(true);
-
         yield return new WaitForSeconds(0.5f);
 
         houseClickedSound.Play();
@@ -151,9 +124,6 @@ public class IntroManager : MonoBehaviour
         gridHouseObject3.GetComponent<GridHouseUI>().SetState(Constants.HOUSE_STATE_POSSIBLE);
         gridHouseObject3.GetComponent<GridHouseUI>().anim.Play("AnimatePossible");
 
-        arrowObject1.GetComponent<SpriteRenderer>().color = new Color32(76, 73, 88, 255);
-        arrowObject2.SetActive(true);
-
 
         yield return new WaitForSeconds(0.5f);
 
@@ -166,9 +136,6 @@ public class IntroManager : MonoBehaviour
         gridHouseObject3.GetComponent<GridHouseUI>().SetState(Constants.HOUSE_STATE_ACTIVE);
         gridHouseObject3.GetComponent<GridHouseUI>().anim.Play("AnimateActive");
         gridHouseObject3.GetComponent<GridHouseUI>().SetNumber(0);
-
-        arrowObject1.SetActive(false);
-        arrowObject2.GetComponent<SpriteRenderer>().color = new Color32(76, 73, 88, 255);
 
         levelPassedSound.Play();
 
