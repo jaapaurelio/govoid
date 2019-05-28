@@ -116,6 +116,27 @@ public class BoardManager : MonoBehaviour
 
         hasRestarted = false;
 
+        float houseSizeX = 4.8f / currentLevelGrid.columns;
+        float houseSizeY = 5.3f / currentLevelGrid.rows;
+
+        float houseSize = houseSizeX < houseSizeY ? houseSizeX : houseSizeY;
+
+        if (houseSize > 1.0f)
+        {
+            houseSize = 1.0f;
+        }
+
+        boardHolder.localScale = new Vector3(houseSize, houseSize, houseSize);
+
+        if (currentLevelGrid.columns < 5)
+        {
+            boardHolder.localPosition = new Vector3((currentLevelGrid.columns * -5f) / 5f, -8, 0);
+        }
+        else
+        {
+            boardHolder.localPosition = new Vector3(-5f, -8, 0);
+        }
+
 
         foreach (GridHouse house in currentLevelGrid.GetAllHouses())
         {

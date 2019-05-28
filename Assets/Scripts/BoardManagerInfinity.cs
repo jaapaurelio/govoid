@@ -143,7 +143,6 @@ public class BoardManagerInfinity : BoardManager
     {
 
         base.DestroyCurrentLevel();
-        boardHolder.localScale = new Vector3(1, 1, 1);
 
         int levelNumber = GameManager.instance.currentLevelFromPackage;
         Pack package = GameManager.instance.currentPackage;
@@ -206,12 +205,6 @@ public class BoardManagerInfinity : BoardManager
         else
         {
             GameObject.Find("Messages").GetComponent<TextMesh>().text = "";
-        }
-
-
-        if (currentLevelGrid.rows > 5 || currentLevelGrid.columns > 5)
-        {
-            boardHolder.localScale = new Vector3(0.82f, 0.82f, 0.82f);
         }
 
         base.NewLevel();
