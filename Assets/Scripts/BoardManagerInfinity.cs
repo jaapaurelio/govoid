@@ -60,12 +60,10 @@ public class BoardManagerInfinity : BoardManager
 
         if (levelsDone.Contains(GameManager.instance.currentLevelFromPackage))
         {
-            GameObject.Find("CurrentLevelBackground").GetComponent<SpriteRenderer>().color = new Color32(0, 255, 184, 255);
-            levelNumberTextObject.color = new Color32(29, 29, 29, 255);
+            levelNumberTextObject.color = new Color32(0, 255, 184, 255);
         }
         else
         {
-            GameObject.Find("CurrentLevelBackground").GetComponent<SpriteRenderer>().color = new Color32(93, 93, 93, 255);
             levelNumberTextObject.color = new Color32(255, 255, 255, 255);
         }
 

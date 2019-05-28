@@ -361,11 +361,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 425478, guid: 1b72b196d338e40be8800bdbd7f23a8c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.05
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 425478, guid: 1b72b196d338e40be8800bdbd7f23a8c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 8.6
+      value: 8.48
       objectReference: {fileID: 0}
     - target: {fileID: 425478, guid: 1b72b196d338e40be8800bdbd7f23a8c, type: 3}
       propertyPath: m_LocalPosition.z
@@ -424,11 +424,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 479136, guid: dae67ef8b2db64633acff96f30292cda, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.73
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 479136, guid: dae67ef8b2db64633acff96f30292cda, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 8.6
+      value: 8.48
       objectReference: {fileID: 0}
     - target: {fileID: 479136, guid: dae67ef8b2db64633acff96f30292cda, type: 3}
       propertyPath: m_LocalPosition.z
@@ -478,6 +478,10 @@ PrefabInstance:
     - target: {fileID: 108520, guid: 8b8f94973d77c44cb8f9760d62f1a1d1, type: 3}
       propertyPath: m_Name
       value: CanvasSelectLevel
+      objectReference: {fileID: 0}
+    - target: {fileID: 108520, guid: 8b8f94973d77c44cb8f9760d62f1a1d1, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 22464086, guid: 8b8f94973d77c44cb8f9760d62f1a1d1, type: 3}
       propertyPath: m_LocalPosition.x
@@ -659,6 +663,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BottomMessage
       objectReference: {fileID: 0}
+    - target: {fileID: 179636, guid: c10c2d8dcf06b4be6b0f65150b4cd065, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 465312, guid: c10c2d8dcf06b4be6b0f65150b4cd065, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -691,5 +699,14 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 2358552, guid: c10c2d8dcf06b4be6b0f65150b4cd065, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 22269c1b7b06e43ed9d3570f03a652b1, type: 3}
+    - target: {fileID: 10235376, guid: c10c2d8dcf06b4be6b0f65150b4cd065, type: 3}
+      propertyPath: m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 22269c1b7b06e43ed9d3570f03a652b1,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c10c2d8dcf06b4be6b0f65150b4cd065, type: 3}

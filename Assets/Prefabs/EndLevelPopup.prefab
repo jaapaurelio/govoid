@@ -286,7 +286,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 157906}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 3}
+  m_LocalPosition: {x: 0, y: -0.09, z: 3}
   m_LocalScale: {x: 0.1, y: 0.1, z: 1}
   m_Children: []
   m_Father: {fileID: 465272}
@@ -309,7 +309,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: bbbde74c794364da4a5e7e83aad678ba, type: 3}
+  - {fileID: 2100000, guid: 22269c1b7b06e43ed9d3570f03a652b1, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -347,7 +347,7 @@ TextMesh:
   m_FontSize: 55
   m_FontStyle: 0
   m_RichText: 1
-  m_Font: {fileID: 12800000, guid: bbbde74c794364da4a5e7e83aad678ba, type: 3}
+  m_Font: {fileID: 12800000, guid: 22269c1b7b06e43ed9d3570f03a652b1, type: 3}
   m_Color:
     serializedVersion: 2
     rgba: 4280098077
@@ -392,7 +392,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 160926}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.42, z: 3}
+  m_LocalPosition: {x: 0, y: -1.12, z: 3}
   m_LocalScale: {x: 0.1, y: 0.1, z: 1}
   m_Children: []
   m_Father: {fileID: 463630}
@@ -415,7 +415,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2081a87c07e59460781421f072a843e7, type: 3}
+  - {fileID: 2100000, guid: 22269c1b7b06e43ed9d3570f03a652b1, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -453,7 +453,7 @@ TextMesh:
   m_FontSize: 79
   m_FontStyle: 0
   m_RichText: 1
-  m_Font: {fileID: 12800000, guid: 2081a87c07e59460781421f072a843e7, type: 3}
+  m_Font: {fileID: 12800000, guid: 22269c1b7b06e43ed9d3570f03a652b1, type: 3}
   m_Color:
     serializedVersion: 2
     rgba: 4294967295
@@ -498,7 +498,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 161834}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 3}
+  m_LocalPosition: {x: 0, y: -0.36, z: 3}
   m_LocalScale: {x: 0.1, y: 0.1, z: 1}
   m_Children: []
   m_Father: {fileID: 439894}
@@ -521,7 +521,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: bbbde74c794364da4a5e7e83aad678ba, type: 3}
+  - {fileID: 2100000, guid: 22269c1b7b06e43ed9d3570f03a652b1, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -559,7 +559,7 @@ TextMesh:
   m_FontSize: 251
   m_FontStyle: 0
   m_RichText: 1
-  m_Font: {fileID: 12800000, guid: bbbde74c794364da4a5e7e83aad678ba, type: 3}
+  m_Font: {fileID: 12800000, guid: 22269c1b7b06e43ed9d3570f03a652b1, type: 3}
   m_Color:
     serializedVersion: 2
     rgba: 4280098077
