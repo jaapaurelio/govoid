@@ -9,7 +9,6 @@ public class LevelStatistics
     public int packageNum = 0;
     public int levelNum = 0;
     public bool done = false;
-    public bool locked = false;
 }
 
 
@@ -26,8 +25,6 @@ public class PlayerStatistics
     {
         //PlayerPrefs.DeleteAll();
         string json = PlayerPrefs.GetString(Constants.PLAYER_SETTINGS_SAVE);
-
-        Debug.Log("loadData" + json);
 
         if (json.Equals(""))
         {
@@ -56,8 +53,6 @@ public class PlayerStatistics
         }
 
         string thisJson = JsonUtility.ToJson(this);
-        Debug.Log("saveData" + thisJson);
-
 
         PlayerPrefs.SetString(Constants.PLAYER_SETTINGS_SAVE, thisJson);
         PlayerPrefs.Save();
@@ -112,7 +107,6 @@ public class PlayerStatistics
             newLevel.done = true;
             newLevel.levelNum = levelNum;
             newLevel.packageNum = packNum;
-            newLevel.locked = false;
 
             levels.Add(newLevel);
         }

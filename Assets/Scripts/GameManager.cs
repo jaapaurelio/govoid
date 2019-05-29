@@ -74,10 +74,7 @@ public class GameManager : MonoBehaviour
             PlayerPrefs.SetInt(Constants.PS_SOUND_STATE_KEY, 1);
         }
 
-        TextAsset bindata = Resources.Load<TextAsset>("Levels/Pack" + GameManager.instance.currentPackageNum);
-
-        Pack p = JsonUtility.FromJson<Pack>(bindata.text);
-        GameManager.instance.currentPackage = p;
+        GameManager.instance.currentPackage = LoadPack(GameManager.instance.currentPackageNum);
 
         int availableLevels = PlayerPrefs.GetInt(Constants.PS_AVAIABLE_LEVELS);
 
@@ -90,6 +87,28 @@ public class GameManager : MonoBehaviour
 
         // Debug Settings
         //PlayerPrefs.SetInt(Constants.PS_AVAIABLE_LEVELS, 200);
+
+    }
+
+    private Pack LoadPack(int number) {
+
+        TextAsset[] levelsText=  Resources.LoadAll<TextAsset>("Levels/Pack_" + number + "");
+
+        int numberLevels = levelsText.Length;
+
+        Level[] levels = new Level[numberLevels];
+        Pack pack = new Pack();
+
+        for (int i = 0; i < numberLevels - 1; i++) {
+            int levelNumber = System.Convert.ToInt32(levelsText[i].name) - 1;
+            levels[levelNumber] = JsonUtility.FromJson<Level>(levelsText[i].text);
+        }
+
+        pack.levels = levels;
+
+        Debug.Log("Level Load");
+
+        return pack;
 
     }
 

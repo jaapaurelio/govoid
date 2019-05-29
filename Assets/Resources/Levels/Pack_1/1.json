@@ -1,0 +1,23 @@
+    {
+      "columns": "5",
+      "rows": "3",
+      "message": "Tap number 1 to go 0.",
+      "grid": [
+        { "number": 0 },
+        { "number": 0 },
+        { "number": 0 },
+        { "number": 0 },
+        { "number": 0 },
+        { "number": 0 },
+        { "number": 0 },
+        { "number": 1 },
+        { "number": 0 },
+        { "number": 0 },
+        { "number": 0 },
+        { "number": 0 },
+        { "number": 0 },
+        { "number": 0 },
+        { "number": 0 }
+      ],
+      "steps": [{ "row": 1, "line": 2 }]
+    }

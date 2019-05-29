@@ -1,0 +1,18 @@
+{
+    "columns": "2",
+    "rows": "2",
+    "message": "Passa duas vezes\nna casa com o número 2.",
+    "grid": [
+      { "number": 2 },
+      { "number": 1 },
+      { "number": 1 },
+      { "number": 1 }
+    ],
+    "steps": [
+      { "row": 0, "line": 0 },
+      { "row": 0, "line": 1 },
+      { "row": 1, "line": 1 },
+      { "row": 1, "line": 0 },
+      { "row": 0, "line": 0 }
+    ]
+  }

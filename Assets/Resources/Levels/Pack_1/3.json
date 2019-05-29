@@ -1,0 +1,25 @@
+{
+    "columns": "3",
+    "rows": "3",
+    "message": "Podes começar em qualquer casa.",
+    "grid": [
+      { "number": 0 },
+      { "number": 1 },
+      { "number": 1 },
+      { "number": 1 },
+      { "number": 2 },
+      { "number": 1 },
+      { "number": 0 },
+      { "number": 1 },
+      { "number": 0 }
+    ],
+    "steps": [
+      { "row": 1, "line": 0 },
+      { "row": 1, "line": 1 },
+      { "row": 1, "line": 2 },
+      { "row": 0, "line": 2 },
+      { "row": 0, "line": 1 },
+      { "row": 1, "line": 1 },
+      { "row": 2, "line": 1 }
+    ]
+  }
