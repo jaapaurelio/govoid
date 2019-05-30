@@ -1,7 +1,7 @@
 {
   "columns": "4",
   "rows": "4",
-  "message": "You're ready for Govoid.\nHave fun!",
+  "message": "",
   "grid": [
     { "number": 0 },
     { "number": 1 },
