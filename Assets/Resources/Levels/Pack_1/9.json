@@ -1,44 +1,30 @@
 {
-    "columns": "4",
-    "rows": "4",
-    "message": "",
-    "grid": [
-      { "number": 0 },
-      { "number": 1 },
-      { "number": 2 },
-      { "number": 1 },
-      { "number": 1 },
-      { "number": 3 },
-      { "number": 4 },
-      { "number": 1 },
-      { "number": 1 },
-      { "number": 2 },
-      { "number": 1 },
-      { "number": 0 },
-      { "number": 0 },
-      { "number": 1 },
-      { "number": 1 },
-      { "number": 0 }
-    ],
-    "steps": [
-      { "row": 3, "line": 2 },
-      { "row": 3, "line": 1 },
-      { "row": 2, "line": 1 },
-      { "row": 2, "line": 2 },
-      { "row": 1, "line": 2 },
-      { "row": 0, "line": 2 },
-      { "row": 0, "line": 1 },
-      { "row": 1, "line": 1 },
-      { "row": 1, "line": 2 },
-      { "row": 1, "line": 3 },
-      { "row": 0, "line": 3 },
-      { "row": 0, "line": 2 },
-      { "row": 1, "line": 2 },
-      { "row": 1, "line": 1 },
-      { "row": 1, "line": 0 },
-      { "row": 2, "line": 0 },
-      { "row": 2, "line": 1 },
-      { "row": 1, "line": 1 },
-      { "row": 1, "line": 2 }
-    ]
-  }
+  "columns": "3",
+  "rows": "4",
+  "message": "",
+  "grid": [
+    { "number": 1 },
+    { "number": 1 },
+    { "number": 0 },
+    { "number": 1 },
+    { "number": 3 },
+    { "number": 1 },
+    { "number": 0 },
+    { "number": 1 },
+    { "number": 1 },
+    { "number": 0 },
+    { "number": 0 },
+    { "number": 0 }
+  ],
+  "steps": [
+    { "row": 1, "line": 1 },
+    { "row": 0, "line": 1 },
+    { "row": 0, "line": 0 },
+    { "row": 1, "line": 0 },
+    { "row": 1, "line": 1 },
+    { "row": 1, "line": 2 },
+    { "row": 2, "line": 2 },
+    { "row": 2, "line": 1 },
+    { "row": 1, "line": 1 }
+  ]
+}

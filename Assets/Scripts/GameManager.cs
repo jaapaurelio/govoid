@@ -99,8 +99,10 @@ public class GameManager : MonoBehaviour
         Level[] levels = new Level[numberLevels];
         Pack pack = new Pack();
 
-        for (int i = 0; i < numberLevels - 1; i++) {
+        for (int i = 0; i < numberLevels; i++) {
             int levelNumber = System.Convert.ToInt32(levelsText[i].name) - 1;
+
+            Debug.Log(levelsText[i].name);
             levels[levelNumber] = JsonUtility.FromJson<Level>(levelsText[i].text);
         }
 

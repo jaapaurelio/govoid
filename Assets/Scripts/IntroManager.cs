@@ -89,7 +89,7 @@ public class IntroManager : MonoBehaviour
         gridHouseObject2.SetActive(false);
         gridHouseObject3.SetActive(false);
 
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.1f);
 
         gridHouseObject1.SetActive(true);
         gridHouseObject2.SetActive(true);

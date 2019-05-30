@@ -1,0 +1,40 @@
+{
+    "columns": "4",
+    "rows": "4",
+    "message": "You have to finish at the end point house.",
+    "grid": [
+      { "number": 0 },
+      { "number": 0 },
+      { "number": 0 },
+      { "number": 0 },
+      { "number": 0 },
+      {
+        "number": 1,
+        "actions": [ "END" ]
+      },
+      { "number": 1 },
+      { "number": 1 },
+      { "number": 0 },
+      { "number": 0 },
+      { "number": 0 },
+      { "number": 0 },
+      { "number": 0 },
+      { "number": 0 },
+      { "number": 0 },
+      { "number": 0 }
+    ],
+    "steps": [
+      {
+        "row": 1,
+        "line": 3
+      },
+      {
+        "row": 1,
+        "line": 2
+      },
+      {
+        "row": 1,
+        "line": 1
+      }
+    ]
+  }
